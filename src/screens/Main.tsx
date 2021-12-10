@@ -8,7 +8,7 @@ import Catalog from '../components/Catalog';
 import MenuHamburgerIcon from '../assets/icons/menu-hamburger.svg';
 import CartIcon from '../assets/icons/cart.svg';
 
-const HomeScreen: FC = () => {
+const MainScreen: FC = () => {
   return (
     <>
       <TopBar>
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default MainScreen;

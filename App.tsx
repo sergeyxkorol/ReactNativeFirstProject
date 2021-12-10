@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Home from './src/screens/Home';
+import Main from './src/screens/Main';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -37,7 +37,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Home />
+          <Main />
         </View>
       </ScrollView>
     </SafeAreaView>
