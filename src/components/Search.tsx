@@ -17,6 +17,8 @@ const Search: FC = () => {
 const styles = StyleSheet.create({
   search: {
     padding: 20,
+    backgroundColor: '#fff',
+    elevation: 5,
   },
 
   searchWrapper: {
