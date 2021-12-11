@@ -1,15 +1,10 @@
 import React, {FC} from 'react';
 import {View, Pressable, Image, StyleSheet} from 'react-native';
 import MainInfo from './MainInfo';
+import {Item} from './types/CatalogItem.type';
 
 type Props = {
-  data: {
-    id: string;
-    attributes: {
-      name: string;
-      display_price: string;
-    };
-  };
+  data: Item;
 };
 
 const CatalogItem: FC<Props> = ({data}) => {
@@ -20,8 +15,8 @@ const CatalogItem: FC<Props> = ({data}) => {
 
         <MainInfo
           data={{
-            name: data.attributes.name,
-            display_price: data.attributes.display_price,
+            name: data?.attributes?.name,
+            display_price: data?.attributes?.display_price,
           }}
         />
       </Pressable>

@@ -1,14 +1,7 @@
 import React, {FC} from 'react';
 import {View, StyleSheet} from 'react-native';
 import CatalogItem from './CatalogItem';
-
-type Item = {
-  id: string;
-  attributes?: {
-    name?: string;
-    display_price?: string;
-  };
-};
+import {Item} from './types/CatalogItem.type';
 
 type Props = {
   itemsList: Item[] | [];
@@ -18,7 +11,7 @@ const Catalog: FC<Props> = ({itemsList}) => {
   return (
     <View style={styles.catalog}>
       {itemsList.map(item => (
-        <View style={styles.catalogItem}>
+        <View key={item?.id} style={styles.catalogItem}>
           <CatalogItem data={item} />
         </View>
       ))}

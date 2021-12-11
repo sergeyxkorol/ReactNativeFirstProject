@@ -1,21 +1,22 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {BLUE_TEXT, GRAYED_TEXT, MAIN_TEXT} from '../../constants';
 
 type Props = {
   data: {
-    name: string;
-    display_price: string;
+    name?: string;
+    display_price?: string;
   };
 };
 
 const MainInfo: FC<Props> = ({data}) => {
   return (
     <>
-      <Text style={styles.name}>{data.name}</Text>
+      <Text style={styles.name}>{data?.name}</Text>
       <View style={styles.priceWrapper}>
-        <Text style={styles.price}>{data.display_price}</Text>
-        <Text style={styles.oldPrice}>{data.display_price}</Text>
-        <Text style={styles.discount}>{data.display_price} Off</Text>
+        <Text style={styles.price}>{data?.display_price}</Text>
+        <Text style={styles.oldPrice}>{data?.display_price}</Text>
+        <Text style={styles.discount}>{data?.display_price} Off</Text>
       </View>
     </>
   );
@@ -26,11 +27,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 15,
     lineHeight: 20,
-    color: '#4A4A4A',
+    color: MAIN_TEXT,
   },
 
   priceWrapper: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 10,
   },
 
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 15,
     fontWeight: '700',
-    color: '#4A4A4A',
+    color: MAIN_TEXT,
   },
 
   oldPrice: {
@@ -47,15 +49,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     textDecorationLine: 'line-through',
-    color: '#8F8F8F',
+    color: GRAYED_TEXT,
   },
 
   discount: {
-    paddingLeft: 10,
+    paddingRight: 10,
     fontFamily: 'Roboto',
     fontSize: 15,
     fontWeight: '700',
-    color: '#00A8F3',
+    color: BLUE_TEXT,
   },
 });
 

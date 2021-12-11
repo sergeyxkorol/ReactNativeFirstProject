@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, StyleSheet} from 'react-native';
+import {MAIN_BLUE} from '../constants';
 
 const TopBar: FC<{children: React.ReactNode}> = ({children}) => {
   return <View style={styles.topBar}>{children}</View>;
@@ -13,11 +14,8 @@ const styles = StyleSheet.create({
     height: 55,
     paddingLeft: 15,
     paddingRight: 14,
-    backgroundColor: '#008ACE',
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    backgroundColor: MAIN_BLUE,
+    elevation: 5,
   },
 });
 

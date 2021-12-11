@@ -4,47 +4,40 @@ import TopBar from '../components/TopBar';
 import TopBarText from '../components/TopBarText';
 import Search from '../components/Search';
 import Catalog from '../components/Catalog/Catalog';
+import {Item} from '../components/Catalog/types/CatalogItem.type';
+import {API_URL} from '../constants';
 
 import MenuHamburgerIcon from '../assets/icons/menu-hamburger.svg';
 import CartIcon from '../assets/icons/cart.svg';
 
-type ItemsList = {
-  id?: string;
-  attributes?: {
-    name?: string;
-    display_price?: string;
-  };
-}[];
+type ItemsList = Item[];
 
-const MainScreen: FC = () => {
+const useLoadItemsList = () => {
   const [itemsList, setItemsList] = useState<ItemsList>([]);
 
   useEffect(() => {
-    // ToDo: Make request and store data
-    setItemsList([
-      {
-        id: 'testId1',
-        attributes: {
-          name: 'First item',
-          display_price: '$60',
-        },
-      },
-      {
-        id: 'testId2',
-        attributes: {
-          name: 'Second item',
-          display_price: '$65',
-        },
-      },
-      {
-        id: 'testId3',
-        attributes: {
-          name: 'Third item',
-          display_price: '$42',
-        },
-      },
-    ]);
+    fetch(API_URL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        return response.json();
+      })
+      .then(parsedResponse => {
+        setItemsList(parsedResponse.data);
+      })
+      .catch(error => {
+        // ToDo: show error to the user
+        console.error(error);
+      });
   }, []);
+
+  return {itemsList};
+};
+
+const MainScreen: FC = () => {
+  const {itemsList} = useLoadItemsList();
 
   return (
     <>
