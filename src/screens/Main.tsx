@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useState} from 'react';
-import {ScrollView, Pressable, StyleSheet} from 'react-native';
+import React, {FC, useCallback, useEffect, useState} from 'react';
+import {ScrollView, Pressable, StyleSheet, RefreshControl} from 'react-native';
 import TopBar from '../components/TopBar';
 import TopBarText from '../components/TopBarText';
 import Search from '../components/Search';
@@ -12,11 +12,12 @@ import CartIcon from '../assets/icons/cart.svg';
 
 type ItemsList = Item[];
 
-const useLoadItemsList = () => {
+const MainScreen: FC = () => {
   const [itemsList, setItemsList] = useState<ItemsList>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    fetch(API_URL)
+  const loadData = useCallback(() => {
+    return fetch(API_URL)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText);
@@ -24,20 +25,26 @@ const useLoadItemsList = () => {
 
         return response.json();
       })
-      .then(parsedResponse => {
-        setItemsList(parsedResponse.data);
-      })
       .catch(error => {
         // ToDo: show error to the user
         console.error(error);
       });
   }, []);
 
-  return {itemsList};
-};
+  useEffect(() => {
+    loadData().then(parsedResponse => {
+      setItemsList(parsedResponse.data);
+    });
+  }, [loadData]);
 
-const MainScreen: FC = () => {
-  const {itemsList} = useLoadItemsList();
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    loadData().then(parsedResponse => {
+      setItemsList(parsedResponse.data);
+      setRefreshing(false);
+    });
+  }, [loadData]);
 
   return (
     <>
@@ -57,7 +64,11 @@ const MainScreen: FC = () => {
         </Pressable>
       </TopBar>
 
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Search />
 
         <Catalog itemsList={itemsList} />
