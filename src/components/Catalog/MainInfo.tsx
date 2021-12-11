@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {BLUE_TEXT, GRAYED_TEXT, MAIN_TEXT} from '../../constants';
+import {BLUE_TEXT, GREY, MAIN_TEXT} from '../../constants';
 
 type Props = {
   data: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     textDecorationLine: 'line-through',
-    color: GRAYED_TEXT,
+    color: GREY,
   },
 
   discount: {

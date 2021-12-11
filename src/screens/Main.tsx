@@ -40,10 +40,13 @@ const MainScreen: FC = () => {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
 
-    loadData().then(parsedResponse => {
-      setItemsList(parsedResponse.data);
-      setRefreshing(false);
-    });
+    loadData()
+      .then(parsedResponse => {
+        setItemsList(parsedResponse.data);
+      })
+      .finally(() => {
+        setRefreshing(false);
+      });
   }, [loadData]);
 
   return (

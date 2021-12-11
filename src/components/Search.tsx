@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
+import {GREY} from '../constants';
 
 import SearchIcon from '../assets/icons/search.svg';
 
@@ -7,7 +8,7 @@ const Search: FC = () => {
   return (
     <View style={styles.search}>
       <View style={styles.searchWrapper}>
-        <SearchIcon fill="#8F8F8F" />
+        <SearchIcon fill={GREY} />
         <TextInput style={styles.searchInput} />
       </View>
     </View>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: '#8F8F8F',
+    borderColor: GREY,
   },
 
   searchInput: {
