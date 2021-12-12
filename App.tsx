@@ -13,6 +13,7 @@ import {SafeAreaView, StatusBar, useColorScheme, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Main from './src/screens/Main';
+import ProductDetails from './src/screens/ProductDetails';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -29,7 +30,8 @@ const App = () => {
         style={{
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
         }}>
-        <Main />
+        {/* <Main /> */}
+        <ProductDetails productId="96" />
       </View>
     </SafeAreaView>
   );

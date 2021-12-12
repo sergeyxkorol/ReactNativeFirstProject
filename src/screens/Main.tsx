@@ -5,6 +5,7 @@ import TopBarText from '../components/TopBarText';
 import Search from '../components/Search';
 import Catalog from '../components/Catalog/Catalog';
 import {Item} from '../components/Catalog/types/CatalogItem.type';
+import {loadData} from '../helpers/loadData';
 import {API_URL} from '../constants';
 
 import MenuHamburgerIcon from '../assets/icons/menu-hamburger.svg';
@@ -16,38 +17,27 @@ const MainScreen: FC = () => {
   const [itemsList, setItemsList] = useState<ItemsList>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadData = useCallback(() => {
-    return fetch(API_URL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-
-        return response.json();
-      })
-      .catch(error => {
-        // ToDo: show error to the user
-        console.error(error);
-      });
+  const loadDataCallback = useCallback(() => {
+    return loadData(`${API_URL}/products`);
   }, []);
 
   useEffect(() => {
-    loadData().then(parsedResponse => {
+    loadDataCallback().then(parsedResponse => {
       setItemsList(parsedResponse.data);
     });
-  }, [loadData]);
+  }, [loadDataCallback]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
 
-    loadData()
+    loadDataCallback()
       .then(parsedResponse => {
         setItemsList(parsedResponse.data);
       })
       .finally(() => {
         setRefreshing(false);
       });
-  }, [loadData]);
+  }, [loadDataCallback]);
 
   return (
     <>

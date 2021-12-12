@@ -1,5 +1,4 @@
-export const API_URL =
-  'https://demo.spreecommerce.org/api/v2/storefront/products';
+export const API_URL = 'https://demo.spreecommerce.org/api/v2/storefront';
 
 // Styles
 export const BLUE = '#008ACE';

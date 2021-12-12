@@ -9,7 +9,7 @@ const TopBar: FC<{children: React.ReactNode}> = ({children}) => {
 const styles = StyleSheet.create({
   topBar: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     height: 55,
     paddingLeft: 15,

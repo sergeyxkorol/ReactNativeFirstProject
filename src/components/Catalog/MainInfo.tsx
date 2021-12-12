@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {BLUE_TEXT, GREY, MAIN_TEXT} from '../../constants';
+import CommonStyles from '../../commonStyles';
 
 type Props = {
   data: {
@@ -37,26 +38,20 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    fontFamily: 'Roboto',
-    fontSize: 15,
-    fontWeight: '700',
+    ...CommonStyles.productInfoText,
+    paddingRight: 10,
     color: MAIN_TEXT,
   },
 
   oldPrice: {
-    paddingLeft: 10,
-    fontFamily: 'Roboto',
-    fontSize: 15,
-    fontWeight: '700',
+    ...CommonStyles.productInfoText,
+    paddingRight: 10,
     textDecorationLine: 'line-through',
     color: GREY,
   },
 
   discount: {
-    paddingRight: 10,
-    fontFamily: 'Roboto',
-    fontSize: 15,
-    fontWeight: '700',
+    ...CommonStyles.productInfoText,
     color: BLUE_TEXT,
   },
 });
