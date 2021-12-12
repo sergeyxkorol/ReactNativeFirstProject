@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import TopBar from '../components/TopBar';
+import ImagesSlider from '../components/ImagesSlider';
 import MainInfo from '../components/Catalog/MainInfo';
 import OptionsList from '../components/OptionsList';
 import Button, {ButtonColor} from '../components/Button';
@@ -21,8 +22,6 @@ import HeartEmptyIcon from '../assets/icons/heart-empty.svg';
 import CartIcon from '../assets/icons/cart.svg';
 
 const ProductDetails: FC<{productId: string}> = ({productId}) => {
-  const {height} = useWindowDimensions();
-
   const [product, setProduct] = useState({
     attributes: {
       name: '',
@@ -32,6 +31,13 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
   });
   const [selectedOption, setSelectedOption] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+
+  //ToDo: change with the real images
+  const imagesList = [
+    {id: '01', src: require('../assets/product.png')},
+    {id: '02', src: require('../assets/product.png')},
+    {id: '03', src: require('../assets/product.png')},
+  ];
 
   //ToDo: change with the real options
   const options = [
@@ -68,6 +74,8 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
       });
   }, [loadDataCallback]);
 
+  const {height} = useWindowDimensions();
+
   return (
     <View style={{minHeight: height}}>
       <TopBar>
@@ -83,7 +91,7 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
           <Pressable
             style={[styles.topBarButton, styles.tobBarButtonMargin]}
             onPress={() => console.log('Add to the Wish list button pressed')}>
-            <HeartEmptyIcon stroke="white" stroke-width="1" />
+            <HeartEmptyIcon stroke="white" />
           </Pressable>
           <Pressable
             style={[styles.topBarButton, styles.tobBarButtonMargin]}
@@ -98,6 +106,10 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+        <View style={styles.slider}>
+          <ImagesSlider images={imagesList} />
+        </View>
+
         <View style={styles.content}>
           <View style={[styles.section, styles.borderBottom]}>
             <MainInfo
@@ -135,7 +147,7 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
         </View>
       </ScrollView>
 
-      <View style={styles.cartButtonWrapper}>
+      <View style={[styles.cartButtonWrapper]}>
         <Button
           buttonColor={ButtonColor.Submit}
           text="ADD TO CART"
@@ -181,6 +193,8 @@ const styles = StyleSheet.create({
   headerWrapper: {
     marginBottom: 10,
   },
+
+  slider: {marginTop: 20},
 
   cartButtonWrapper: {
     position: 'absolute',
