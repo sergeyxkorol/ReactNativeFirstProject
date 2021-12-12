@@ -6,12 +6,12 @@ import {
   RefreshControl,
   View,
   Text,
-  Button,
   useWindowDimensions,
 } from 'react-native';
 import TopBar from '../components/TopBar';
 import MainInfo from '../components/Catalog/MainInfo';
 import OptionsList from '../components/OptionsList';
+import Button, {ButtonColor} from '../components/Button';
 import {loadData} from '../helpers/loadData';
 import {API_URL, GREY} from '../constants';
 import commonStyles from '../commonStyles';
@@ -33,6 +33,7 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
 
+  //ToDo: change with the real options
   const options = [
     {id: '01', name: 'Blue'},
     {id: '02', name: 'Green'},
@@ -135,7 +136,11 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
       </ScrollView>
 
       <View style={styles.cartButtonWrapper}>
-        <Button title="ADD TO CART" />
+        <Button
+          buttonColor={ButtonColor.Submit}
+          text="ADD TO CART"
+          onPressHandler={() => console.log('Add To Cart button pressed')}
+        />
       </View>
     </View>
   );

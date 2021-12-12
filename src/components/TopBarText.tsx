@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {FONT_FAMILY} from '../constants';
 
 const TopBarText: FC<{children: React.ReactText}> = ({children}) => {
   return (
@@ -11,7 +12,7 @@ const TopBarText: FC<{children: React.ReactText}> = ({children}) => {
 
 const styles = StyleSheet.create({
   topBarText: {
-    fontFamily: 'Roboto',
+    fontFamily: FONT_FAMILY,
     fontSize: 20,
     color: '#fff',
   },

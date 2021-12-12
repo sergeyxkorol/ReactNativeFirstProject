@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {BLUE_TEXT, GREY, MAIN_TEXT} from '../../constants';
+import {BLUE_TEXT, FONT_FAMILY, GREY, MAIN_TEXT} from '../../constants';
 import CommonStyles from '../../commonStyles';
 
 type Props = {
@@ -25,7 +25,7 @@ const MainInfo: FC<Props> = ({data}) => {
 
 const styles = StyleSheet.create({
   name: {
-    fontFamily: 'Roboto',
+    fontFamily: FONT_FAMILY,
     fontSize: 15,
     lineHeight: 20,
     color: MAIN_TEXT,

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE, MAIN_TEXT} from './constants';
+import {MAIN_TEXT} from './constants';
 
 const styles = StyleSheet.create({
   text: {
@@ -23,15 +23,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 15,
     fontWeight: '700',
-  },
-
-  button: {
-    height: 40,
-    borderRadius: 5,
-    backgroundColor: BLUE,
-    fontWeight: '500',
-    color: 'white',
-    elevation: 5,
   },
 });
 
