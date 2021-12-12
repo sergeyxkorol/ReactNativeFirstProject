@@ -1,10 +1,11 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
   ScrollView,
-  ScrollViewProps,
   StyleSheet,
+  useWindowDimensions,
   View,
 } from 'react-native';
 
@@ -16,7 +17,12 @@ type ImageItem = {
 import Dot from '../assets/dots/dots-active-no.svg';
 import DotActive from '../assets/dots/dots-active-yes.svg';
 
-const ImagesSlider: FC<{images: ImageItem[]}> = ({images}) => {
+type Props = {
+  images: ImageItem[];
+  onPressHandler: Function;
+};
+
+const ImagesSlider: FC<Props> = ({images, onPressHandler}) => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleScroll = ({nativeEvent}) => {
@@ -29,6 +35,8 @@ const ImagesSlider: FC<{images: ImageItem[]}> = ({images}) => {
     }
   };
 
+  const {width} = useWindowDimensions();
+
   return (
     <View style={styles.sliderWrapper}>
       <ScrollView
@@ -38,9 +46,18 @@ const ImagesSlider: FC<{images: ImageItem[]}> = ({images}) => {
         onScroll={handleScroll}
         style={styles.scrollWrapper}>
         {images.map(({id, src}) => (
-          <Image key={id} source={src as ImageSourcePropType} />
+          <View key={id} style={[styles.slide, {width}]}>
+            <Pressable onPress={() => onPressHandler(id)}>
+              <Image
+                key={id}
+                source={src as ImageSourcePropType}
+                style={styles.image}
+              />
+            </Pressable>
+          </View>
         ))}
       </ScrollView>
+
       <View style={styles.dots}>
         {images.map(({id}, index) =>
           index === currentImage ? (
@@ -58,10 +75,20 @@ const styles = StyleSheet.create({
   sliderWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 
   scrollWrapper: {
+    width: '100%',
+  },
+
+  slide: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  image: {
     width: 250,
   },
 

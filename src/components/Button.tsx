@@ -8,11 +8,13 @@ export enum ButtonColor {
   Grayed = 'Grayed',
 }
 
-const Button: FC<{
+type Props = {
   buttonColor: ButtonColor;
   text: string;
   onPressHandler: Function;
-}> = ({buttonColor, text, onPressHandler}) => {
+};
+
+const Button: FC<Props> = ({buttonColor, text, onPressHandler}) => {
   const onPress = useCallback(() => {
     onPressHandler();
   }, [onPressHandler]);

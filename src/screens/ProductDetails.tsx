@@ -107,7 +107,10 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.slider}>
-          <ImagesSlider images={imagesList} />
+          <ImagesSlider
+            images={imagesList}
+            onPressHandler={(imageId: string) => console.log(imageId)}
+          />
         </View>
 
         <View style={styles.content}>
@@ -194,7 +197,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  slider: {marginTop: 20},
+  slider: {
+    marginTop: 20,
+  },
 
   cartButtonWrapper: {
     position: 'absolute',

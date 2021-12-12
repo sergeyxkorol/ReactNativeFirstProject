@@ -11,7 +11,12 @@ const CatalogItem: FC<Props> = ({data}) => {
   return (
     <View style={styles.catalogItem}>
       <Pressable onPress={() => console.log('Catalog item pressed')}>
-        <Image height={100} width={100} />
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require('../../assets/product.png')}
+            style={styles.image}
+          />
+        </View>
 
         <MainInfo
           data={{
@@ -27,12 +32,21 @@ const CatalogItem: FC<Props> = ({data}) => {
 const styles = StyleSheet.create({
   catalogItem: {
     alignItems: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingBottom: 5,
+    padding: 5,
     borderRadius: 5,
     backgroundColor: '#fff',
     elevation: 5,
+  },
+
+  imageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+
+  image: {
+    height: 100,
+    width: 100,
   },
 });
 

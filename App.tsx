@@ -30,8 +30,8 @@ const App = () => {
         style={{
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
         }}>
-        {/* <Main /> */}
-        <ProductDetails productId="96" />
+        <Main />
+        {/* <ProductDetails productId="96" /> */}
       </View>
     </SafeAreaView>
   );

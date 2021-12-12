@@ -7,11 +7,17 @@ type Option = {
   name: string;
 };
 
-const OptionsList: FC<{
+type Props = {
   options: Option[];
   selectedOptionId: string | null;
   onPressHandler: Function;
-}> = ({options, selectedOptionId, onPressHandler}) => {
+};
+
+const OptionsList: FC<Props> = ({
+  options,
+  selectedOptionId,
+  onPressHandler,
+}) => {
   return (
     <View style={styles.optionWrapper}>
       {options.map(({id, name}) => (

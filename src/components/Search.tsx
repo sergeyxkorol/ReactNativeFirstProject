@@ -1,16 +1,20 @@
-import React, {FC} from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import React, {FC, useRef} from 'react';
+import {View, TextInput, StyleSheet, Pressable} from 'react-native';
 import {GREY} from '../constants';
 
 import SearchIcon from '../assets/icons/search.svg';
 
 const Search: FC = () => {
+  const searchInput = useRef(null);
+
   return (
     <View style={styles.search}>
-      <View style={styles.searchWrapper}>
+      <Pressable
+        style={styles.searchWrapper}
+        onPress={() => searchInput?.current?.focus()}>
         <SearchIcon fill={GREY} />
-        <TextInput style={styles.searchInput} />
-      </View>
+        <TextInput ref={searchInput} style={styles.searchInput} />
+      </Pressable>
     </View>
   );
 };
