@@ -1,5 +1,5 @@
 import React, {FC, useCallback} from 'react';
-import {Pressable, Text, StyleSheet} from 'react-native';
+import {TouchableHighlight, Text, StyleSheet} from 'react-native';
 import {BLUE, FONT_FAMILY, FONT_SIZE, GREY, RED} from '../constants';
 
 export enum ButtonColor {
@@ -20,9 +20,12 @@ const Button: FC<Props> = ({buttonColor, text, onPressHandler}) => {
   }, [onPressHandler]);
 
   return (
-    <Pressable style={[styles.button, styles[buttonColor]]} onPress={onPress}>
+    <TouchableHighlight
+      style={[styles.button, styles[buttonColor]]}
+      underlayColor="#ccc"
+      onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
-    </Pressable>
+    </TouchableHighlight>
   );
 };
 

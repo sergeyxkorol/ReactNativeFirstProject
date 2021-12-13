@@ -77,7 +77,7 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
   const {height} = useWindowDimensions();
 
   return (
-    <View style={{minHeight: height}}>
+    <View style={{minHeight: height, maxHeight: height}}>
       <TopBar>
         <View>
           <Pressable
@@ -144,6 +144,10 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
             </View>
 
             <View>
+              <Text>{product?.attributes?.description}</Text>
+              <Text>{product?.attributes?.description}</Text>
+              <Text>{product?.attributes?.description}</Text>
+              <Text>{product?.attributes?.description}</Text>
               <Text>{product?.attributes?.description}</Text>
             </View>
           </View>
