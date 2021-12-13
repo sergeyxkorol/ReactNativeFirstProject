@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {MAIN_TEXT} from './constants';
+import {FONT_FAMILY, FONT_SIZE, MAIN_TEXT} from './constants';
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'Roboto',
+    fontFamily: FONT_FAMILY,
     lineHeight: 20,
     color: MAIN_TEXT,
   },
@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   },
 
   textRegular: {
-    fontSize: 15,
+    fontSize: FONT_SIZE,
     lineHeight: 25,
     marginBottom: 10,
   },
 
   productInfoText: {
-    fontFamily: 'Roboto',
-    fontSize: 15,
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZE,
     fontWeight: '700',
   },
 });

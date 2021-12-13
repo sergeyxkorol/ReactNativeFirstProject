@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   ScrollView,
   Pressable,
@@ -6,7 +6,6 @@ import {
   View,
   Text,
   useWindowDimensions,
-  Dimensions,
 } from 'react-native';
 import TopBar from '../components/TopBar';
 import ImagesSlider from '../components/ImagesSlider';

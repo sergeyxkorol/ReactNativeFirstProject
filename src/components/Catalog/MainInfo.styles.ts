@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {BLUE_TEXT, FONT_FAMILY, GREY, MAIN_TEXT} from '../../constants';
-// import CommonStyles from '../../CommonStyles';
+import commonStyles from '../../commonStyles';
 
 const styles = StyleSheet.create({
   name: {
@@ -17,20 +17,20 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    // ...CommonStyles.productInfoText,
+    ...commonStyles.productInfoText,
     paddingRight: 10,
     color: MAIN_TEXT,
   },
 
   oldPrice: {
-    // ...CommonStyles.productInfoText,
+    ...commonStyles.productInfoText,
     paddingRight: 10,
     textDecorationLine: 'line-through',
     color: GREY,
   },
 
   discount: {
-    // ...CommonStyles.productInfoText,
+    ...commonStyles.productInfoText,
     color: BLUE_TEXT,
   },
 });
