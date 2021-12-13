@@ -1,4 +1,4 @@
-export const API_URL = 'https://demo.spreecommerce.org/api/v2/storefront';
+export const API_URL = 'https://rn-mentoring.herokuapp.com/api/v2/storefront';
 
 // Styles
 export const FONT_FAMILY = 'Roboto';

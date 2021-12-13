@@ -31,7 +31,7 @@ const App = () => {
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
         }}>
         <Main />
-        {/* <ProductDetails productId="96" /> */}
+        {/* <ProductDetails productId="20" /> */}
       </View>
     </SafeAreaView>
   );
