@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {ScrollView, Pressable, StyleSheet, RefreshControl} from 'react-native';
+import {ScrollView, Pressable, RefreshControl} from 'react-native';
 import TopBar from '../components/TopBar';
 import TopBarText from '../components/TopBarText';
 import Search from '../components/Search';
@@ -7,6 +7,7 @@ import Catalog from '../components/Catalog/Catalog';
 import {Item} from '../components/Catalog/types/CatalogItem.type';
 import {loadData} from '../helpers/loadData';
 import {API_URL} from '../constants';
+import styles from './Main.styles';
 
 import MenuHamburgerIcon from '../assets/icons/menu-hamburger.svg';
 import CartIcon from '../assets/icons/cart.svg';
@@ -69,14 +70,5 @@ const MainScreen: FC = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  topBarButton: {
-    height: 25,
-    width: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default MainScreen;

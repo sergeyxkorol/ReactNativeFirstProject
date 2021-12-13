@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
-import {View, Pressable, Image, StyleSheet} from 'react-native';
-import MainInfo from './MainInfo';
+import {View, Pressable, Image} from 'react-native';
 import {Item} from './types/CatalogItem.type';
+import MainInfo from './MainInfo';
+import styles from './CatalogItem.styles';
 
 type Props = {
   data: Item;
@@ -12,6 +13,7 @@ const CatalogItem: FC<Props> = ({data}) => {
     <View style={styles.catalogItem}>
       <Pressable onPress={() => console.log('Catalog item pressed')}>
         <View style={styles.imageWrapper}>
+          {/* ToDo: change the hardcoded image */}
           <Image
             source={require('../../assets/product.png')}
             style={styles.image}
@@ -28,26 +30,5 @@ const CatalogItem: FC<Props> = ({data}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  catalogItem: {
-    alignItems: 'center',
-    padding: 5,
-    borderRadius: 5,
-    backgroundColor: '#fff',
-    elevation: 5,
-  },
-
-  imageWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-
-  image: {
-    height: 100,
-    width: 100,
-  },
-});
 
 export default CatalogItem;

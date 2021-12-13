@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import commonStyles from '../commonStyles';
+import {Pressable, Text, View} from 'react-native';
+import styles from './OptionsList.styles';
 
 type Option = {
   id: string;
@@ -34,31 +34,5 @@ const OptionsList: FC<Props> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  optionWrapper: {
-    flexDirection: 'row',
-    marginTop: 10,
-  },
-
-  option: {
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 30,
-    paddingLeft: 10,
-    paddingRight: 10,
-    backgroundColor: '#F7F7F7',
-  },
-
-  selectedOption: {
-    borderWidth: 1,
-  },
-
-  optionText: {
-    ...commonStyles.text,
-    fontSize: 15,
-  },
-});
 
 export default OptionsList;

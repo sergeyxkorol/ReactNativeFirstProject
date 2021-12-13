@@ -1,21 +1,21 @@
-import React, {FC, useCallback, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {
   Image,
   ImageSourcePropType,
   Pressable,
   ScrollView,
-  StyleSheet,
   useWindowDimensions,
   View,
 } from 'react-native';
+import styles from './ImagesSlider.styles';
+
+import Dot from '../assets/dots/dots-active-no.svg';
+import DotActive from '../assets/dots/dots-active-yes.svg';
 
 type ImageItem = {
   id: string;
   src: string;
 };
-
-import Dot from '../assets/dots/dots-active-no.svg';
-import DotActive from '../assets/dots/dots-active-yes.svg';
 
 type Props = {
   images: ImageItem[];
@@ -70,38 +70,5 @@ const ImagesSlider: FC<Props> = ({images, onPressHandler}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  sliderWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-
-  scrollWrapper: {
-    width: '100%',
-  },
-
-  slide: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  image: {
-    width: 250,
-  },
-
-  dots: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 0,
-  },
-
-  dot: {
-    marginRight: 5,
-  },
-});
 
 export default ImagesSlider;

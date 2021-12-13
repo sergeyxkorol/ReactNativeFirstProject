@@ -1,6 +1,7 @@
 import React, {FC, useRef} from 'react';
-import {View, TextInput, StyleSheet, Pressable} from 'react-native';
+import {View, TextInput, Pressable} from 'react-native';
 import {GREY} from '../constants';
+import styles from './Search.styles';
 
 import SearchIcon from '../assets/icons/search.svg';
 
@@ -18,28 +19,5 @@ const Search: FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  search: {
-    padding: 20,
-    backgroundColor: '#fff',
-    elevation: 5,
-  },
-
-  searchWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 34,
-    paddingLeft: 14,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: GREY,
-  },
-
-  searchInput: {
-    flex: 1,
-    height: 34,
-  },
-});
 
 export default Search;

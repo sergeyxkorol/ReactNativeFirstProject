@@ -2,7 +2,6 @@ import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   ScrollView,
   Pressable,
-  StyleSheet,
   RefreshControl,
   View,
   Text,
@@ -12,10 +11,12 @@ import TopBar from '../components/TopBar';
 import ImagesSlider from '../components/ImagesSlider';
 import MainInfo from '../components/Catalog/MainInfo';
 import OptionsList from '../components/OptionsList';
-import Button, {ButtonColor} from '../components/Button';
+import Button from '../components/Button/Button';
+import {ButtonColor} from '../components/Button/Button.types';
 import {loadData} from '../helpers/loadData';
-import {API_URL, GREY} from '../constants';
+import {API_URL} from '../constants';
 import commonStyles from '../commonStyles';
+import styles from './ProductDetails.styles';
 
 import ArrowIcon from '../assets/icons/arrow.svg';
 import HeartEmptyIcon from '../assets/icons/heart-empty.svg';
@@ -145,10 +146,6 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
 
             <View>
               <Text>{product?.attributes?.description}</Text>
-              <Text>{product?.attributes?.description}</Text>
-              <Text>{product?.attributes?.description}</Text>
-              <Text>{product?.attributes?.description}</Text>
-              <Text>{product?.attributes?.description}</Text>
             </View>
           </View>
         </View>
@@ -164,53 +161,5 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  topBarButton: {
-    height: 25,
-    width: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  tobBarButtonMargin: {
-    marginLeft: 20,
-  },
-
-  tobBarButtonWrapper: {
-    flexDirection: 'row',
-  },
-
-  content: {
-    backgroundColor: 'white',
-  },
-
-  section: {
-    paddingTop: 20,
-    paddingBottom: 15,
-    marginLeft: 20,
-    marginRight: 20,
-  },
-
-  borderBottom: {
-    borderBottomWidth: 1,
-    borderBottomColor: GREY,
-  },
-
-  headerWrapper: {
-    marginBottom: 10,
-  },
-
-  slider: {
-    marginTop: 20,
-  },
-
-  cartButtonWrapper: {
-    position: 'absolute',
-    bottom: 10,
-    width: '100%',
-    padding: 20,
-  },
-});
 
 export default ProductDetails;
