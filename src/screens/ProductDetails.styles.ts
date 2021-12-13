@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  mainWrapper: {
+    paddingBottom: 70,
+  },
+
   content: {
     backgroundColor: 'white',
   },

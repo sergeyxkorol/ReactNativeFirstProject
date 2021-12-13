@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  mainWrapper: {
+    paddingBottom: 120,
+  },
 });
 
 export default styles;

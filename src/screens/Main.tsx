@@ -60,6 +60,7 @@ const MainScreen: FC = () => {
 
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
+        contentContainerStyle={styles.mainWrapper}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
