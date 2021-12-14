@@ -17,22 +17,20 @@ const OptionsList: FC<Props> = ({
   options,
   selectedOptionId,
   onPressHandler,
-}) => {
-  return (
-    <View style={styles.optionWrapper}>
-      {options.map(({id, name}) => (
-        <Pressable
-          key={id}
-          style={[
-            styles.option,
-            id === selectedOptionId ? styles.selectedOption : null,
-          ]}
-          onPress={() => onPressHandler(id)}>
-          <Text style={styles.optionText}>{name}</Text>
-        </Pressable>
-      ))}
-    </View>
-  );
-};
+}) => (
+  <View style={styles.optionWrapper}>
+    {options.map(({id, name}) => (
+      <Pressable
+        key={id}
+        style={[
+          styles.option,
+          id === selectedOptionId ? styles.selectedOption : null,
+        ]}
+        onPress={() => onPressHandler(id)}>
+        <Text style={styles.optionText}>{name}</Text>
+      </Pressable>
+    ))}
+  </View>
+);
 
 export default OptionsList;

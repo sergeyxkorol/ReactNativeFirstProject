@@ -8,16 +8,14 @@ type Props = {
   itemsList: Item[] | [];
 };
 
-const Catalog: FC<Props> = ({itemsList}) => {
-  return (
-    <View style={styles.catalog}>
-      {itemsList.map(item => (
-        <View key={item?.id} style={styles.catalogItem}>
-          <CatalogItem data={item} />
-        </View>
-      ))}
-    </View>
-  );
-};
+const Catalog: FC<Props> = ({itemsList}) => (
+  <View style={styles.catalog}>
+    {itemsList.map(item => (
+      <View key={item?.id} style={styles.catalogItem}>
+        <CatalogItem data={item} />
+      </View>
+    ))}
+  </View>
+);
 
 export default Catalog;

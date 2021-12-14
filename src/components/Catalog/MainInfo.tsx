@@ -9,17 +9,15 @@ type Props = {
   };
 };
 
-const MainInfo: FC<Props> = ({data}) => {
-  return (
-    <>
-      <Text style={styles.name}>{data?.name}</Text>
-      <View style={styles.priceWrapper}>
-        <Text style={styles.price}>{data?.display_price}</Text>
-        <Text style={styles.oldPrice}>{data?.display_price}</Text>
-        <Text style={styles.discount}>{data?.display_price} Off</Text>
-      </View>
-    </>
-  );
-};
+const MainInfo: FC<Props> = ({data}) => (
+  <>
+    <Text style={styles.name}>{data?.name}</Text>
+    <View style={styles.priceWrapper}>
+      <Text style={styles.price}>{data?.display_price}</Text>
+      <Text style={styles.oldPrice}>{data?.display_price}</Text>
+      <Text style={styles.discount}>{data?.display_price} Off</Text>
+    </View>
+  </>
+);
 
 export default MainInfo;
