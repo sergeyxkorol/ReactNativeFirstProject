@@ -7,10 +7,10 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import styles from './ImagesSlider.styles';
+import styles from './styles';
 
-import Dot from '../assets/dots/dots-active-no.svg';
-import DotActive from '../assets/dots/dots-active-yes.svg';
+import Dot from '../../assets/dots/dots-active-no.svg';
+import DotActive from '../../assets/dots/dots-active-yes.svg';
 
 type ImageItem = {
   id: string;

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE} from '../constants';
+import {BLUE} from '../../constants';
 
 const styles = StyleSheet.create({
   topBar: {

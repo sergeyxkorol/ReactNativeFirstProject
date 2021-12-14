@@ -1,6 +1,6 @@
 import React, {FC, useCallback} from 'react';
 import {TouchableHighlight, Text} from 'react-native';
-import styles from './Button.styles';
+import styles from './styles';
 import {ButtonColor} from './Button.types';
 
 type Props = {

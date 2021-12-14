@@ -7,20 +7,20 @@ import {
   Text,
   useWindowDimensions,
 } from 'react-native';
-import TopBar from '../components/TopBar';
-import ImagesSlider from '../components/ImagesSlider';
-import MainInfo from '../components/Catalog/MainInfo';
-import OptionsList from '../components/OptionsList';
-import Button from '../components/Button/Button';
-import {ButtonColor} from '../components/Button/Button.types';
-import {loadData} from '../helpers/loadData';
-import {API_URL} from '../constants';
-import commonStyles from '../commonStyles';
+import TopBar from '../../components/TopBar/TopBar';
+import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
+import MainInfo from '../../components/Catalog/MainInfo';
+import OptionsList from '../../components/OptionsList/OptionsList';
+import Button from '../../components/Button/Button';
+import {ButtonColor} from '../../components/Button/Button.types';
+import {loadData} from '../../helpers/loadData';
+import {API_URL} from '../../constants';
+import commonStyles from '../../commonStyles';
 import styles from './ProductDetails.styles';
 
-import ArrowIcon from '../assets/icons/arrow.svg';
-import HeartEmptyIcon from '../assets/icons/heart-empty.svg';
-import CartIcon from '../assets/icons/cart.svg';
+import ArrowIcon from '../../assets/icons/arrow.svg';
+import HeartEmptyIcon from '../../assets/icons/heart-empty.svg';
+import CartIcon from '../../assets/icons/cart.svg';
 
 const ProductDetails: FC<{productId: string}> = ({productId}) => {
   const [product, setProduct] = useState({
@@ -35,9 +35,9 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
 
   //ToDo: change with the real images
   const imagesList = [
-    {id: '01', src: require('../assets/product.png')},
-    {id: '02', src: require('../assets/product.png')},
-    {id: '03', src: require('../assets/product.png')},
+    {id: '01', src: require('../../assets/product.png')},
+    {id: '02', src: require('../../assets/product.png')},
+    {id: '03', src: require('../../assets/product.png')},
   ];
 
   //ToDo: change with the real options

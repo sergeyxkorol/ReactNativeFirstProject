@@ -1,9 +1,9 @@
 import React, {FC, useRef} from 'react';
 import {View, TextInput, Pressable} from 'react-native';
-import {GREY} from '../constants';
-import styles from './Search.styles';
+import {GREY} from '../../constants';
+import styles from './styles';
 
-import SearchIcon from '../assets/icons/search.svg';
+import SearchIcon from '../../assets/icons/search.svg';
 
 const Search: FC = () => {
   const searchInput = useRef(null);

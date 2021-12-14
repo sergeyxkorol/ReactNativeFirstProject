@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONT_FAMILY} from '../constants';
+import {FONT_FAMILY} from '../../constants';
 
 const styles = StyleSheet.create({
   topBarText: {

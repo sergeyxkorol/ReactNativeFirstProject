@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Pressable, Text, View} from 'react-native';
-import styles from './OptionsList.styles';
+import styles from './styles';
 
 type Option = {
   id: string;

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {GREY} from '../constants';
+import {GREY} from '../../constants';
 
 const styles = StyleSheet.create({
   search: {
