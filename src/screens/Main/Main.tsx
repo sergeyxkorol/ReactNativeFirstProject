@@ -58,16 +58,13 @@ const MainScreen: FC = () => {
         </Pressable>
       </TopBar>
 
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={styles.mainWrapper}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <Search />
+      <Search />
 
-        <Catalog itemsList={itemsList} />
-      </ScrollView>
+      <Catalog
+        itemsList={itemsList}
+        onRefreshHandler={onRefresh}
+        refreshing={refreshing}
+      />
     </>
   );
 };
