@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   catalog: {
     paddingTop: 10,
-    paddingBottom: 190,
+    paddingBottom: 150,
     paddingLeft: 10,
     paddingRight: 10,
   },

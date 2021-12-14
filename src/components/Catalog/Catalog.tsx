@@ -5,8 +5,8 @@ import CatalogItem from './CatalogItem';
 import styles from './Catalog.styles';
 
 type Props = {
-  itemsList: Item[] | [];
-  onRefreshHandler: any;
+  itemsList: Item[];
+  onRefreshHandler: () => void;
   refreshing: boolean;
 };
 

@@ -46,39 +46,34 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
     {id: '02', name: 'Green'},
   ];
 
-  const loadDataCallback = useCallback(() => {
-    if (!productId) {
-      return Promise.reject('No product ID');
-    }
-
-    return loadData(`${API_URL}/products/${productId}`);
-  }, [productId]);
-
   useEffect(() => {
-    loadDataCallback().then(parsedResponse => {
-      setProduct(parsedResponse.data);
-    });
-  }, [loadDataCallback]);
+    if (productId) {
+      loadData(`${API_URL}/products/${productId}`).then(parsedResponse => {
+        setProduct(parsedResponse.data);
+      });
+    }
+  }, [productId]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
+    let parsedResponse;
 
-    loadDataCallback()
-      .then(parsedResponse => {
+    try {
+      if (productId) {
+        parsedResponse = await loadData(`${API_URL}/products/${productId}`);
         setProduct(parsedResponse.data);
-      })
-      .catch(error => {
-        console.error(error);
-      })
-      .finally(() => {
-        setRefreshing(false);
-      });
-  }, [loadDataCallback]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [productId]);
 
   const {height} = useWindowDimensions();
 
   return (
-    <View style={{minHeight: height, maxHeight: height}}>
+    <View style={{height}}>
       <TopBar>
         <View>
           <Pressable

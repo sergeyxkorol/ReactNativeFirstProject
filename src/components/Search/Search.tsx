@@ -12,7 +12,7 @@ const Search: FC = () => {
     <View style={styles.search}>
       <Pressable
         style={styles.searchWrapper}
-        onPress={() => searchInput?.current?.focus()}>
+        onPress={() => searchInput.current?.focus()}>
         <SearchIcon fill={GREY} />
         <TextInput ref={searchInput} style={styles.searchInput} />
       </Pressable>

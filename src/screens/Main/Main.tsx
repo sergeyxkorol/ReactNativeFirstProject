@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {ScrollView, Pressable, RefreshControl} from 'react-native';
+import {Pressable, useWindowDimensions, View} from 'react-native';
 import TopBar from '../../components/TopBar/TopBar';
 import TopBarText from '../../components/TopBar/TopBarText';
 import Search from '../../components/Search/Search';
@@ -18,30 +18,28 @@ const MainScreen: FC = () => {
   const [itemsList, setItemsList] = useState<ItemsList>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadDataCallback = useCallback(() => {
-    return loadData(`${API_URL}/products`);
-  }, []);
-
   useEffect(() => {
-    loadDataCallback().then(parsedResponse => {
+    loadData(`${API_URL}/products`).then(parsedResponse => {
       setItemsList(parsedResponse.data);
     });
-  }, [loadDataCallback]);
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
 
-    loadDataCallback()
+    loadData(`${API_URL}/products`)
       .then(parsedResponse => {
         setItemsList(parsedResponse.data);
       })
       .finally(() => {
         setRefreshing(false);
       });
-  }, [loadDataCallback]);
+  }, []);
+
+  const {height} = useWindowDimensions();
 
   return (
-    <>
+    <View style={{height}}>
       <TopBar>
         <Pressable
           style={styles.topBarButton}
@@ -65,7 +63,7 @@ const MainScreen: FC = () => {
         onRefreshHandler={onRefresh}
         refreshing={refreshing}
       />
-    </>
+    </View>
   );
 };
 
