@@ -1,13 +1,11 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   ScrollView,
-  Pressable,
   RefreshControl,
   View,
   Text,
   useWindowDimensions,
 } from 'react-native';
-import TopBar from '../../components/TopBar/TopBar';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
 import MainInfo from '../../components/Catalog/MainInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
@@ -17,12 +15,9 @@ import {loadData} from '../../helpers/loadData';
 import {API_URL} from '../../constants';
 import commonStyles from '../../commonStyles';
 import styles from './ProductDetails.styles';
+import {useRoute} from '@react-navigation/native';
 
-import ArrowIcon from '../../assets/icons/arrow.svg';
-import HeartEmptyIcon from '../../assets/icons/heart-empty.svg';
-import CartIcon from '../../assets/icons/cart.svg';
-
-const ProductDetails: FC<{productId: string}> = ({productId}) => {
+const ProductDetails: FC = () => {
   const [product, setProduct] = useState({
     attributes: {
       name: '',
@@ -46,21 +41,27 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
     {id: '02', name: 'Green'},
   ];
 
+  const route = useRoute();
+
   useEffect(() => {
-    if (productId) {
-      loadData(`${API_URL}/products/${productId}`).then(parsedResponse => {
-        setProduct(parsedResponse.data);
-      });
+    if (route.params?.productId) {
+      loadData(`${API_URL}/products/${route.params?.productId}`).then(
+        parsedResponse => {
+          setProduct(parsedResponse.data);
+        },
+      );
     }
-  }, [productId]);
+  }, [route.params?.productId]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     let parsedResponse;
 
     try {
-      if (productId) {
-        parsedResponse = await loadData(`${API_URL}/products/${productId}`);
+      if (route.params?.productId) {
+        parsedResponse = await loadData(
+          `${API_URL}/products/${route.params?.productId}`,
+        );
         setProduct(parsedResponse.data);
       }
     } catch (error) {
@@ -68,35 +69,12 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
     } finally {
       setRefreshing(false);
     }
-  }, [productId]);
+  }, [route.params?.productId]);
 
   const {height} = useWindowDimensions();
 
   return (
-    <View style={{height}}>
-      <TopBar>
-        <View>
-          <Pressable
-            style={styles.topBarButton}
-            onPress={() => console.log('Back button pressed')}>
-            <ArrowIcon fill="white" />
-          </Pressable>
-        </View>
-
-        <View style={styles.tobBarButtonWrapper}>
-          <Pressable
-            style={[styles.topBarButton, styles.tobBarButtonMargin]}
-            onPress={() => console.log('Add to the Wish list button pressed')}>
-            <HeartEmptyIcon stroke="white" />
-          </Pressable>
-          <Pressable
-            style={[styles.topBarButton, styles.tobBarButtonMargin]}
-            onPress={() => console.log('Cart button pressed')}>
-            <CartIcon fill="white" />
-          </Pressable>
-        </View>
-      </TopBar>
-
+    <View style={{...commonStyles.safeArea, height}}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={styles.mainWrapper}

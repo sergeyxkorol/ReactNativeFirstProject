@@ -24,6 +24,18 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE,
     fontWeight: '700',
   },
+
+  safeArea: {
+    backgroundColor: '#fff',
+  },
+
+  topBarButton: {
+    height: 25,
+    width: 25,
+    marginLeft: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
