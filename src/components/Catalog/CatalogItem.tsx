@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import {View, Pressable, Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Item} from './types/CatalogItem.type';
 import MainInfo from './MainInfo';
 import styles from './CatalogItem.styles';
-import {useNavigation} from '@react-navigation/native';
+import {STACK_ROUTES} from '../../constants/routes';
 
 type Props = {
   data: Item;
@@ -16,7 +17,7 @@ const CatalogItem: FC<Props> = ({data}) => {
     <View style={styles.catalogItem}>
       <Pressable
         onPress={() =>
-          navigation.navigate('ProductDetails', {
+          navigation.navigate(STACK_ROUTES.PRODUCT, {
             productId: data?.id,
           })
         }>
