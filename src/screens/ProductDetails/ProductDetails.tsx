@@ -15,7 +15,8 @@ import {loadData} from '../../helpers/loadData';
 import {API_URL} from '../../constants';
 import commonStyles from '../../commonStyles';
 import styles from './ProductDetails.styles';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {MODAL_ROUTES} from '../../constants/routes';
 
 const ProductDetails: FC = () => {
   const [product, setProduct] = useState({
@@ -70,6 +71,17 @@ const ProductDetails: FC = () => {
       setRefreshing(false);
     }
   }, [route.params?.productId]);
+
+  const navigation = useNavigation();
+  const handleAddToCart = useCallback(() => {
+    if (!selectedOption) {
+      navigation.navigate(MODAL_ROUTES.SELECT_COLOR);
+
+      return;
+    }
+
+    navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
+  }, [navigation, selectedOption]);
 
   const {height} = useWindowDimensions();
 
@@ -129,7 +141,7 @@ const ProductDetails: FC = () => {
         <Button
           buttonColor={ButtonColor.Submit}
           text="ADD TO CART"
-          onPressHandler={() => console.log('Add To Cart button pressed')}
+          onPressHandler={handleAddToCart}
         />
       </View>
     </View>

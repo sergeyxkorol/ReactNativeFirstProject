@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   cartButtonWrapper: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 70,
     width: '100%',
     padding: 20,
   },

@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import {View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Main from '../screens/Main/Main';
 import CartButton from '../components/TopBar/CartButton';
@@ -29,7 +30,11 @@ const DrawerNavigator: FC = () => {
         component={Main}
         options={{
           title: 'Ecommerse Store',
-          headerRight: () => <CartButton />,
+          headerRight: () => (
+            <View style={{marginRight: 20}}>
+              <CartButton />
+            </View>
+          ),
         }}
       />
     </Drawer.Navigator>

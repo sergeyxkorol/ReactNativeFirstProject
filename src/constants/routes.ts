@@ -10,3 +10,12 @@ export const STACK_ROUTES = {
   CART: 'stack/cart',
   ORDERS: 'stack/orders',
 };
+
+export const MODAL_ROUTES = {
+  SELECT_COLOR: 'modal/selectColor',
+  PRODUCT_ADDED_TO_CART: 'modal/productAddedToCart',
+  PRODUCT_ADDED_TO_WISHLIST: 'modal/productAddedToWishList',
+  CART_STATUS: 'modal/cartStatus',
+  LOGIN: 'modal/login',
+  LOGOUT: 'modal/logout',
+};
