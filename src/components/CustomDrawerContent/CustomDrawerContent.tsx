@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {DrawerItem} from '@react-navigation/drawer';
-import {DRAWER_ROUTES} from '../../constants/routes';
+import {STACK_ROUTES} from '../../constants/routes';
 import {BLUE} from '../../constants';
 import styles from './styles';
 
@@ -30,28 +30,28 @@ const CustomDrawerContent: FC = () => {
           icon={() => <ProfileIcon fill={BLUE} />}
           style={styles.drawerItem}
           labelStyle={styles.drawerItemLabel}
-          onPress={() => navigation.navigate(DRAWER_ROUTES.PROFILE)}
+          onPress={() => navigation.navigate(STACK_ROUTES.PROFILE)}
         />
         <DrawerItem
           label="My Wish List"
           icon={() => <HeartFilledIcon fill={BLUE} />}
           style={styles.drawerItem}
           labelStyle={styles.drawerItemLabel}
-          onPress={() => navigation.navigate(DRAWER_ROUTES.WISH_LIST)}
+          onPress={() => navigation.navigate(STACK_ROUTES.WISH_LIST)}
         />
         <DrawerItem
           label="My Cart"
           icon={() => <CartIcon fill={BLUE} />}
           style={styles.drawerItem}
           labelStyle={styles.drawerItemLabel}
-          onPress={() => navigation.navigate(DRAWER_ROUTES.CART)}
+          onPress={() => navigation.navigate(STACK_ROUTES.CART)}
         />
         <DrawerItem
           label="My Orders"
           icon={() => <CartDoneIcon fill={BLUE} />}
           style={styles.drawerItem}
           labelStyle={styles.drawerItemLabel}
-          onPress={() => navigation.navigate(DRAWER_ROUTES.ORDERS)}
+          onPress={() => navigation.navigate(STACK_ROUTES.ORDERS)}
         />
       </View>
 
