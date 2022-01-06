@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import Modal from './Modal';
+import Modal from '../../components/Modal/Modal';
 
 import CancelCircleIcon from '../../assets/graphic/cancel-circle.svg';
 

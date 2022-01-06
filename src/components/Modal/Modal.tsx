@@ -9,7 +9,7 @@ type Props = {
   icon: ReactNode;
   title: string;
   description?: string;
-  buttons?: string;
+  buttons?: ReactNode;
 };
 
 const Modal: FC<Props> = ({icon, title, description, buttons}) => {

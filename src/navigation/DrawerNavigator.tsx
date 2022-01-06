@@ -13,6 +13,7 @@ const DrawerNavigator: FC = () => {
   return (
     <Drawer.Navigator
       backBehavior="initialRoute"
+      defaultStatus="closed"
       screenOptions={{
         headerStyle: {
           backgroundColor: BLUE,

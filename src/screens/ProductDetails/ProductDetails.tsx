@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC, useCallback, useContext, useEffect, useState} from 'react';
 import {
   ScrollView,
   RefreshControl,
@@ -6,6 +6,7 @@ import {
   Text,
   useWindowDimensions,
 } from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
 import MainInfo from '../../components/Catalog/MainInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
@@ -14,11 +15,13 @@ import {ButtonColor} from '../../components/Button/Button.types';
 import {loadData} from '../../helpers/loadData';
 import {API_URL} from '../../constants';
 import commonStyles from '../../commonStyles';
-import styles from './ProductDetails.styles';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {MODAL_ROUTES} from '../../constants/routes';
+import AuthContext from '../../store/AuthContext';
+import styles from './ProductDetails.styles';
 
 const ProductDetails: FC = () => {
+  const {state} = useContext(AuthContext);
+
   const [product, setProduct] = useState({
     attributes: {
       name: '',
@@ -74,6 +77,12 @@ const ProductDetails: FC = () => {
 
   const navigation = useNavigation();
   const handleAddToCart = useCallback(() => {
+    if (!state.userToken) {
+      navigation.navigate(MODAL_ROUTES.LOGIN);
+
+      return;
+    }
+
     if (!selectedOption) {
       navigation.navigate(MODAL_ROUTES.SELECT_COLOR);
 

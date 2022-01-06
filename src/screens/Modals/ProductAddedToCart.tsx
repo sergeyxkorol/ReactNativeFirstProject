@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import Modal from './Modal';
+import Modal from '../../components/Modal/Modal';
 
 import DoneCircleIcon from '../../assets/graphic/done-circle.svg';
 

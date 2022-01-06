@@ -9,6 +9,9 @@ export const STACK_ROUTES = {
   WISH_LIST: 'stack/wishList',
   CART: 'stack/cart',
   ORDERS: 'stack/orders',
+  SIGN_UP: 'stack/signUp',
+  LOGIN: 'stack/login',
+  LOGOUT: 'stack/logout',
 };
 
 export const MODAL_ROUTES = {
