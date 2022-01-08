@@ -89,8 +89,10 @@ const ProductDetails: FC = () => {
       return;
     }
 
+    // ToDo: send request to add an item to cart
+
     navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
-  }, [navigation, selectedOption]);
+  }, [navigation, selectedOption, state.userToken]);
 
   const {height} = useWindowDimensions();
 

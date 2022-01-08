@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONT_FAMILY, FONT_SIZE, MAIN_TEXT} from './constants';
+import {BLUE_TEXT, FONT_FAMILY, FONT_SIZE, MAIN_TEXT} from './constants';
 
 const styles = StyleSheet.create({
   text: {
@@ -34,6 +34,39 @@ const styles = StyleSheet.create({
     width: 25,
     marginLeft: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  container: {
+    flex: 1,
+  },
+
+  generalWrapper: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+
+  titleLarge: {
+    fontFamily: FONT_FAMILY,
+    color: BLUE_TEXT,
+    fontSize: 40,
+    fontWeight: '700',
+    lineHeight: 50,
+    paddingLeft: 45,
+    paddingRight: 45,
+    textAlign: 'center',
+  },
+
+  formTitle: {
+    marginTop: 70,
+    marginBottom: 70,
+  },
+
+  inputWrapper: {
+    marginBottom: 10,
+  },
+
+  linkWrapper: {
     alignItems: 'center',
   },
 });

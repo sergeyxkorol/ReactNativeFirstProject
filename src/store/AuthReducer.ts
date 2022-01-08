@@ -11,14 +11,14 @@ export default function AuthReducer(state, action) {
     case RESTORE_TOKEN:
       return {
         ...state,
-        userToken: action.token,
+        userToken: action.payload.token,
         isLoading: false,
       };
     case LOG_IN:
       return {
         ...state,
         isLogout: false,
-        userToken: action.token,
+        userToken: action.payload.token,
       };
     case LOG_OUT:
       return {

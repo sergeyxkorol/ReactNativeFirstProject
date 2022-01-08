@@ -1,5 +1,6 @@
-import React, {useMemo, useReducer} from 'react';
+import React, {useEffect, useMemo, useReducer} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerNavigator from '../navigation/DrawerNavigator';
 import ProductDetails from '../screens/ProductDetails/ProductDetails';
 import Profile from '../screens/Profile/Profile';
@@ -16,19 +17,57 @@ import CartButton from '../components/TopBar/CartButton';
 import WishListButton from '../components/TopBar/WishListButton';
 import {MODAL_ROUTES, STACK_ROUTES} from '../constants/routes';
 import AuthReducer, {authState} from '../store/AuthReducer';
-import {BLUE, FONT_FAMILY} from '../constants';
+import {BLUE, FONT_FAMILY, USER_TOKEN} from '../constants';
 import AuthContext from '../store/AuthContext';
 import AuthActions from '../store/AuthActions';
+import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   const [state, dispatch] = useReducer(AuthReducer, authState);
 
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      let token;
+
+      try {
+        token = await AsyncStorage.getItem(USER_TOKEN);
+      } catch (error) {
+        console.error(error);
+      }
+
+      dispatch({type: RESTORE_TOKEN, payload: {token}});
+    };
+
+    bootstrapAsync();
+  }, []);
+
   const authContext = useMemo(
     () => ({
       state,
-      actions: AuthActions(dispatch),
+      actions: {
+        logIn: async (email, password) => {
+          const userToken = await AuthActions.logIn(email, password);
+          await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));
+
+          dispatch({type: LOG_IN, payload: {userToken}});
+        },
+
+        logOut: async () => {
+          await AsyncStorage.removeItem(USER_TOKEN);
+
+          dispatch({type: LOG_OUT});
+        },
+
+        signUp: async (email, password, passwordConfirmation) => {
+          await AuthActions.signUp(email, password, passwordConfirmation);
+          const userToken = await AuthActions.logIn(email, password);
+          await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));
+
+          dispatch({type: LOG_IN, payload: {userToken}});
+        },
+      },
     }),
     [state],
   );
