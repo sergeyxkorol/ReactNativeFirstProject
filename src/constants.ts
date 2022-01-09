@@ -12,3 +12,4 @@ export const BLUE_TEXT = '#00A8F3';
 
 // Storage
 export const USER_TOKEN = 'userToken';
+export const CART_TOKEN = 'cartToken';

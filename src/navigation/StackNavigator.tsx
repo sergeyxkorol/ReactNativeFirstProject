@@ -5,7 +5,7 @@ import DrawerNavigator from '../navigation/DrawerNavigator';
 import ProductDetails from '../screens/ProductDetails/ProductDetails';
 import Profile from '../screens/Profile/Profile';
 import WishList from '../screens/WishList/WishList';
-import Cart from '../screens/Cart/Cart';
+import Cart from '../screens/Cart';
 import Orders from '../screens/Orders/Orders';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
@@ -21,6 +21,7 @@ import {BLUE, FONT_FAMILY, USER_TOKEN} from '../constants';
 import AuthContext from '../store/AuthContext';
 import AuthActions from '../store/AuthActions';
 import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
+import CartLogin from '../screens/CartLogin/CartLogin';
 
 const Stack = createNativeStackNavigator();
 
@@ -124,14 +125,24 @@ const StackNavigator = () => {
               headerRight: () => <CartButton />,
             }}
           />
-          <Stack.Screen
-            name={STACK_ROUTES.CART}
-            component={Cart}
-            options={{
-              title: 'My Cart',
-              headerRight: () => <CartButton />,
-            }}
-          />
+          {!state.userToken ? (
+            <Stack.Screen
+              name={STACK_ROUTES.CART}
+              component={CartLogin}
+              options={{
+                title: 'My Cart',
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name={STACK_ROUTES.CART}
+              component={Cart}
+              options={{
+                title: 'My Cart',
+                headerRight: () => <CartButton />,
+              }}
+            />
+          )}
           <Stack.Screen
             name={STACK_ROUTES.ORDERS}
             component={Orders}
@@ -140,15 +151,7 @@ const StackNavigator = () => {
               headerRight: () => <CartButton />,
             }}
           />
-          <Stack.Screen
-            name={STACK_ROUTES.LOGIN}
-            component={Login}
-            options={{
-              title: '',
-            }}
-          />
-
-          {!state.userToken && (
+          {!state.userToken ? (
             <>
               <Stack.Screen
                 name={STACK_ROUTES.SIGN_UP}
@@ -157,6 +160,16 @@ const StackNavigator = () => {
                   title: '',
                 }}
               />
+              <Stack.Screen
+                name={STACK_ROUTES.LOGIN}
+                component={Login}
+                options={{
+                  title: '',
+                }}
+              />
+            </>
+          ) : (
+            <>
               <Stack.Screen
                 name={STACK_ROUTES.LOGOUT}
                 component={Logout}

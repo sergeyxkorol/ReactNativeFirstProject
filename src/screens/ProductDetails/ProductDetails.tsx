@@ -7,13 +7,14 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
 import MainInfo from '../../components/Catalog/MainInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
 import {loadData} from '../../helpers/loadData';
-import {API_URL} from '../../constants';
+import {API_URL, CART_TOKEN} from '../../constants';
 import commonStyles from '../../commonStyles';
 import {MODAL_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
@@ -76,7 +77,7 @@ const ProductDetails: FC = () => {
   }, [route.params?.productId]);
 
   const navigation = useNavigation();
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = useCallback(async () => {
     if (!state.userToken) {
       navigation.navigate(MODAL_ROUTES.LOGIN);
 
@@ -90,6 +91,57 @@ const ProductDetails: FC = () => {
     }
 
     // ToDo: send request to add an item to cart
+    try {
+      let cartToken = await AsyncStorage.getItem(CART_TOKEN);
+
+      if (!cartToken) {
+        const response = await fetch(`${API_URL}/cart`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/vnd.api+json',
+          },
+          body: JSON.stringify({
+            public_metadata: {
+              total_weight: 3250,
+            },
+            private_metadata: {
+              had_same_cart_items: true,
+            },
+          }),
+        });
+
+        const cartData = await response.json();
+
+        console.log(114, 'cartData', cartData);
+        cartToken = cartData?.data?.attributes?.token;
+
+        await AsyncStorage.setItem(CART_TOKEN, cartToken);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      await fetch(`${API_URL}/cart/add_item`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+          'X-Spree-Order-Token': cartToken,
+        },
+        body: JSON.stringify({
+          variant_id: route.params?.productId,
+          quantity: 1,
+          public_metadata: {
+            first_item_order: true,
+          },
+          private_metadata: {
+            recommended_by_us: false,
+          },
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
   }, [navigation, selectedOption, state.userToken]);
