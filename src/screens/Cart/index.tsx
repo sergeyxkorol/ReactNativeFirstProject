@@ -36,10 +36,10 @@ const Cart: FC = () => {
 
   const cartContent = (
     <>
-      {!cartData || !Math.ceil(cartData?.data.attributes.total) ? (
+      {!cartData || !cartData?.data.attributes.item_count ? (
         <CartEmpty />
       ) : (
-        <CartFull cartData={cartData} />
+        <CartFull cart={cartData.data} />
       )}
     </>
   );

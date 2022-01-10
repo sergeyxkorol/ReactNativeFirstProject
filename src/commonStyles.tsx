@@ -46,6 +46,13 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
 
+  pane: {
+    padding: 5,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    elevation: 5,
+  },
+
   titleLarge: {
     fontFamily: FONT_FAMILY,
     color: BLUE_TEXT,
