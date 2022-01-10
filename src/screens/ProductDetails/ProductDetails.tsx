@@ -47,26 +47,23 @@ const ProductDetails: FC = () => {
   ];
 
   const route = useRoute();
+  const productId = route.params?.productId;
 
   useEffect(() => {
-    if (route.params?.productId) {
-      loadData(`${API_URL}/products/${route.params?.productId}`).then(
-        parsedResponse => {
-          setProduct(parsedResponse.data);
-        },
-      );
+    if (productId) {
+      loadData(`${API_URL}/products/${productId}`).then(parsedResponse => {
+        setProduct(parsedResponse.data);
+      });
     }
-  }, [route.params?.productId]);
+  }, [productId]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     let parsedResponse;
 
     try {
-      if (route.params?.productId) {
-        parsedResponse = await loadData(
-          `${API_URL}/products/${route.params?.productId}`,
-        );
+      if (productId) {
+        parsedResponse = await loadData(`${API_URL}/products/${productId}`);
         setProduct(parsedResponse.data);
       }
     } catch (error) {
@@ -74,12 +71,15 @@ const ProductDetails: FC = () => {
     } finally {
       setRefreshing(false);
     }
-  }, [route.params?.productId]);
+  }, [productId]);
 
   const navigation = useNavigation();
   const handleAddToCart = useCallback(async () => {
     if (!state.userToken) {
-      navigation.navigate(MODAL_ROUTES.LOGIN);
+      navigation.navigate(MODAL_ROUTES.LOGIN, {
+        routeName: route.name,
+        productId,
+      });
 
       return;
     }
@@ -129,7 +129,7 @@ const ProductDetails: FC = () => {
           'X-Spree-Order-Token': cartToken,
         },
         body: JSON.stringify({
-          variant_id: route.params?.productId,
+          variant_id: productId,
           quantity: 1,
           public_metadata: {
             first_item_order: true,
@@ -144,7 +144,7 @@ const ProductDetails: FC = () => {
     }
 
     navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
-  }, [navigation, route.params?.productId, selectedOption, state.userToken]);
+  }, [navigation, productId, route.name, selectedOption, state.userToken]);
 
   const handleImageSlidePress = () => {
     navigation.navigate(STACK_ROUTES.PRODUCT_IMAGES, {imagesList});

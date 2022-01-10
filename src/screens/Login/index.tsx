@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {FC, useContext, useState} from 'react';
 import {View, Text} from 'react-native';
 import commonStyles from '../../commonStyles';
@@ -15,20 +15,22 @@ const Logout: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {actions} = useContext(AuthContext);
+  const route = useRoute();
 
   async function submit() {
     if (!email || !password) {
       return;
     }
 
-    // ToDo: redirect after retreiving a token
     await actions.logIn(email, password);
+
+    navigation.navigate(route.params?.routeName, {...route.params});
   }
 
   function handleForgotPassword() {}
 
   function handleSignUp() {
-    navigation.navigate(STACK_ROUTES.SIGN_UP);
+    navigation.navigate(STACK_ROUTES.SIGN_UP, {...route.params});
   }
 
   return (

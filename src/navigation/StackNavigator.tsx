@@ -49,7 +49,7 @@ const StackNavigator = () => {
     () => ({
       state,
       actions: {
-        logIn: async (email, password) => {
+        logIn: async (email: string, password: string) => {
           const userToken = await AuthActions.logIn(email, password);
           await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));
 
@@ -62,7 +62,11 @@ const StackNavigator = () => {
           dispatch({type: LOG_OUT});
         },
 
-        signUp: async (email, password, passwordConfirmation) => {
+        signUp: async (
+          email: string,
+          password: string,
+          passwordConfirmation: string,
+        ) => {
           await AuthActions.signUp(email, password, passwordConfirmation);
           const userToken = await AuthActions.logIn(email, password);
           await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));

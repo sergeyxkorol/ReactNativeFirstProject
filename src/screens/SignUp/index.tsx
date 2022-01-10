@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {FC, useContext, useState} from 'react';
 import {
   View,
@@ -25,18 +25,20 @@ const SignUp: FC = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const {actions} = useContext(AuthContext);
+  const route = useRoute();
 
   async function submit() {
     if (!name || !email || !password || password !== passwordConfirmation) {
       return;
     }
 
-    // ToDo: redirect after retreiving a token
     await actions.signUp(email, password, passwordConfirmation);
+
+    navigation.navigate(route.params?.routeName, {...route.params});
   }
 
   function handleLogIn() {
-    navigation.navigate(STACK_ROUTES.LOGIN);
+    navigation.navigate(STACK_ROUTES.LOGIN, {...route.params});
   }
 
   return (
