@@ -3,12 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartFull from './CartFull';
 import CartEmpty from './CartEmpty';
 import {API_URL, CART_TOKEN} from '../../constants';
+import Loader from '../../components/Loader';
 
 const Cart: FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
 
   useEffect(() => {
-    // ToDo: move all this logic to action
+    // ToDo: move this logic to action
     async function bootstrapAsync() {
       const token = await AsyncStorage.getItem(CART_TOKEN);
 
@@ -21,16 +23,28 @@ const Cart: FC = () => {
           },
         });
 
-        const result = await response.text();
+        const result = await response.json();
 
         setCartData(result);
       }
+
+      setIsLoading(false);
     }
 
     bootstrapAsync();
   }, []);
 
-  return <>{!cartData ? <CartEmpty /> : <CartFull cartData={cartData} />}</>;
+  const cartContent = (
+    <>
+      {!cartData || !Math.ceil(cartData?.data.attributes.total) ? (
+        <CartEmpty />
+      ) : (
+        <CartFull cartData={cartData} />
+      )}
+    </>
+  );
+
+  return <>{isLoading ? <Loader /> : cartContent}</>;
 };
 
 export default Cart;

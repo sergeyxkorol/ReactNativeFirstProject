@@ -151,7 +151,6 @@ const StackNavigator = () => {
               component={Cart}
               options={{
                 title: 'My Cart',
-                headerRight: () => <CartButton />,
               }}
             />
           )}
