@@ -16,7 +16,7 @@ import {ButtonColor} from '../../components/Button/Button.types';
 import {loadData} from '../../helpers/loadData';
 import {API_URL, CART_TOKEN} from '../../constants';
 import commonStyles from '../../commonStyles';
-import {MODAL_ROUTES} from '../../constants/routes';
+import {MODAL_ROUTES, STACK_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
 import styles from './ProductDetails.styles';
 
@@ -91,8 +91,9 @@ const ProductDetails: FC = () => {
     }
 
     // ToDo: send request to add an item to cart
+    let cartToken = '';
     try {
-      let cartToken = await AsyncStorage.getItem(CART_TOKEN);
+      cartToken = await AsyncStorage.getItem(CART_TOKEN);
 
       if (!cartToken) {
         const response = await fetch(`${API_URL}/cart`, {
@@ -112,10 +113,9 @@ const ProductDetails: FC = () => {
 
         const cartData = await response.json();
 
-        console.log(114, 'cartData', cartData);
         cartToken = cartData?.data?.attributes?.token;
 
-        await AsyncStorage.setItem(CART_TOKEN, cartToken);
+        await AsyncStorage.setItem(CART_TOKEN, cartToken || '');
       }
     } catch (error) {
       console.error(error);
@@ -144,7 +144,11 @@ const ProductDetails: FC = () => {
     }
 
     navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
-  }, [navigation, selectedOption, state.userToken]);
+  }, [navigation, route.params?.productId, selectedOption, state.userToken]);
+
+  const handleImageSlidePress = () => {
+    navigation.navigate(STACK_ROUTES.PRODUCT_IMAGES, {imagesList});
+  };
 
   const {height} = useWindowDimensions();
 
@@ -159,7 +163,7 @@ const ProductDetails: FC = () => {
         <View style={styles.slider}>
           <ImagesSlider
             images={imagesList}
-            onPressHandler={(imageId: string) => console.log(imageId)}
+            onPressHandler={handleImageSlidePress}
           />
         </View>
 

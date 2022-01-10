@@ -23,8 +23,6 @@ const Cart: FC = () => {
 
         const result = await response.text();
 
-        console.log(result);
-
         setCartData(result);
       }
     }

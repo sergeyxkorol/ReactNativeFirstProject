@@ -3,7 +3,7 @@ import {GREY} from '../../constants';
 
 const styles = StyleSheet.create({
   mainWrapper: {
-    paddingBottom: 70,
+    paddingBottom: 130,
   },
 
   content: {

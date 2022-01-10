@@ -19,7 +19,7 @@ type ImageItem = {
 
 type Props = {
   images: ImageItem[];
-  onPressHandler: Function;
+  onPressHandler?: Function;
 };
 
 const ImagesSlider: FC<Props> = ({images, onPressHandler}) => {
@@ -47,13 +47,21 @@ const ImagesSlider: FC<Props> = ({images, onPressHandler}) => {
         style={styles.scrollWrapper}>
         {images.map(({id, src}) => (
           <View key={id} style={[styles.slide, {width}]}>
-            <Pressable onPress={() => onPressHandler(id)}>
+            {onPressHandler ? (
+              <Pressable onPress={() => onPressHandler(id)}>
+                <Image
+                  key={id}
+                  source={src as ImageSourcePropType}
+                  style={styles.image}
+                />
+              </Pressable>
+            ) : (
               <Image
                 key={id}
                 source={src as ImageSourcePropType}
                 style={styles.image}
               />
-            </Pressable>
+            )}
           </View>
         ))}
       </ScrollView>

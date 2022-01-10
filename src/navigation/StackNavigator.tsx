@@ -10,6 +10,7 @@ import Orders from '../screens/Orders/Orders';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Logout from '../screens/Logout';
+import ProductImages from '../screens/ProductImages';
 import LoginToContinue from '../screens/Modals/LoginToContinue';
 import SelectColor from '../screens/Modals/SelectColor';
 import ProductAddedToCart from '../screens/Modals/ProductAddedToCart';
@@ -107,6 +108,13 @@ const StackNavigator = () => {
                   <CartButton />
                 </>
               ),
+            }}
+          />
+          <Stack.Screen
+            name={STACK_ROUTES.PRODUCT_IMAGES}
+            component={ProductImages}
+            options={{
+              title: '',
             }}
           />
           <Stack.Screen

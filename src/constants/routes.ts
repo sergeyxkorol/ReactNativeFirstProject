@@ -5,6 +5,7 @@ export const DRAWER_ROUTES = {
 export const STACK_ROUTES = {
   MAIN: 'stack/main',
   PRODUCT: 'stack/product',
+  PRODUCT_IMAGES: 'stack/productImages',
   PROFILE: 'stack/profile',
   WISH_LIST: 'stack/wishList',
   CART: 'stack/cart',
