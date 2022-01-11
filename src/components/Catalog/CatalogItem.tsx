@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View, Pressable, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Item} from './types/CatalogItem.type';
-import MainInfo from './MainInfo';
+import ProductInfo from '../ProductInfo';
 import styles from './CatalogItem.styles';
 import {STACK_ROUTES} from '../../constants/routes';
 
@@ -29,7 +29,7 @@ const CatalogItem: FC<Props> = ({data}) => {
           />
         </View>
 
-        <MainInfo
+        <ProductInfo
           data={{
             name: data?.attributes?.name,
             display_price: data?.attributes?.display_price,

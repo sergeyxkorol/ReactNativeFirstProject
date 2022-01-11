@@ -3,6 +3,8 @@ import {BLUE_TEXT, FONT_FAMILY, GREY, MAIN_TEXT} from '../../constants';
 import commonStyles from '../../commonStyles';
 
 const styles = StyleSheet.create({
+  nameWrapper: {},
+
   name: {
     fontFamily: FONT_FAMILY,
     fontSize: 15,
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
   priceWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10,
+    marginTop: 8,
   },
 
   price: {

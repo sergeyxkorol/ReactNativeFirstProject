@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   wrapper: {
     paddingTop: 36,
-    paddingBottom: 140,
+    paddingBottom: 170,
   },
 
   paymentWrapper: {

@@ -9,7 +9,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
-import MainInfo from '../../components/Catalog/MainInfo';
+import ProductInfo from '../../components/ProductInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
@@ -169,7 +169,7 @@ const ProductDetails: FC = () => {
 
         <View style={styles.content}>
           <View style={[styles.section, styles.borderBottom]}>
-            <MainInfo
+            <ProductInfo
               data={{
                 name: product?.attributes?.name,
                 display_price: product?.attributes?.display_price,
