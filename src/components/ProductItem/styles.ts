@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import commonStyles from '../../commonStyles';
 
 const styles = StyleSheet.create({
   pane: {
@@ -15,6 +14,11 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     marginRight: 10,
+  },
+
+  controls: {
+    marginTop: 10,
+    marginLeft: 110,
   },
 });
 

@@ -49,6 +49,14 @@ const CartFull: FC<Props> = ({cart}) => {
     bootstrapAsync();
   }, [lineItems]);
 
+  const onChangeCount = () => {
+    console.log('Count was changed');
+  };
+
+  const onDelete = () => {
+    console.log('Product was deleted');
+  };
+
   const {height} = useWindowDimensions();
 
   return (
@@ -58,7 +66,11 @@ const CartFull: FC<Props> = ({cart}) => {
         contentContainerStyle={[commonStyles.generalWrapper, styles.wrapper]}>
         <View>
           {productsList.map(product => (
-            <ProductItem data={product} />
+            <ProductItem
+              data={product}
+              onChangeCount={onChangeCount}
+              onDelete={onDelete}
+            />
           ))}
         </View>
 

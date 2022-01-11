@@ -16,7 +16,7 @@ const ProductInfo: FC<Props> = ({data, link}) => {
   const navigation = useNavigation();
 
   return (
-    <>
+    <View>
       <View style={styles.nameWrapper}>
         {link ? (
           <Pressable
@@ -36,7 +36,7 @@ const ProductInfo: FC<Props> = ({data, link}) => {
         <Text style={styles.oldPrice}>{data.display_price}</Text>
         <Text style={styles.discount}>{data.display_price} Off</Text>
       </View>
-    </>
+    </View>
   );
 };
 
