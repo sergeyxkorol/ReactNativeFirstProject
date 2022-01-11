@@ -9,12 +9,14 @@ const Cart: FC = () => {
   const [cartToken, setCartToken] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
+  const [productsList, setProductsList] = useState([]);
 
   useEffect(() => {
     // ToDo: move this logic to action
     async function bootstrapAsync() {
       try {
         const token = await AsyncStorage.getItem(CART_TOKEN);
+        let parsedCartData = null;
 
         if (token) {
           setCartToken(token);
@@ -27,10 +29,24 @@ const Cart: FC = () => {
             },
           });
 
-          const result = await response.json();
+          parsedCartData = await response.json();
 
-          setCartData(result);
+          setCartData(parsedCartData);
         }
+
+        const productIds =
+          parsedCartData?.data.relationships.line_items.data.map(({id}) => id);
+        const url = `${API_URL}/products?filter[ids]=${productIds.join()}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const result = await response.json();
+        setProductsList(result.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -58,8 +74,6 @@ const Cart: FC = () => {
       });
 
       const result = await response.json();
-
-      console.log(62, result);
 
       setCartData(result);
     } catch (error) {
@@ -98,6 +112,7 @@ const Cart: FC = () => {
       ) : (
         <CartFull
           cart={cartData.data}
+          productsList={productsList}
           onChangeCount={onChangeCount}
           onDeleteProduct={onDeleteProduct}
         />

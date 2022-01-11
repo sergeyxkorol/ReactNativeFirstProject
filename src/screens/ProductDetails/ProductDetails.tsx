@@ -13,6 +13,7 @@ import ProductInfo from '../../components/ProductInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
+import Loader from '../../components/Loader';
 import {loadData} from '../../helpers/loadData';
 import {API_URL, CART_TOKEN} from '../../constants';
 import commonStyles from '../../commonStyles';
@@ -22,7 +23,7 @@ import styles from './ProductDetails.styles';
 
 const ProductDetails: FC = () => {
   const {state} = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState({
     attributes: {
       name: '',
@@ -49,29 +50,34 @@ const ProductDetails: FC = () => {
   const route = useRoute();
   const productId = route.params?.productId;
 
-  useEffect(() => {
-    if (productId) {
-      loadData(`${API_URL}/products/${productId}`).then(parsedResponse => {
-        setProduct(parsedResponse.data);
-      });
-    }
-  }, [productId]);
-
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    let parsedResponse;
-
+  const retreiveProduct = useCallback(async () => {
     try {
       if (productId) {
-        parsedResponse = await loadData(`${API_URL}/products/${productId}`);
+        const parsedResponse = await loadData(
+          `${API_URL}/products/${productId}`,
+        );
         setProduct(parsedResponse.data);
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setRefreshing(false);
     }
   }, [productId]);
+
+  useEffect(() => {
+    async function bootstrapAsync() {
+      setIsLoading(true);
+      await retreiveProduct();
+      setIsLoading(false);
+    }
+
+    bootstrapAsync();
+  }, [retreiveProduct]);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await retreiveProduct();
+    setRefreshing(false);
+  }, [retreiveProduct]);
 
   const navigation = useNavigation();
   const handleAddToCart = useCallback(async () => {
@@ -90,7 +96,6 @@ const ProductDetails: FC = () => {
       return;
     }
 
-    // ToDo: send request to add an item to cart
     let cartToken = '';
     try {
       cartToken = await AsyncStorage.getItem(CART_TOKEN);
@@ -152,7 +157,9 @@ const ProductDetails: FC = () => {
 
   const {height} = useWindowDimensions();
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <View style={{...commonStyles.safeArea, height}}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"

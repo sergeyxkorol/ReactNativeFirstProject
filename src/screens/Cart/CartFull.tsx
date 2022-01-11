@@ -1,11 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {View, useWindowDimensions, ScrollView, Text} from 'react-native';
 import commonStyles from '../../commonStyles';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
 import CartInfo from '../../components/CartInfo';
 import ProductItem from '../../components/ProductItem';
-import {API_URL} from '../../constants';
 import styles from './styles';
 
 import PaymentIcon from '../../assets/icons/payment.svg';
@@ -25,33 +24,18 @@ type Props = {
     };
   };
 
+  productsList: [{id: string}];
+
   onChangeCount: (id: string, updatedCount: number) => void;
   onDeleteProduct: (id: string) => void;
 };
 
-const CartFull: FC<Props> = ({cart, onChangeCount, onDeleteProduct}) => {
-  const lineItems = cart.relationships.line_items.data || [];
-  const [productsList, setProductsList] = useState([]);
-
-  useEffect(() => {
-    async function bootstrapAsync() {
-      const productIds = lineItems.map(({id}) => id);
-      const url = `${API_URL}/products?filter[ids]=${productIds.join()}`;
-
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const result = await response.json();
-      setProductsList(result.data);
-    }
-
-    bootstrapAsync();
-  }, [lineItems]);
-
+const CartFull: FC<Props> = ({
+  cart,
+  productsList,
+  onChangeCount,
+  onDeleteProduct,
+}) => {
   const {height} = useWindowDimensions();
 
   return (

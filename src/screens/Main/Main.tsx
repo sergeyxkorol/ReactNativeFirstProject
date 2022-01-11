@@ -7,34 +7,46 @@ import {Item} from '../../components/Catalog/types/CatalogItem.type';
 import {loadData} from '../../helpers/loadData';
 import {API_URL} from '../../constants';
 import styles from '../../commonStyles';
+import Loader from '../../components/Loader';
 
 type ItemsList = Item[];
 
 const MainScreen: FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [itemsList, setItemsList] = useState<ItemsList>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    loadData(`${API_URL}/products`).then(parsedResponse => {
+  const retreiveProducts = useCallback(async () => {
+    try {
+      const parsedResponse = await loadData(`${API_URL}/products`);
+
       setItemsList(parsedResponse.data);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
-  const onRefresh = useCallback(() => {
+  useEffect(() => {
+    async function bootstrapAsync() {
+      setIsLoading(true);
+      await retreiveProducts();
+      setIsLoading(false);
+    }
+
+    bootstrapAsync();
+  }, [retreiveProducts]);
+
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
-
-    loadData(`${API_URL}/products`)
-      .then(parsedResponse => {
-        setItemsList(parsedResponse.data);
-      })
-      .finally(() => {
-        setRefreshing(false);
-      });
-  }, []);
+    await retreiveProducts();
+    setRefreshing(false);
+  }, [retreiveProducts]);
 
   const {height} = useWindowDimensions();
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <SafeAreaView style={{...styles.safeArea, height}}>
       <Search />
 

@@ -53,7 +53,7 @@ const StackNavigator = () => {
           const userToken = await AuthActions.logIn(email, password);
           await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));
 
-          dispatch({type: LOG_IN, payload: {userToken}});
+          dispatch({type: LOG_IN, payload: {token: userToken}});
         },
 
         logOut: async () => {
@@ -71,7 +71,7 @@ const StackNavigator = () => {
           const userToken = await AuthActions.logIn(email, password);
           await AsyncStorage.setItem(USER_TOKEN, JSON.stringify(userToken));
 
-          dispatch({type: LOG_IN, payload: {userToken}});
+          dispatch({type: LOG_IN, payload: {token: userToken}});
         },
       },
     }),
