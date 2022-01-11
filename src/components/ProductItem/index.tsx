@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import commonStyles from '../../commonStyles';
 import {STACK_ROUTES} from '../../constants/routes';
@@ -9,12 +9,14 @@ import styles from './styles';
 
 type Props = {
   data: Object;
-  onChangeCount?: () => void;
-  onDelete?: () => void;
+  count?: number;
+  onChangeCount?: (id: string, updatedCount: number) => void;
+  onDelete?: (id: string) => void;
 };
 
-const ProductItem: FC<Props> = ({data, onChangeCount, onDelete}) => {
+const ProductItem: FC<Props> = ({data, count, onChangeCount, onDelete}) => {
   const navigation = useNavigation();
+  const productId = data.id || '';
 
   return (
     <View style={[commonStyles.pane, styles.pane]}>
@@ -22,7 +24,7 @@ const ProductItem: FC<Props> = ({data, onChangeCount, onDelete}) => {
         <Pressable
           onPress={() =>
             navigation.navigate(STACK_ROUTES.PRODUCT, {
-              productId: data.id,
+              productId,
             })
           }>
           <Image
@@ -37,7 +39,7 @@ const ProductItem: FC<Props> = ({data, onChangeCount, onDelete}) => {
               name: data.attributes.name,
               display_price: data.attributes.display_price,
             }}
-            link={data.id}
+            link={productId}
           />
         </View>
       </View>
@@ -45,9 +47,10 @@ const ProductItem: FC<Props> = ({data, onChangeCount, onDelete}) => {
       {(onChangeCount || onDelete) && (
         <View style={styles.controls}>
           <ProductControls
-            productCount={0}
+            productId={productId}
+            productCount={count}
             onChangeCount={onChangeCount}
-            onDelete={onDelete}
+            onDelete={() => onDelete && onDelete(productId)}
           />
         </View>
       )}

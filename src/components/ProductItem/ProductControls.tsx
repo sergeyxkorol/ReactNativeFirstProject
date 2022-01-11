@@ -8,34 +8,40 @@ import CircleMinusIcon from '../../assets/buttons/circle-minus.svg';
 import TrashIcon from '../../assets/icons/trash.svg';
 
 type Props = {
+  productId: string;
   productCount?: number;
-  onChangeCount?: (count: number) => void;
-  onDelete?: () => void;
+  onChangeCount?: (id: string, updatedCount: number) => void;
+  onDelete?: (id: string) => void;
 };
 
-const Controls: FC<Props> = ({productCount = 0, onChangeCount, onDelete}) => {
+const Controls: FC<Props> = ({
+  productId = '',
+  productCount = 0,
+  onChangeCount,
+  onDelete,
+}) => {
   const [count, setCount] = useState(productCount);
 
   const onPlusPress = () => {
     const updatedCount = count + 1;
     setCount(updatedCount);
 
-    onChangeCount && onChangeCount(updatedCount);
+    onChangeCount && onChangeCount(productId, updatedCount);
   };
 
   const onMinusPress = () => {
     const updatedCount = count - 1;
-    if (updatedCount < 0) {
+    if (!updatedCount) {
       return;
     }
 
     setCount(count - 1);
 
-    onChangeCount && onChangeCount(updatedCount);
+    onChangeCount && onChangeCount(productId, updatedCount);
   };
 
   const onDeletePress = () => {
-    onDelete && onDelete();
+    onDelete && onDelete(productId);
   };
 
   return (

@@ -24,9 +24,12 @@ type Props = {
       display_total: string;
     };
   };
+
+  onChangeCount: (id: string, updatedCount: number) => void;
+  onDeleteProduct: (id: string) => void;
 };
 
-const CartFull: FC<Props> = ({cart}) => {
+const CartFull: FC<Props> = ({cart, onChangeCount, onDeleteProduct}) => {
   const lineItems = cart.relationships.line_items.data || [];
   const [productsList, setProductsList] = useState([]);
 
@@ -49,14 +52,6 @@ const CartFull: FC<Props> = ({cart}) => {
     bootstrapAsync();
   }, [lineItems]);
 
-  const onChangeCount = () => {
-    console.log('Count was changed');
-  };
-
-  const onDelete = () => {
-    console.log('Product was deleted');
-  };
-
   const {height} = useWindowDimensions();
 
   return (
@@ -67,9 +62,11 @@ const CartFull: FC<Props> = ({cart}) => {
         <View>
           {productsList.map(product => (
             <ProductItem
+              key={product.id}
               data={product}
+              count={1}
               onChangeCount={onChangeCount}
-              onDelete={onDelete}
+              onDelete={onDeleteProduct}
             />
           ))}
         </View>
