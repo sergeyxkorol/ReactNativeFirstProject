@@ -17,7 +17,7 @@ const AuthActions = {
         }),
       });
 
-      userToken = await tokenResponse.text();
+      userToken = await tokenResponse.json();
     } catch (error) {
       console.error(error);
     }
@@ -53,7 +53,7 @@ const AuthActions = {
         body: JSON.stringify(requestData),
       });
 
-      result = await signUpResponse.text();
+      result = await signUpResponse.json();
     } catch (error) {
       console.error(error);
     }

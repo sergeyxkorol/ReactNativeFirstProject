@@ -9,9 +9,9 @@ import Cart from '../screens/Cart';
 import Orders from '../screens/Orders/Orders';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
-import Logout from '../screens/Logout';
 import ProductImages from '../screens/ProductImages';
 import LoginToContinue from '../screens/Modals/LoginToContinue';
+import Logout from '../screens/Modals/Logout';
 import SelectColor from '../screens/Modals/SelectColor';
 import ProductAddedToCart from '../screens/Modals/ProductAddedToCart';
 import CartButton from '../components/TopBar/CartButton';
@@ -162,7 +162,7 @@ const StackNavigator = () => {
               headerRight: () => <CartButton />,
             }}
           />
-          {!state.userToken ? (
+          {!state.userToken && (
             <>
               <Stack.Screen
                 name={STACK_ROUTES.SIGN_UP}
@@ -174,16 +174,6 @@ const StackNavigator = () => {
               <Stack.Screen
                 name={STACK_ROUTES.LOGIN}
                 component={Login}
-                options={{
-                  title: '',
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name={STACK_ROUTES.LOGOUT}
-                component={Logout}
                 options={{
                   title: '',
                 }}
@@ -210,6 +200,11 @@ const StackNavigator = () => {
                 name={MODAL_ROUTES.PRODUCT_ADDED_TO_CART}
                 component={ProductAddedToCart}
                 options={{title: 'Product Added To Cart'}}
+              />
+              <Stack.Screen
+                name={MODAL_ROUTES.LOGOUT}
+                component={Logout}
+                options={{title: 'Logout'}}
               />
             </>
           )}
