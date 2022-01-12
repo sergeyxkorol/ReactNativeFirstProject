@@ -30,7 +30,7 @@ const DrawerNavigator: FC = () => {
         name={DRAWER_ROUTES.MAIN}
         component={Main}
         options={{
-          title: 'Ecommerse Store',
+          title: 'Ecommerce Store',
           headerRight: () => (
             <View style={{marginRight: 20}}>
               <CartButton />

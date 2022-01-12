@@ -20,7 +20,7 @@ const CustomDrawerContent: FC = () => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.sectionWrapper}>
-        <Text style={styles.mainTitle}>Ecommerse Store</Text>
+        <Text style={styles.mainTitle}>Ecommerce Store</Text>
       </View>
 
       <View style={styles.sectionWrapper}>

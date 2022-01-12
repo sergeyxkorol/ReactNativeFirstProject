@@ -36,7 +36,7 @@ const Logout: FC = () => {
   return (
     <View style={commonStyles.generalWrapper}>
       <Text style={[commonStyles.formTitle, commonStyles.titleLarge]}>
-        Ecomerce Store
+        Ecommerce Store
       </Text>
 
       <View style={commonStyles.inputWrapper}>
