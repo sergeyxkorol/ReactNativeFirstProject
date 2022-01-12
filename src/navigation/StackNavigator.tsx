@@ -18,7 +18,7 @@ import CartButton from '../components/TopBar/CartButton';
 import WishListButton from '../components/TopBar/WishListButton';
 import {MODAL_ROUTES, STACK_ROUTES} from '../constants/routes';
 import AuthReducer, {authState} from '../store/AuthReducer';
-import {BLUE, FONT_FAMILY, USER_TOKEN} from '../constants';
+import {BLUE, FONT_FAMILY, USER_TOKEN, WHITE} from '../constants';
 import AuthContext from '../store/AuthContext';
 import AuthActions from '../store/AuthActions';
 import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
@@ -31,15 +31,12 @@ const StackNavigator = () => {
 
   useEffect(() => {
     const bootstrapAsync = async () => {
-      let token;
-
       try {
-        token = await AsyncStorage.getItem(USER_TOKEN);
+        const token = await AsyncStorage.getItem(USER_TOKEN);
+        dispatch({type: RESTORE_TOKEN, payload: {token}});
       } catch (error) {
         console.error(error);
       }
-
-      dispatch({type: RESTORE_TOKEN, payload: {token}});
     };
 
     bootstrapAsync();
@@ -86,7 +83,7 @@ const StackNavigator = () => {
           headerStyle: {
             backgroundColor: BLUE,
           },
-          headerTintColor: '#fff',
+          headerTintColor: WHITE,
           headerTitleStyle: {
             fontWeight: 'bold',
             fontFamily: FONT_FAMILY,

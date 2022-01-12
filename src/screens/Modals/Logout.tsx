@@ -26,7 +26,7 @@ const Logout: FC = () => {
         <Button
           text="Cancel"
           buttonColor={ButtonColor.Cancel}
-          onPressHandler={() => navigation.goBack()}
+          onPressHandler={navigation.goBack}
         />
       </View>
       <View style={styles.button}>

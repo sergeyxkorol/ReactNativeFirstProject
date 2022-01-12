@@ -45,25 +45,26 @@ const ImagesSlider: FC<Props> = ({images, onPressHandler}) => {
         showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}
         style={styles.scrollWrapper}>
-        {images.map(({id, src}) => (
-          <View key={id} style={[styles.slide, {width}]}>
-            {onPressHandler ? (
-              <Pressable onPress={() => onPressHandler(id)}>
-                <Image
-                  key={id}
-                  source={src as ImageSourcePropType}
-                  style={styles.image}
-                />
-              </Pressable>
-            ) : (
-              <Image
-                key={id}
-                source={src as ImageSourcePropType}
-                style={styles.image}
-              />
-            )}
-          </View>
-        ))}
+        {images.map(({id, src}) => {
+          const image = (
+            <Image
+              key={id}
+              source={src as ImageSourcePropType}
+              style={styles.image}
+            />
+          );
+          return (
+            <View key={id} style={[styles.slide, {width}]}>
+              {onPressHandler ? (
+                <Pressable onPress={() => onPressHandler(id)}>
+                  {image}
+                </Pressable>
+              ) : (
+                image
+              )}
+            </View>
+          );
+        })}
       </ScrollView>
 
       <View style={styles.dots}>

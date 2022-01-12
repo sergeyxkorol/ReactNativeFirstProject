@@ -50,7 +50,7 @@ const ProductItem: FC<Props> = ({data, count, onChangeCount, onDelete}) => {
             productId={productId}
             productCount={count}
             onChangeCount={onChangeCount}
-            onDelete={() => onDelete && onDelete(productId)}
+            onDelete={() => onDelete?.(productId)}
           />
         </View>
       )}

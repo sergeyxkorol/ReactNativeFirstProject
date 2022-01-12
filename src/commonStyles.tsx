@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE_TEXT, FONT_FAMILY, FONT_SIZE, MAIN_TEXT} from './constants';
+import {BLUE_TEXT, FONT_FAMILY, FONT_SIZE, MAIN_TEXT, WHITE} from './constants';
 
 const styles = StyleSheet.create({
   text: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 
   safeArea: {
-    backgroundColor: '#fff',
+    backgroundColor: WHITE,
   },
 
   topBarButton: {
@@ -42,14 +42,13 @@ const styles = StyleSheet.create({
   },
 
   generalWrapper: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
 
   pane: {
     padding: 5,
     borderRadius: 5,
-    backgroundColor: '#fff',
+    backgroundColor: WHITE,
     elevation: 5,
   },
 
@@ -59,14 +58,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '700',
     lineHeight: 50,
-    paddingLeft: 45,
-    paddingRight: 45,
+    paddingHorizontal: 45,
     textAlign: 'center',
   },
 
   formTitle: {
-    marginTop: 70,
-    marginBottom: 70,
+    marginVertical: 70,
   },
 
   inputWrapper: {

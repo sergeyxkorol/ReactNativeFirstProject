@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {GREY} from '../../constants';
+import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
   search: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: WHITE,
     elevation: 5,
   },
 

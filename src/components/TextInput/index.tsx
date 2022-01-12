@@ -3,7 +3,7 @@ import {View, Text, TextInput} from 'react-native';
 import TextInputProps from './TextInputProps';
 import styles from './styles';
 
-const CustoTextInput: FC<TextInputProps> = ({
+const CustomTextInput: FC<TextInputProps> = ({
   label,
   onChange,
   secureTextEntry = false,
@@ -29,4 +29,4 @@ const CustoTextInput: FC<TextInputProps> = ({
   );
 };
 
-export default CustoTextInput;
+export default CustomTextInput;

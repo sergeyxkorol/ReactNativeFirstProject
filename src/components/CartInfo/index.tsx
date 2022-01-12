@@ -14,6 +14,18 @@ type Props = {
   };
 };
 
+const regularTextStyle = [
+  commonStyles.text,
+  commonStyles.textRegular,
+  styles.text,
+];
+
+const totalTextStyles = [
+  commonStyles.text,
+  commonStyles.textRegular,
+  styles.textTotal,
+];
+
 const Link: FC<Props> = ({data}) => (
   <View style={[commonStyles.pane, styles.pane]}>
     <Text
@@ -22,53 +34,29 @@ const Link: FC<Props> = ({data}) => (
     </Text>
 
     <View style={styles.row}>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
+      <Text style={regularTextStyle}>
         Price ({data.item_count} {data.item_count === 1 ? 'item' : 'items'})
       </Text>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        {data.display_item_total}
-      </Text>
+      <Text style={regularTextStyle}>{data.display_item_total}</Text>
     </View>
     <View style={styles.row}>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        Delivery
-      </Text>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        {data.display_ship_total}
-      </Text>
+      <Text style={regularTextStyle}>Delivery</Text>
+      <Text style={regularTextStyle}>{data.display_ship_total}</Text>
     </View>
     <View style={styles.row}>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        Discount
-      </Text>
-      <Text
-        style={[
-          commonStyles.text,
-          commonStyles.textRegular,
-          styles.text,
-          styles.discount,
-        ]}>
+      <Text style={regularTextStyle}>Discount</Text>
+      <Text style={[...regularTextStyle, styles.discount]}>
         -{data.display_adjustment_total}
       </Text>
     </View>
     <View style={styles.row}>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        Tax
-      </Text>
-      <Text style={[commonStyles.text, commonStyles.textRegular, styles.text]}>
-        {data.display_tax_total}
-      </Text>
+      <Text style={regularTextStyle}>Tax</Text>
+      <Text style={regularTextStyle}>{data.display_tax_total}</Text>
     </View>
 
     <View style={[styles.row, styles.topBorder]}>
-      <Text
-        style={[commonStyles.text, commonStyles.textRegular, styles.textTotal]}>
-        Ammount Payable
-      </Text>
-      <Text
-        style={[commonStyles.text, commonStyles.textRegular, styles.textTotal]}>
-        {data.display_total}
-      </Text>
+      <Text style={totalTextStyles}>Ammount Payable</Text>
+      <Text style={totalTextStyles}>{data.display_total}</Text>
     </View>
   </View>
 );

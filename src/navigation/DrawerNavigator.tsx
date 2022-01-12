@@ -3,9 +3,9 @@ import {View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Main from '../screens/Main/Main';
 import CartButton from '../components/TopBar/CartButton';
-import {BLUE, FONT_FAMILY} from '../constants';
+import {BLUE, FONT_FAMILY, WHITE} from '../constants';
 import {DRAWER_ROUTES} from '../constants/routes';
-import CustomDrawerContent from '../components/CustomDrawerContent/CustomDrawerContent';
+import CustomDrawerContent from '../components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,7 +18,7 @@ const DrawerNavigator: FC = () => {
         headerStyle: {
           backgroundColor: BLUE,
         },
-        headerTintColor: '#fff',
+        headerTintColor: WHITE,
         headerTitleStyle: {
           fontWeight: 'bold',
           fontFamily: FONT_FAMILY,

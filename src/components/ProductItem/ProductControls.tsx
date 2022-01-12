@@ -26,22 +26,20 @@ const Controls: FC<Props> = ({
     const updatedCount = count + 1;
     setCount(updatedCount);
 
-    onChangeCount && onChangeCount(productId, updatedCount);
+    onChangeCount?.(productId, updatedCount);
   };
 
   const onMinusPress = () => {
     const updatedCount = count - 1;
-    if (!updatedCount) {
-      return;
+
+    if (updatedCount > 0) {
+      setCount(count - 1);
+      onChangeCount?.(productId, updatedCount);
     }
-
-    setCount(count - 1);
-
-    onChangeCount && onChangeCount(productId, updatedCount);
   };
 
   const onDeletePress = () => {
-    onDelete && onDelete(productId);
+    onDelete?.(productId);
   };
 
   return (

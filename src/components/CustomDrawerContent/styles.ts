@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE, FONT_FAMILY, FONT_SIZE, GREY, MAIN_TEXT} from '../../constants';
+import {BLUE, FONT_FAMILY, GREY} from '../../constants';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -31,17 +31,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: GREY,
-  },
-
-  drawerItem: {
-    marginLeft: -5,
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZE,
-    color: MAIN_TEXT,
-  },
-
-  drawerItemLabel: {
-    marginLeft: -15,
   },
 });
 

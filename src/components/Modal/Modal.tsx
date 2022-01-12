@@ -24,9 +24,7 @@ const Modal: FC<Props> = ({icon, title, description, buttons}) => {
           <Text style={styles.description}>{description}</Text>
         )}
         <View style={styles.buttons}>
-          {buttons ? (
-            buttons
-          ) : (
+          {buttons || (
             <Button
               text="OK"
               buttonColor={ButtonColor.Submit}

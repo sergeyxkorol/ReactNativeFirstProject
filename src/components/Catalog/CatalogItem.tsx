@@ -18,7 +18,7 @@ const CatalogItem: FC<Props> = ({data}) => {
       <Pressable
         onPress={() =>
           navigation.navigate(STACK_ROUTES.PRODUCT, {
-            productId: data?.id,
+            productId: data.id,
           })
         }>
         <View style={styles.imageWrapper}>
@@ -31,8 +31,8 @@ const CatalogItem: FC<Props> = ({data}) => {
 
         <ProductInfo
           data={{
-            name: data?.attributes?.name,
-            display_price: data?.attributes?.display_price,
+            name: data.attributes?.name,
+            display_price: data.attributes?.display_price,
           }}
         />
       </Pressable>
