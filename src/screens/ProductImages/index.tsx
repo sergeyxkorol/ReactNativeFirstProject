@@ -1,18 +1,17 @@
 import {useRoute} from '@react-navigation/native';
 import React, {FC} from 'react';
-import {ScrollView, useWindowDimensions} from 'react-native';
+import {ScrollView} from 'react-native';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
+import styles from './styles';
 
 const ProductImages: FC = () => {
   const route = useRoute();
   const imagesList = route.params?.imagesList;
 
-  const {height} = useWindowDimensions();
-
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      contentContainerStyle={{height}}>
+      contentContainerStyle={styles.contentContainer}>
       <ImagesSlider images={imagesList} />
     </ScrollView>
   );
