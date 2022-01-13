@@ -15,3 +15,6 @@ export const BLUE_TEXT = '#00A8F3';
 // Storage
 export const USER_TOKEN = 'userToken';
 export const CART_TOKEN = 'cartToken';
+
+export const KEYBOARD_VERTICAL_OFFSET_IOS = 50;
+export const KEYBOARD_VERTICAL_OFFSET_ANDROID = 90;
