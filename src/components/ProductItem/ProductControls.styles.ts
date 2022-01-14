@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
   },
 
   countText: {
-    marginLeft: 15,
-    marginRight: 15,
+    marginHorizontal: 15,
   },
 
   deleteWrapper: {},

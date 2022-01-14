@@ -8,7 +8,13 @@ import ProductControls from './ProductControls';
 import styles from './styles';
 
 type Props = {
-  data: Object;
+  data: {
+    id: string;
+    attributes: {
+      name: string;
+      display_price: string;
+    };
+  };
   count?: number;
   onChangeCount?: (id: string, updatedCount: number) => void;
   onDelete?: (id: string) => void;

@@ -13,7 +13,7 @@ const CartLogin: FC = () => {
     navigation.navigate(STACK_ROUTES.LOGIN, {routeName: route.name});
   }
 
-  function handleLogIn() {
+  function signUp() {
     navigation.navigate(STACK_ROUTES.SIGN_UP, {routeName: route.name});
   }
 
@@ -25,7 +25,7 @@ const CartLogin: FC = () => {
       buttonText="Login Now"
       handleButtonPress={logIn}
       linkText="New here? Sign Up"
-      handleLinkPress={handleLogIn}
+      handleLinkPress={signUp}
     />
   );
 };

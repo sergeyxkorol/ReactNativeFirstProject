@@ -62,7 +62,7 @@ const SignUp: FC = () => {
         style={commonStyles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
-            <View style={[commonStyles.generalWrapper]}>
+            <View style={commonStyles.generalWrapper}>
               <Text style={[commonStyles.formTitle, commonStyles.titleLarge]}>
                 Ecommerce Store
               </Text>

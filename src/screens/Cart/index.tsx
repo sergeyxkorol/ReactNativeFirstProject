@@ -16,36 +16,35 @@ const Cart: FC = () => {
     async function bootstrapAsync() {
       try {
         const token = await AsyncStorage.getItem(CART_TOKEN);
-        let parsedCartData = null;
 
-        if (token) {
-          setCartToken(token);
-
-          const response = await fetch(`${API_URL}/cart`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Spree-Order-Token': token,
-            },
-          });
-
-          parsedCartData = await response.json();
-
-          setCartData(parsedCartData);
+        if (!token) {
+          return;
         }
+
+        setCartToken(token);
+
+        const cartResponse = await fetch(`${API_URL}/cart`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Spree-Order-Token': token,
+          },
+        });
+        const parsedCartData = await cartResponse.json();
+
+        setCartData(parsedCartData);
 
         const productIds =
           parsedCartData?.data.relationships.line_items.data.map(({id}) => id);
         const url = `${API_URL}/products?filter[ids]=${productIds.join()}`;
-
-        const response = await fetch(url, {
+        const productsResponse = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         });
+        const result = await productsResponse.json();
 
-        const result = await response.json();
         setProductsList(result.data);
       } catch (error) {
         console.error(error);

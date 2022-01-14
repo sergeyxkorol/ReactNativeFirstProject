@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONT_FAMILY, GREY} from '../../constants';
+import {FONT_FAMILY, GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
   overlay: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 45,
     paddingRight: 45,
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
   },
 
   icon: {

@@ -8,8 +8,7 @@ const styles = StyleSheet.create({
 
   button: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
   },
 });
 

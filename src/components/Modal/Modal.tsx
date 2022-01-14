@@ -20,7 +20,7 @@ const Modal: FC<Props> = ({icon, title, description, buttons}) => {
       <View style={styles.modal}>
         <View style={styles.icon}>{icon}</View>
         <Text style={styles.title}>{title}</Text>
-        {description?.length && (
+        {!!description?.length && (
           <Text style={styles.description}>{description}</Text>
         )}
         <View style={styles.buttons}>

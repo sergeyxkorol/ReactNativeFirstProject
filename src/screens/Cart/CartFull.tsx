@@ -68,7 +68,7 @@ const CartFull: FC<Props> = ({
         </View>
       </ScrollView>
 
-      <View style={[styles.buttonWrapper]}>
+      <View style={styles.buttonWrapper}>
         <Button
           buttonColor={ButtonColor.Submit}
           text="Proceed To Payment"
