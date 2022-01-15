@@ -8,32 +8,22 @@
  * @format
  */
 
+import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StatusBar, useColorScheme, View} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import StackNavigator from './src/navigation/StackNavigator';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Main from './src/screens/Main/Main';
-import ProductDetails from './src/screens/ProductDetails/ProductDetails';
+const mainTheme = DefaultTheme;
+mainTheme.colors.background = 'white';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-
-      <View
-        style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}>
-        <Main />
-        {/* <ProductDetails productId="20" /> */}
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <NavigationContainer theme={mainTheme}>
+        <StackNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

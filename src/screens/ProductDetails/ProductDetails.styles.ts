@@ -2,23 +2,8 @@ import {StyleSheet} from 'react-native';
 import {GREY} from '../../constants';
 
 const styles = StyleSheet.create({
-  topBarButton: {
-    height: 25,
-    width: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  tobBarButtonMargin: {
-    marginLeft: 20,
-  },
-
-  tobBarButtonWrapper: {
-    flexDirection: 'row',
-  },
-
   mainWrapper: {
-    paddingBottom: 70,
+    paddingBottom: 130,
   },
 
   content: {
@@ -47,7 +32,7 @@ const styles = StyleSheet.create({
 
   cartButtonWrapper: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 70,
     width: '100%',
     padding: 20,
   },

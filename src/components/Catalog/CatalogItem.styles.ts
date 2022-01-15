@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import {WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
   catalogItem: {
     alignItems: 'center',
     padding: 5,
     borderRadius: 5,
-    backgroundColor: '#fff',
+    backgroundColor: WHITE,
     elevation: 5,
   },
 

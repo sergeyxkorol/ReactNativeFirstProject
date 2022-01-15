@@ -1,61 +1,53 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {Pressable, useWindowDimensions, View} from 'react-native';
-import TopBar from '../../components/TopBar/TopBar';
-import TopBarText from '../../components/TopBar/TopBarText';
+import {useWindowDimensions} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Search from '../../components/Search/Search';
 import Catalog from '../../components/Catalog/Catalog';
 import {Item} from '../../components/Catalog/types/CatalogItem.type';
 import {loadData} from '../../helpers/loadData';
 import {API_URL} from '../../constants';
-import styles from './styles';
-
-import MenuHamburgerIcon from '../../assets/icons/menu-hamburger.svg';
-import CartIcon from '../../assets/icons/cart.svg';
+import styles from '../../commonStyles';
+import Loader from '../../components/Loader';
 
 type ItemsList = Item[];
 
 const MainScreen: FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [itemsList, setItemsList] = useState<ItemsList>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    loadData(`${API_URL}/products`).then(parsedResponse => {
+  const retreiveProducts = useCallback(async () => {
+    try {
+      const parsedResponse = await loadData(`${API_URL}/products`);
+
       setItemsList(parsedResponse.data);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
-  const onRefresh = useCallback(() => {
+  useEffect(() => {
+    async function bootstrapAsync() {
+      setIsLoading(true);
+      await retreiveProducts();
+      setIsLoading(false);
+    }
+
+    bootstrapAsync();
+  }, [retreiveProducts]);
+
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
-
-    loadData(`${API_URL}/products`)
-      .then(parsedResponse => {
-        setItemsList(parsedResponse.data);
-      })
-      .finally(() => {
-        setRefreshing(false);
-      });
-  }, []);
+    await retreiveProducts();
+    setRefreshing(false);
+  }, [retreiveProducts]);
 
   const {height} = useWindowDimensions();
 
-  return (
-    <View style={{height}}>
-      <TopBar>
-        <Pressable
-          style={styles.topBarButton}
-          onPress={() => console.log('Menu button pressed')}>
-          <MenuHamburgerIcon fill="white" />
-        </Pressable>
-
-        <TopBarText>Ecommerce Store</TopBarText>
-
-        <Pressable
-          style={styles.topBarButton}
-          onPress={() => console.log('Cart button pressed')}>
-          <CartIcon fill="white" />
-        </Pressable>
-      </TopBar>
-
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <SafeAreaView style={{...styles.safeArea, height}}>
       <Search />
 
       <Catalog
@@ -63,7 +55,7 @@ const MainScreen: FC = () => {
         onRefreshHandler={onRefresh}
         refreshing={refreshing}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

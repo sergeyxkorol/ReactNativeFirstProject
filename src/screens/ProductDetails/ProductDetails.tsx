@@ -1,28 +1,29 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC, useCallback, useContext, useEffect, useState} from 'react';
 import {
   ScrollView,
-  Pressable,
   RefreshControl,
   View,
   Text,
   useWindowDimensions,
 } from 'react-native';
-import TopBar from '../../components/TopBar/TopBar';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagesSlider from '../../components/ImagesSlider/ImagesSlider';
-import MainInfo from '../../components/Catalog/MainInfo';
+import ProductInfo from '../../components/ProductInfo';
 import OptionsList from '../../components/OptionsList/OptionsList';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
+import Loader from '../../components/Loader';
 import {loadData} from '../../helpers/loadData';
-import {API_URL} from '../../constants';
+import {API_URL, CART_TOKEN} from '../../constants';
 import commonStyles from '../../commonStyles';
+import {MODAL_ROUTES, STACK_ROUTES} from '../../constants/routes';
+import AuthContext from '../../store/AuthContext';
 import styles from './ProductDetails.styles';
 
-import ArrowIcon from '../../assets/icons/arrow.svg';
-import HeartEmptyIcon from '../../assets/icons/heart-empty.svg';
-import CartIcon from '../../assets/icons/cart.svg';
-
-const ProductDetails: FC<{productId: string}> = ({productId}) => {
+const ProductDetails: FC = () => {
+  const {state} = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState({
     attributes: {
       name: '',
@@ -46,57 +47,120 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
     {id: '02', name: 'Green'},
   ];
 
-  useEffect(() => {
-    if (productId) {
-      loadData(`${API_URL}/products/${productId}`).then(parsedResponse => {
-        setProduct(parsedResponse.data);
-      });
-    }
-  }, [productId]);
+  const route = useRoute();
+  const productId = route.params?.productId;
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    let parsedResponse;
-
+  const retreiveProduct = useCallback(async () => {
     try {
       if (productId) {
-        parsedResponse = await loadData(`${API_URL}/products/${productId}`);
+        const parsedResponse = await loadData(
+          `${API_URL}/products/${productId}`,
+        );
         setProduct(parsedResponse.data);
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      setRefreshing(false);
     }
   }, [productId]);
 
+  useEffect(() => {
+    async function bootstrapAsync() {
+      setIsLoading(true);
+      await retreiveProduct();
+      setIsLoading(false);
+    }
+
+    bootstrapAsync();
+  }, [retreiveProduct]);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await retreiveProduct();
+    setRefreshing(false);
+  }, [retreiveProduct]);
+
+  const navigation = useNavigation();
+  const handleAddToCart = useCallback(async () => {
+    if (!state.userToken) {
+      navigation.navigate(MODAL_ROUTES.LOGIN, {
+        routeName: route.name,
+        productId,
+      });
+
+      return;
+    }
+
+    if (!selectedOption) {
+      navigation.navigate(MODAL_ROUTES.SELECT_COLOR);
+
+      return;
+    }
+
+    let cartToken = '';
+    try {
+      cartToken = await AsyncStorage.getItem(CART_TOKEN);
+
+      if (!cartToken) {
+        const response = await fetch(`${API_URL}/cart`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/vnd.api+json',
+          },
+          body: JSON.stringify({
+            public_metadata: {
+              total_weight: 3250,
+            },
+            private_metadata: {
+              had_same_cart_items: true,
+            },
+          }),
+        });
+
+        const cartData = await response.json();
+
+        cartToken = cartData?.data?.attributes?.token;
+
+        await AsyncStorage.setItem(CART_TOKEN, cartToken || '');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      await fetch(`${API_URL}/cart/add_item`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+          'X-Spree-Order-Token': cartToken,
+        },
+        body: JSON.stringify({
+          variant_id: productId,
+          quantity: 1,
+          public_metadata: {
+            first_item_order: true,
+          },
+          private_metadata: {
+            recommended_by_us: false,
+          },
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
+  }, [navigation, productId, route.name, selectedOption, state.userToken]);
+
+  const handleImageSlidePress = () => {
+    navigation.navigate(STACK_ROUTES.PRODUCT_IMAGES, {imagesList});
+  };
+
   const {height} = useWindowDimensions();
 
-  return (
-    <View style={{height}}>
-      <TopBar>
-        <View>
-          <Pressable
-            style={styles.topBarButton}
-            onPress={() => console.log('Back button pressed')}>
-            <ArrowIcon fill="white" />
-          </Pressable>
-        </View>
-
-        <View style={styles.tobBarButtonWrapper}>
-          <Pressable
-            style={[styles.topBarButton, styles.tobBarButtonMargin]}
-            onPress={() => console.log('Add to the Wish list button pressed')}>
-            <HeartEmptyIcon stroke="white" />
-          </Pressable>
-          <Pressable
-            style={[styles.topBarButton, styles.tobBarButtonMargin]}
-            onPress={() => console.log('Cart button pressed')}>
-            <CartIcon fill="white" />
-          </Pressable>
-        </View>
-      </TopBar>
-
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <View style={{...commonStyles.safeArea, height}}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={styles.mainWrapper}
@@ -106,13 +170,13 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
         <View style={styles.slider}>
           <ImagesSlider
             images={imagesList}
-            onPressHandler={(imageId: string) => console.log(imageId)}
+            onPressHandler={handleImageSlidePress}
           />
         </View>
 
         <View style={styles.content}>
           <View style={[styles.section, styles.borderBottom]}>
-            <MainInfo
+            <ProductInfo
               data={{
                 name: product?.attributes?.name,
                 display_price: product?.attributes?.display_price,
@@ -151,7 +215,7 @@ const ProductDetails: FC<{productId: string}> = ({productId}) => {
         <Button
           buttonColor={ButtonColor.Submit}
           text="ADD TO CART"
-          onPressHandler={() => console.log('Add To Cart button pressed')}
+          onPressHandler={handleAddToCart}
         />
       </View>
     </View>

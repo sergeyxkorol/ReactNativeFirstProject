@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZE,
+    textTransform: 'uppercase',
     color: 'white',
   },
 });
