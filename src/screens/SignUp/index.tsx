@@ -30,12 +30,33 @@ const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordConfirmationError, setPasswordConfirmationError] =
+    useState('');
 
   const {actions} = useContext(AuthContext);
   const route = useRoute();
 
   async function submit() {
     if (!name || !email || !password || password !== passwordConfirmation) {
+      if (!name) {
+        setNameError('Name is required');
+      }
+
+      if (!email) {
+        setEmailError('Email is required');
+      }
+
+      if (!password) {
+        setPasswordError('Password is required');
+      }
+
+      if (password !== passwordConfirmation) {
+        setPasswordConfirmationError("Password doesn't match");
+      }
+
       return;
     }
 
@@ -67,17 +88,27 @@ const SignUp: FC = () => {
                 Ecommerce Store
               </Text>
               <View style={commonStyles.inputWrapper}>
-                <TextInput label="Full Name" onChange={setName} />
-                <TextInput label="Email Address" onChange={setEmail} />
+                <TextInput
+                  label="Full Name"
+                  onChange={setName}
+                  error={nameError}
+                />
+                <TextInput
+                  label="Email Address"
+                  onChange={setEmail}
+                  error={emailError}
+                />
                 <TextInput
                   label="Password"
                   onChange={setPassword}
                   secureTextEntry={true}
+                  error={passwordError}
                 />
                 <TextInput
                   label="Confirm Password"
                   onChange={setPasswordConfirmation}
                   secureTextEntry={true}
+                  error={passwordConfirmationError}
                 />
               </View>
 

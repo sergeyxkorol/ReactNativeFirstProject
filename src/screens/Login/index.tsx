@@ -12,13 +12,25 @@ import styles from './styles';
 
 const Logout: FC = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>('');
   const {actions} = useContext(AuthContext);
   const route = useRoute();
 
   async function submit() {
+    setEmailError(null);
+    setPasswordError(null);
+
     if (!email || !password) {
+      if (!email) {
+        setEmailError('Email is required');
+      }
+
+      if (!password) {
+        setPasswordError('Password is required');
+      }
       return;
     }
 
@@ -40,12 +52,21 @@ const Logout: FC = () => {
       </Text>
 
       <View style={commonStyles.inputWrapper}>
-        <TextInput label="Email Address" onChange={setEmail} />
-        <TextInput
-          label="Password"
-          onChange={setPassword}
-          secureTextEntry={true}
-        />
+        <View>
+          <TextInput
+            label="Email Address"
+            onChange={setEmail}
+            error={emailError}
+          />
+        </View>
+        <View>
+          <TextInput
+            label="Password"
+            onChange={setPassword}
+            secureTextEntry={true}
+            error={passwordError}
+          />
+        </View>
         <Link text="Forgot Password?" onPressHandler={handleForgotPassword} />
       </View>
 
