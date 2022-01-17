@@ -1,10 +1,11 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
   TextInput,
   NativeModules,
   LayoutAnimation,
+  Pressable,
 } from 'react-native';
 import TextInputProps from './TextInputProps';
 import styles from './styles';
@@ -19,15 +20,36 @@ const CustomTextInput: FC<TextInputProps> = ({
   UIManager.setLayoutAnimationEnabledExperimental &&
     UIManager.setLayoutAnimationEnabledExperimental(true);
 
+  const inputRef = useRef(null);
   const [value, setValue] = useState('');
-  const [errorMessageY, setErrorMessageY] = useState(0);
+  const [errorMessagePositionTop, setErrorMessagePositionTop] = useState(0);
+  const [labelPositionTop, setLabelPositionTop] = useState(9);
+  const [labelPositionLeft, setLabelPositionLeft] = useState(2);
 
   useEffect(() => {
     if (error) {
       LayoutAnimation.spring();
-      setErrorMessageY(5);
+      setErrorMessagePositionTop(5);
     }
   }, [error]);
+
+  function onPressInputWrapper() {
+    inputRef.current.focus();
+  }
+
+  function onFocus() {
+    LayoutAnimation.linear();
+    setLabelPositionTop(-9);
+    setLabelPositionLeft(15);
+  }
+
+  function onBlur() {
+    if (!value.length) {
+      LayoutAnimation.linear();
+      setLabelPositionTop(9);
+      setLabelPositionLeft(2);
+    }
+  }
 
   function handleTextChange(text: string) {
     setValue(text);
@@ -36,18 +58,28 @@ const CustomTextInput: FC<TextInputProps> = ({
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.inputWrapper}>
-        <Text style={[styles.label]}>{label}</Text>
+      <Pressable style={styles.inputWrapper} onPress={onPressInputWrapper}>
+        <Text
+          style={[
+            styles.label,
+            {top: labelPositionTop, left: labelPositionLeft},
+          ]}>
+          {label}
+        </Text>
         <TextInput
-          placeholder="Text"
+          ref={inputRef}
           value={value}
           onChangeText={handleTextChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
           secureTextEntry={secureTextEntry}
           style={styles.input}
         />
-      </View>
+      </Pressable>
       {!!error && (
-        <Text style={[styles.error, {top: errorMessageY}]}>{error}</Text>
+        <Text style={[styles.error, {top: errorMessagePositionTop}]}>
+          {error}
+        </Text>
       )}
     </View>
   );
