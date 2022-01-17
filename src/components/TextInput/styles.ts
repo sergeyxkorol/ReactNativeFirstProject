@@ -10,10 +10,9 @@ const styles = StyleSheet.create({
 
   label: {
     position: 'absolute',
-    top: -9,
-    left: 15,
-    // top: 9,
-    // left: 2,
+    top: 0,
+    left: 0,
+    transform: [{translateX: 2}, {translateY: 14}],
     zIndex: 1,
     paddingHorizontal: 5,
     backgroundColor: WHITE,
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: GREY,
+    fontSize: 15,
   },
 
   error: {

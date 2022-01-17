@@ -6,6 +6,7 @@ import {
   NativeModules,
   LayoutAnimation,
   Pressable,
+  Animated,
 } from 'react-native';
 import TextInputProps from './TextInputProps';
 import styles from './styles';
@@ -21,10 +22,9 @@ const CustomTextInput: FC<TextInputProps> = ({
     UIManager.setLayoutAnimationEnabledExperimental(true);
 
   const inputRef = useRef(null);
+  const translation = useRef(new Animated.Value(0)).current;
   const [value, setValue] = useState('');
   const [errorMessagePositionTop, setErrorMessagePositionTop] = useState(0);
-  const [labelPositionTop, setLabelPositionTop] = useState(9);
-  const [labelPositionLeft, setLabelPositionLeft] = useState(2);
 
   useEffect(() => {
     if (error) {
@@ -38,16 +38,20 @@ const CustomTextInput: FC<TextInputProps> = ({
   }
 
   function onFocus() {
-    LayoutAnimation.linear();
-    setLabelPositionTop(-9);
-    setLabelPositionLeft(15);
+    Animated.timing(translation, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   }
 
   function onBlur() {
     if (!value.length) {
-      LayoutAnimation.linear();
-      setLabelPositionTop(9);
-      setLabelPositionLeft(2);
+      Animated.timing(translation, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
     }
   }
 
@@ -59,13 +63,28 @@ const CustomTextInput: FC<TextInputProps> = ({
   return (
     <View style={styles.wrapper}>
       <Pressable style={styles.inputWrapper} onPress={onPressInputWrapper}>
-        <Text
+        <Animated.Text
           style={[
             styles.label,
-            {top: labelPositionTop, left: labelPositionLeft},
+            {
+              transform: [
+                {
+                  translateX: translation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [2, 15],
+                  }),
+                },
+                {
+                  translateY: translation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [9, -9],
+                  }),
+                },
+              ],
+            },
           ]}>
           {label}
-        </Text>
+        </Animated.Text>
         <TextInput
           ref={inputRef}
           value={value}
