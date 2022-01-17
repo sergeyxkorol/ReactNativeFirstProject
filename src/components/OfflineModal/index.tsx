@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {Modal, View} from 'react-native';
 import CustomModal from '../Modal/Modal';
 import Button from '../Button/Button';
@@ -46,7 +46,8 @@ const OfflineModal: FC<Props> = ({isVisible, onClose, onRetry}) => {
     <Modal visible={isVisible} animationType="slide" transparent={true}>
       <CustomModal
         icon={<ClaimCircleIcon />}
-        title={'Internet Connection Error'}
+        title="Connection Error"
+        description="Looks like your device is not connected to the  Internet"
         buttons={buttons}
         showOverlay={true}
       />
