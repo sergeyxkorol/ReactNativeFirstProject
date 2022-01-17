@@ -10,13 +10,22 @@ type Props = {
   title: string;
   description?: string;
   buttons?: ReactNode;
+  showOverlay?: boolean;
 };
 
-const Modal: FC<Props> = ({icon, title, description, buttons}) => {
+const Modal: FC<Props> = ({
+  icon,
+  title,
+  description,
+  buttons,
+  showOverlay = true,
+}) => {
   const navigation = useNavigation();
 
+  const overlayStyles = [styles.container, showOverlay ? styles.overlay : null];
+
   return (
-    <View style={styles.overlay}>
+    <View style={overlayStyles}>
       <View style={styles.modal}>
         <View style={styles.icon}>{icon}</View>
         <Text style={styles.title}>{title}</Text>
