@@ -28,6 +28,7 @@ type Props = {
 
   onChangeCount: (id: string, updatedCount: number) => void;
   onDeleteProduct: (id: string) => void;
+  onOrderProduct: () => void;
 };
 
 const CartFull: FC<Props> = ({
@@ -35,6 +36,7 @@ const CartFull: FC<Props> = ({
   productsList,
   onChangeCount,
   onDeleteProduct,
+  onOrderProduct,
 }) => {
   const {height} = useWindowDimensions();
 
@@ -72,7 +74,7 @@ const CartFull: FC<Props> = ({
         <Button
           buttonColor={ButtonColor.Submit}
           text="Proceed To Payment"
-          onPressHandler={() => console.log('Proceed To Payment pressed')}
+          onPressHandler={onOrderProduct}
         />
       </View>
     </View>

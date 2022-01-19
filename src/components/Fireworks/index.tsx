@@ -3,8 +3,8 @@ import {Animated, useWindowDimensions, View} from 'react-native';
 import styles from './styles';
 
 type Props = {
-  duration: number;
-  explosionsCount: number;
+  duration?: number;
+  explosionsCount?: number;
 };
 
 const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {

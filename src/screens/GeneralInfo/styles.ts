@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {GREY} from '../../constants';
+import {BLUE_TEXT, GREY} from '../../constants';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -10,9 +10,16 @@ const styles = StyleSheet.create({
 
   headerWrapper: {
     alignItems: 'center',
+    paddingHorizontal: 40,
+    marginBottom: 10,
   },
 
-  headerText: {},
+  headerText: {
+    fontSize: 40,
+    fontWeight: '700',
+    textAlign: 'center',
+    color: BLUE_TEXT,
+  },
 
   icon: {
     alignItems: 'center',

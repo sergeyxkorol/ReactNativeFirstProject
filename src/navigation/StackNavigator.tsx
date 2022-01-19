@@ -23,6 +23,7 @@ import AuthContext from '../store/AuthContext';
 import AuthActions from '../store/AuthActions';
 import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
 import CartLogin from '../screens/CartLogin/CartLogin';
+import OrderConfirmation from '../screens/OrderConfirmation';
 
 const Stack = createNativeStackNavigator();
 
@@ -151,6 +152,13 @@ const StackNavigator = () => {
               }}
             />
           )}
+          <Stack.Screen
+            name={STACK_ROUTES.ORDER_CONFIRMATION}
+            component={OrderConfirmation}
+            options={{
+              title: '',
+            }}
+          />
           <Stack.Screen
             name={STACK_ROUTES.ORDERS}
             component={Orders}
