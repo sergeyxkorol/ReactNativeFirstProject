@@ -13,7 +13,8 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
   const scale = useRef(new Animated.Value(0)).current;
   const opacity = useRef(new Animated.Value(0)).current;
   // TODO: generate random color
-  const explodeColor = 'red';
+  const explodeColor = 'gold';
+  const explosionRadius = 60;
 
   const {height, width} = useWindowDimensions();
 
@@ -22,8 +23,12 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
 
     for (let i = 0; i < explosionsCount; i++) {
       positions[i] = {
-        x: Math.ceil(Math.random() * width),
-        y: Math.ceil(Math.random() * height),
+        x: Math.ceil(
+          Math.random() * (width + explosionRadius) - explosionRadius,
+        ),
+        y: Math.ceil(
+          Math.random() * (height + explosionRadius) - explosionRadius,
+        ),
       };
     }
 
@@ -40,10 +45,11 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
 
     const particlesList = [];
     for (let i = 1; i <= particlesCount; ++i) {
-      const y = Math.sin(particle * i * (Math.PI / 180)) * radius;
-      const x = Math.cos(particle * i * (Math.PI / 180)) * radius;
+      const particlePosition = particle * i * (Math.PI / 180);
+      const y = Math.sin(particlePosition) * radius + totalOffset;
+      const x = Math.cos(particlePosition) * radius + totalOffset;
 
-      particlesList.push({x: x + totalOffset, y: y + totalOffset});
+      particlesList.push({x, y});
     }
 
     return particlesList;

@@ -15,7 +15,7 @@ const OrderConfirmation: FC = () => {
 
   return (
     <>
-      <Fireworks duration={400} explosionsCount={5} />
+      <Fireworks duration={400} explosionsCount={4} />
       <GeneralInfo
         headerText="Order Confirmation"
         icon={<CartConfirmIcon />}
