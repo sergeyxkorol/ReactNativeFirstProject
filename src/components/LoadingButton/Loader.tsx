@@ -15,6 +15,7 @@ const Loader: FC = () => {
 
   return (
     <Animated.View style={[styles.status, {opacity}]}>
+      {/* ToDo: change to bouncing dots animation */}
       <Text style={styles.text}>...</Text>
     </Animated.View>
   );

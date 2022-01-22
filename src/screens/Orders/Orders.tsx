@@ -7,7 +7,7 @@ const Orders: FC = () => (
     <Text>My Orders</Text>
 
     <LoadingButton
-      title="ADD TO CART"
+      title="My Awesome Animated Button"
       callback={() => new Promise(resolve => setTimeout(resolve, 3000))}
     />
   </View>

@@ -56,7 +56,7 @@ const Fail: FC<Props> = ({}) => {
           }),
         },
       ]}>
-      <Text style={[styles.text]}>Failed</Text>
+      <Text style={styles.text}>Failed</Text>
       <Animated.View
         style={[
           styles.statusIcon,
@@ -72,7 +72,7 @@ const Fail: FC<Props> = ({}) => {
             ],
           },
         ]}>
-        <AnimatedSvg d={stroke} color={WHITE} width={3} delay={500} />
+        <AnimatedSvg d={stroke} color={WHITE} width={1} delay={500} />
       </Animated.View>
     </Animated.View>
   );

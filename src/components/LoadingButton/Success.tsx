@@ -32,9 +32,9 @@ const Success: FC<Props> = () => {
           }),
         },
       ]}>
-      <Text style={[styles.text]}>Success</Text>
+      <Text style={styles.text}>Success</Text>
       <View style={[styles.statusIcon, styles.statusIconSuccess]}>
-        <AnimatedSvg d={stroke} color={WHITE} width={3} delay={500} />
+        <AnimatedSvg d={stroke} color={WHITE} width={1} delay={500} />
       </View>
     </Animated.View>
   );

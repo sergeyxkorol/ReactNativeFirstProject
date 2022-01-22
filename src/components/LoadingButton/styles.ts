@@ -1,7 +1,24 @@
 import {StyleSheet} from 'react-native';
-import {DARK_GREEN, DARK_RED, WHITE} from '../../constants';
+import {
+  DARK_GREEN,
+  DARK_RED,
+  FONT_FAMILY,
+  FONT_SIZE,
+  WHITE,
+} from '../../constants';
 
 const styles = StyleSheet.create({
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  container: {
+    borderRadius: 5,
+    elevation: 5,
+  },
+
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -9,6 +26,9 @@ const styles = StyleSheet.create({
   },
 
   text: {
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZE,
+    textTransform: 'uppercase',
     color: WHITE,
   },
 
@@ -18,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 5,
   },
 
   statusIcon: {
