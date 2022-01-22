@@ -22,14 +22,14 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
     const positions = [];
 
     for (let i = 0; i < explosionsCount; i++) {
-      positions[i] = {
-        x: Math.ceil(
-          Math.random() * (width + explosionRadius) - explosionRadius,
-        ),
-        y: Math.ceil(
-          Math.random() * (height + explosionRadius) - explosionRadius,
-        ),
-      };
+      const x = Math.ceil(
+        Math.random() * (width + explosionRadius) - explosionRadius,
+      );
+      const y = Math.ceil(
+        Math.random() * (height + explosionRadius) - explosionRadius,
+      );
+
+      positions.push({x, y});
     }
 
     return positions;
@@ -42,9 +42,9 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
     const offsetToParentCenter = radius / 2;
     const offsetToChildCenter = 5;
     const totalOffset = offsetToParentCenter - offsetToChildCenter;
-
     const particlesList = [];
-    for (let i = 1; i <= particlesCount; ++i) {
+
+    for (let i = 0; i < particlesCount; i++) {
       const particlePosition = particle * i * (Math.PI / 180);
       const y = Math.sin(particlePosition) * radius + totalOffset;
       const x = Math.cos(particlePosition) * radius + totalOffset;
@@ -61,6 +61,8 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
   }, [generateParticles, generateExplodesPositions]);
 
   useEffect(() => {
+    const animationsInterval = duration * 3;
+
     const animation = setInterval(() => {
       opacity.setValue(1);
 
@@ -80,7 +82,7 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
         const explodePositions = generateExplodesPositions();
         setExplodes(explodePositions);
       });
-    }, 1500);
+    }, animationsInterval);
 
     return () => clearInterval(animation);
   }, [duration, generateExplodesPositions, opacity, scale]);

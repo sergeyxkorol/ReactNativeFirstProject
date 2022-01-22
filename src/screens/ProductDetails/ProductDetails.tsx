@@ -20,6 +20,7 @@ import commonStyles from '../../commonStyles';
 import {MODAL_ROUTES, STACK_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
 import styles from './ProductDetails.styles';
+import LoadingButton from '../../components/LoadingButton';
 
 const ProductDetails: FC = () => {
   const {state} = useContext(AuthContext);
