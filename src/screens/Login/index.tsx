@@ -12,8 +12,8 @@ import styles from './styles';
 
 const Logout: FC = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>('');
   const {actions} = useContext(AuthContext);

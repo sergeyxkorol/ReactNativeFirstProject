@@ -22,3 +22,5 @@ export const CART_TOKEN = 'cartToken';
 
 export const KEYBOARD_VERTICAL_OFFSET_IOS = 50;
 export const KEYBOARD_VERTICAL_OFFSET_ANDROID = 90;
+
+export const ERROR_MESSAGE_TOP_OFFSET = 5;

@@ -7,9 +7,14 @@ type Props = {
   explosionsCount?: number;
 };
 
+type Coordinates = {
+  x: number;
+  y: number;
+};
+
 const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
-  const [explodes, setExplodes] = useState<{x: number; y: number}[]>([]);
-  const [particles, setParticles] = useState<{x: number; y: number}[]>([]);
+  const [explodes, setExplodes] = useState<Coordinates[]>([]);
+  const [particles, setParticles] = useState<Coordinates[]>([]);
   const scale = useRef(new Animated.Value(0)).current;
   const opacity = useRef(new Animated.Value(0)).current;
   // TODO: generate random color
@@ -19,18 +24,12 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
   const {height, width} = useWindowDimensions();
 
   const generateExplodesPositions = useCallback(() => {
-    const positions = [];
-
-    for (let i = 0; i < explosionsCount; i++) {
-      const x = Math.ceil(
-        Math.random() * (width + explosionRadius) - explosionRadius,
-      );
-      const y = Math.ceil(
+    const positions = [...Array(explosionsCount)].map(() => ({
+      x: Math.ceil(Math.random() * (width + explosionRadius) - explosionRadius),
+      y: Math.ceil(
         Math.random() * (height + explosionRadius) - explosionRadius,
-      );
-
-      positions.push({x, y});
-    }
+      ),
+    }));
 
     return positions;
   }, [explosionsCount, height, width]);
@@ -89,8 +88,9 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
 
   return (
     <>
-      {explodes.map(explode => (
+      {explodes.map((explode, explodeIndex) => (
         <Animated.View
+          key={explodeIndex + explode.x}
           style={[
             styles.container,
             {
@@ -108,9 +108,9 @@ const Fireworks: FC<Props> = ({duration = 500, explosionsCount = 4}) => {
             },
           ]}>
           <View style={styles.center}>
-            {particles.map((particle, index) => (
+            {particles.map((particle, particleIndex) => (
               <View
-                key={index + particle.x}
+                key={particleIndex + particle.x}
                 style={[
                   styles.particle,
                   {

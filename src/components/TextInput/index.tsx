@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import TextInputProps from './TextInputProps';
 import styles from './styles';
+import {ERROR_MESSAGE_TOP_OFFSET} from '../../constants';
 
 const CustomTextInput: FC<TextInputProps> = ({
   label,
@@ -18,8 +19,7 @@ const CustomTextInput: FC<TextInputProps> = ({
   error = null,
 }) => {
   const {UIManager} = NativeModules;
-  UIManager.setLayoutAnimationEnabledExperimental &&
-    UIManager.setLayoutAnimationEnabledExperimental(true);
+  UIManager.setLayoutAnimationEnabledExperimental?.(true);
 
   const inputRef = useRef(null);
   const translation = useRef(new Animated.Value(0)).current;
@@ -29,7 +29,7 @@ const CustomTextInput: FC<TextInputProps> = ({
   useEffect(() => {
     if (error) {
       LayoutAnimation.spring();
-      setErrorMessagePositionTop(5);
+      setErrorMessagePositionTop(ERROR_MESSAGE_TOP_OFFSET);
     }
   }, [error]);
 

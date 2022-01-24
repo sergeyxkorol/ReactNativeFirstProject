@@ -49,16 +49,14 @@ const LoadingButton: FC<Props> = ({title, callback}) => {
   };
 
   const onPress = async () => {
-    if (isLoading) {
-      return;
-    }
-
-    try {
-      setStatus(Status.Loading);
-      await callback();
-      setStatus(Status.Success);
-    } catch (error) {
-      setStatus(Status.Fail);
+    if (!isLoading) {
+      try {
+        setStatus(Status.Loading);
+        await callback();
+        setStatus(Status.Success);
+      } catch (error) {
+        setStatus(Status.Fail);
+      }
     }
   };
 
