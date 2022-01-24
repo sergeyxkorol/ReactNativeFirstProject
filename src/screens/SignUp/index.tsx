@@ -24,45 +24,41 @@ import {STACK_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
 import styles from './styles';
 
+type Errors = {
+  name?: string;
+  email?: string;
+  password?: string;
+  passwordConfirmation?: string;
+};
+
 const SignUp: FC = () => {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordConfirmationError, setPasswordConfirmationError] =
-    useState('');
+  const [errors, setErrors] = useState<Errors>({});
 
   const {actions} = useContext(AuthContext);
   const route = useRoute();
 
   async function submit() {
-    if (!name || !email || !password || password !== passwordConfirmation) {
-      if (!name) {
-        setNameError('Name is required');
-      }
+    setErrors({});
+    const formErrors = {
+      ...(!name && {name: 'Name is required'}),
+      ...(!email && {email: 'Email is required'}),
+      ...(!password && {password: 'Password is required'}),
+      ...(password !== passwordConfirmation && {
+        passwordConfirmation: "Password doesn't match",
+      }),
+    };
 
-      if (!email) {
-        setEmailError('Email is required');
-      }
-
-      if (!password) {
-        setPasswordError('Password is required');
-      }
-
-      if (password !== passwordConfirmation) {
-        setPasswordConfirmationError("Password doesn't match");
-      }
-
-      return;
+    if (!Object.keys(formErrors).length) {
+      await actions.signUp(email, password, passwordConfirmation);
+      navigation.navigate(route.params?.routeName, {...route.params});
+    } else {
+      setErrors(formErrors);
     }
-
-    await actions.signUp(email, password, passwordConfirmation);
-
-    navigation.navigate(route.params?.routeName, {...route.params});
   }
 
   function handleLogIn() {
@@ -91,24 +87,24 @@ const SignUp: FC = () => {
                 <TextInput
                   label="Full Name"
                   onChange={setName}
-                  error={nameError}
+                  error={errors.name}
                 />
                 <TextInput
                   label="Email Address"
                   onChange={setEmail}
-                  error={emailError}
+                  error={errors.email}
                 />
                 <TextInput
                   label="Password"
                   onChange={setPassword}
                   secureTextEntry={true}
-                  error={passwordError}
+                  error={errors.password}
                 />
                 <TextInput
                   label="Confirm Password"
                   onChange={setPasswordConfirmation}
                   secureTextEntry={true}
-                  error={passwordConfirmationError}
+                  error={errors.passwordConfirmation}
                 />
               </View>
 
