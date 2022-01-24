@@ -4,12 +4,15 @@ import CartFull from './CartFull';
 import CartEmpty from './CartEmpty';
 import {API_URL, CART_TOKEN} from '../../constants';
 import Loader from '../../components/Loader';
+import {useNavigation} from '@react-navigation/native';
+import {STACK_ROUTES} from '../../constants/routes';
 
 const Cart: FC = () => {
   const [cartToken, setCartToken] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
   const [productsList, setProductsList] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     // ToDo: move this logic to action
@@ -104,6 +107,10 @@ const Cart: FC = () => {
     }
   };
 
+  const onOrderProduct = () => {
+    navigation.navigate(STACK_ROUTES.ORDER_CONFIRMATION);
+  };
+
   const cartContent = (
     <>
       {!cartData || !cartData?.data?.attributes.item_count ? (
@@ -114,6 +121,7 @@ const Cart: FC = () => {
           productsList={productsList}
           onChangeCount={onChangeCount}
           onDeleteProduct={onDeleteProduct}
+          onOrderProduct={onOrderProduct}
         />
       )}
     </>

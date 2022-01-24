@@ -2,10 +2,13 @@ import {StyleSheet} from 'react-native';
 import {FONT_FAMILY, GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
-  overlay: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  overlay: {
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

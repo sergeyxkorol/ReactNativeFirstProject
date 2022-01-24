@@ -9,6 +9,7 @@ export const STACK_ROUTES = {
   PROFILE: 'stack/profile',
   WISH_LIST: 'stack/wishList',
   CART: 'stack/cart',
+  ORDER_CONFIRMATION: 'stack/orderConfirmation',
   ORDERS: 'stack/orders',
   SIGN_UP: 'stack/signUp',
   LOGIN: 'stack/login',

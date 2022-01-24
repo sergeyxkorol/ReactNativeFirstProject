@@ -10,21 +10,33 @@ import {STACK_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
 import styles from './styles';
 
+type Errors = {
+  email?: string;
+  password?: string;
+};
+
 const Logout: FC = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState<Errors>({});
   const {actions} = useContext(AuthContext);
   const route = useRoute();
 
   async function submit() {
-    if (!email || !password) {
-      return;
+    setErrors({});
+
+    const formErrors = {
+      ...(!email && {email: 'Email is required'}),
+      ...(!password && {password: 'Password is required'}),
+    };
+
+    if (!Object.keys(formErrors).length) {
+      await actions.logIn(email, password);
+      navigation.navigate(route.params?.routeName, {...route.params});
+    } else {
+      setErrors(formErrors);
     }
-
-    await actions.logIn(email, password);
-
-    navigation.navigate(route.params?.routeName, {...route.params});
   }
 
   function handleForgotPassword() {}
@@ -40,12 +52,21 @@ const Logout: FC = () => {
       </Text>
 
       <View style={commonStyles.inputWrapper}>
-        <TextInput label="Email Address" onChange={setEmail} />
-        <TextInput
-          label="Password"
-          onChange={setPassword}
-          secureTextEntry={true}
-        />
+        <View>
+          <TextInput
+            label="Email Address"
+            onChange={setEmail}
+            error={errors?.email}
+          />
+        </View>
+        <View>
+          <TextInput
+            label="Password"
+            onChange={setPassword}
+            secureTextEntry={true}
+            error={errors?.password}
+          />
+        </View>
         <Link text="Forgot Password?" onPressHandler={handleForgotPassword} />
       </View>
 
