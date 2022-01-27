@@ -6,11 +6,13 @@ import styles from './DrawerItem.styles';
 type Props = {
   label: string;
   icon: ReactNode;
-  link: string;
+  link?: string;
+  onPress: () => void;
 };
 
-const CustomDrawerItem: FC<Props> = ({label, icon, link}) => {
+const CustomDrawerItem: FC<Props> = ({label, icon, link, onPress}) => {
   const navigation = useNavigation();
+  const onPressHandler = link ? () => navigation.navigate(link) : onPress;
 
   return (
     <DrawerItem
@@ -18,7 +20,7 @@ const CustomDrawerItem: FC<Props> = ({label, icon, link}) => {
       icon={() => icon}
       style={styles.drawerItem}
       labelStyle={styles.drawerItemLabel}
-      onPress={() => navigation.navigate(link)}
+      onPress={onPressHandler}
     />
   );
 };
