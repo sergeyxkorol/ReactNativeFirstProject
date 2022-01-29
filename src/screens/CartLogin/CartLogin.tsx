@@ -1,6 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {STACK_ROUTES} from '../../constants/routes';
+import {WHITE} from '../../constants';
 import GeneralInfo from '../GeneralInfo';
 
 import CartLoginFirstIcon from '../../assets/avatars/CartLoginFirst.svg';
@@ -19,7 +20,7 @@ const CartLogin: FC = () => {
 
   return (
     <GeneralInfo
-      icon={<CartLoginFirstIcon />}
+      icon={<CartLoginFirstIcon fill={WHITE} />}
       title="Login First!"
       description="Login first to view your cart"
       buttonText="Login Now"
