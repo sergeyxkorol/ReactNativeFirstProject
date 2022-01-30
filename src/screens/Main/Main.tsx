@@ -1,15 +1,19 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {useWindowDimensions} from 'react-native';
+import {Pressable, useWindowDimensions, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import NetInfo from '@react-native-community/netinfo';
-import Search from '../../components/Search/Search';
 import Catalog from '../../components/Catalog/Catalog';
 import {Item} from '../../components/Catalog/types/CatalogItem.type';
 import {loadData} from '../../helpers/loadData';
-import {API_URL} from '../../constants';
-import styles from '../../commonStyles';
+import {API_URL, GREY} from '../../constants';
+import commonStyles from '../../commonStyles';
 import Loader from '../../components/Loader';
 import OfflineModal from '../../components/OfflineModal';
+import {useNavigation} from '@react-navigation/native';
+import {STACK_ROUTES} from '../../constants/routes';
+import styles from './styles';
+
+import SearchIcon from '../../assets/icons/search.svg';
 
 type ItemsList = Item[];
 
@@ -67,6 +71,12 @@ const MainScreen: FC = () => {
     setIsOffline(false);
   }, []);
 
+  const navigation = useNavigation();
+
+  const onPressSearch = () => {
+    navigation.navigate(STACK_ROUTES.SEARCH);
+  };
+
   const {height} = useWindowDimensions();
 
   return (
@@ -74,8 +84,12 @@ const MainScreen: FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <SafeAreaView style={{...styles.safeArea, height}}>
-          <Search />
+        <SafeAreaView style={{...commonStyles.safeArea, height}}>
+          <View style={styles.search}>
+            <Pressable style={styles.searchWrapper} onPress={onPressSearch}>
+              <SearchIcon fill={GREY} />
+            </Pressable>
+          </View>
           <Catalog
             itemsList={itemsList}
             onRefreshHandler={onRefresh}

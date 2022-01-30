@@ -2,14 +2,15 @@ import {StyleSheet} from 'react-native';
 import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
-  mainWrapper: {
-    paddingBottom: 120,
+  wrapper: {
+    paddingTop: 36,
+    paddingBottom: 170,
   },
 
   search: {
     padding: 20,
+    paddingBottom: 0,
     backgroundColor: WHITE,
-    elevation: 5,
   },
 
   searchWrapper: {
@@ -20,6 +21,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: GREY,
+  },
+
+  searchInput: {
+    flex: 1,
+    height: 34,
   },
 });
 

@@ -4,6 +4,7 @@ export const DRAWER_ROUTES = {
 
 export const STACK_ROUTES = {
   MAIN: 'stack/main',
+  SEARCH: 'stack/search',
   PRODUCT: 'stack/product',
   PRODUCT_IMAGES: 'stack/productImages',
   PROFILE: 'stack/profile',

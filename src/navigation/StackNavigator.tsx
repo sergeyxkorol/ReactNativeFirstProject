@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerNavigator from '../navigation/DrawerNavigator';
 import ProductDetails from '../screens/ProductDetails/ProductDetails';
+import SearchResults from '../screens/SearchResults';
 import Profile from '../screens/Profile/Profile';
 import WishList from '../screens/WishList/WishList';
 import Cart from '../screens/Cart';
@@ -185,6 +186,14 @@ const StackNavigator = () => {
               />
             </>
           )}
+          <Stack.Screen
+            name={STACK_ROUTES.SEARCH}
+            component={SearchResults}
+            options={{
+              title: 'Search',
+              headerRight: () => <CartButton />,
+            }}
+          />
         </Stack.Group>
 
         <Stack.Group screenOptions={{presentation: 'modal'}}>
