@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Image, Pressable, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import commonStyles from '../../commonStyles';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
@@ -11,6 +12,7 @@ import styles from './styles';
 
 import ProfileIcon from '../../assets/avatars/Profile.svg';
 import {
+  PROFILE_IMAGE,
   PROFILE_IMAGE_HEIGHT,
   PROFILE_IMAGE_WIDTH,
   WHITE,
@@ -34,6 +36,19 @@ const Profile: FC = () => {
   const [image, setImage] = useState<string | null | undefined>(null);
   const [errors, setErrors] = useState<Error>({});
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      try {
+        const profileImage = await AsyncStorage.getItem(PROFILE_IMAGE);
+        setImage(profileImage);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    bootstrapAsync();
+  }, []);
 
   const onChangeName = (name: string) => {
     setProfileData({...profileData, name});
@@ -65,7 +80,10 @@ const Profile: FC = () => {
       const {assets} = await launchImageLibrary(options);
       const photoUri = assets?.[0].uri;
 
-      setImage(photoUri);
+      if (photoUri) {
+        setImage(photoUri);
+        await AsyncStorage.setItem(PROFILE_IMAGE, photoUri);
+      }
     } catch (error) {
       console.error(error);
     }
