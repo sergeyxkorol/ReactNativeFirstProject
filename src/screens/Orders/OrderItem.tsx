@@ -39,6 +39,7 @@ type Relation = {
 
 type Props = {
   data: {
+    id: string;
     relationships: {
       line_items: {
         data: Relation[];
@@ -66,7 +67,7 @@ const Orders: FC<Props> = ({data, included}) => {
 
   const viewOrderDetails = () => {
     // ToDo: pass an order id for real API request
-    navigation.navigate(STACK_ROUTES.ORDER_DETAILS);
+    navigation.navigate(STACK_ROUTES.ORDER_DETAILS, {orderId: data.id});
   };
 
   return (

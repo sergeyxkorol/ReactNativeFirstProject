@@ -27,6 +27,7 @@ import CartLogin from '../screens/CartLogin/CartLogin';
 import OrderConfirmation from '../screens/OrderConfirmation';
 import OrdersLogin from '../screens/OrdersLogin';
 import OrderDetails from '../screens/OrderDetails';
+import Map from '../screens/Map';
 
 const Stack = createNativeStackNavigator();
 
@@ -183,6 +184,14 @@ const StackNavigator = () => {
           <Stack.Screen
             name={STACK_ROUTES.ORDER_DETAILS}
             component={OrderDetails}
+            options={{
+              title: '',
+              headerRight: () => <CartButton />,
+            }}
+          />
+          <Stack.Screen
+            name={STACK_ROUTES.MAP}
+            component={Map}
             options={{
               title: '',
               headerRight: () => <CartButton />,

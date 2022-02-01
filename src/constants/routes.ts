@@ -13,6 +13,7 @@ export const STACK_ROUTES = {
   ORDER_CONFIRMATION: 'stack/orderConfirmation',
   ORDERS: 'stack/orders',
   ORDER_DETAILS: 'stack/orderDetails',
+  MAP: 'stack/map',
   SIGN_UP: 'stack/signUp',
   LOGIN: 'stack/login',
   LOGOUT: 'stack/logout',
