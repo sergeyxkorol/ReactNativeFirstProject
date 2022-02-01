@@ -7,7 +7,7 @@ import SearchResults from '../screens/SearchResults';
 import Profile from '../screens/Profile/Profile';
 import WishList from '../screens/WishList/WishList';
 import Cart from '../screens/Cart';
-import Orders from '../screens/Orders/Orders';
+import Orders from '../screens/Orders';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import ProductImages from '../screens/ProductImages';
@@ -25,6 +25,8 @@ import AuthActions from '../store/AuthActions';
 import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
 import CartLogin from '../screens/CartLogin/CartLogin';
 import OrderConfirmation from '../screens/OrderConfirmation';
+import OrdersLogin from '../screens/OrdersLogin';
+import OrderDetails from '../screens/OrderDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -160,11 +162,29 @@ const StackNavigator = () => {
               title: '',
             }}
           />
+          {!state.userToken ? (
+            <Stack.Screen
+              name={STACK_ROUTES.ORDERS}
+              component={OrdersLogin}
+              options={{
+                title: 'My Orders',
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name={STACK_ROUTES.ORDERS}
+              component={Orders}
+              options={{
+                title: 'My Orders',
+                headerRight: () => <CartButton />,
+              }}
+            />
+          )}
           <Stack.Screen
-            name={STACK_ROUTES.ORDERS}
-            component={Orders}
+            name={STACK_ROUTES.ORDER_DETAILS}
+            component={OrderDetails}
             options={{
-              title: 'My Orders',
+              title: '',
               headerRight: () => <CartButton />,
             }}
           />

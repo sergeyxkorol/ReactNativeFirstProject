@@ -20,7 +20,6 @@ import commonStyles from '../../commonStyles';
 import {MODAL_ROUTES, STACK_ROUTES} from '../../constants/routes';
 import AuthContext from '../../store/AuthContext';
 import styles from './ProductDetails.styles';
-import LoadingButton from '../../components/LoadingButton';
 
 const ProductDetails: FC = () => {
   const {state} = useContext(AuthContext);
@@ -30,6 +29,11 @@ const ProductDetails: FC = () => {
       name: '',
       description: '',
       display_price: '',
+    },
+    relationships: {
+      variants: {
+        data: [{id: ''}],
+      },
     },
   });
   const [selectedOption, setSelectedOption] = useState(null);
@@ -128,23 +132,27 @@ const ProductDetails: FC = () => {
     }
 
     try {
-      await fetch(`${API_URL}/cart/add_item`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-          'X-Spree-Order-Token': cartToken,
-        },
-        body: JSON.stringify({
-          variant_id: productId,
-          quantity: 1,
-          public_metadata: {
-            first_item_order: true,
+      const variantId = product?.relationships?.variants?.data[0]?.id;
+
+      if (variantId) {
+        await fetch(`${API_URL}/cart/add_item`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/vnd.api+json',
+            'X-Spree-Order-Token': cartToken,
           },
-          private_metadata: {
-            recommended_by_us: false,
-          },
-        }),
-      });
+          body: JSON.stringify({
+            variant_id: variantId,
+            quantity: 1,
+            public_metadata: {
+              first_item_order: true,
+            },
+            private_metadata: {
+              recommended_by_us: false,
+            },
+          }),
+        });
+      }
     } catch (error) {
       console.error(error);
     }

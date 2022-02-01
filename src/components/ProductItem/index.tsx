@@ -34,7 +34,7 @@ const ProductItem: FC<Props> = ({data, count, onChangeCount, onDelete}) => {
             })
           }>
           <Image
-            source={{uri: 'https://picsum.photos/100'}}
+            source={{uri: `https://picsum.photos/1${productId}`}}
             style={styles.image}
           />
         </Pressable>
