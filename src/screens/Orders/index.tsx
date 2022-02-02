@@ -17,7 +17,7 @@ const Orders: FC = () => {
   return (
     <View>
       {orders.map(order => (
-        <OrderItem data={order} included={included} />
+        <OrderItem key={order.id} data={order} included={included} />
       ))}
     </View>
   );

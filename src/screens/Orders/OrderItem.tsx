@@ -1,36 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import commonStyles from '../../commonStyles';
 import Link from '../../components/Link';
 import {STACK_ROUTES} from '../../constants/routes';
-import {getImageUri} from '../../helpers/images';
+import ProductItem from './ProductItem';
 import styles from './styles';
-
-type ProductItemProps = {
-  data: {
-    id: string;
-    attributes: {
-      name: string;
-    };
-  };
-};
-
-const ProductItem: FC<ProductItemProps> = ({data}) => {
-  return (
-    <View style={styles.product}>
-      <Text style={[commonStyles.text, styles.productTitle]}>
-        {data.attributes.name}
-      </Text>
-      <Image
-        source={{
-          uri: getImageUri(data.id),
-        }}
-        style={styles.image}
-      />
-    </View>
-  );
-};
 
 type Relation = {
   id: string;

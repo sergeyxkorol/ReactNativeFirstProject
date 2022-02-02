@@ -7,11 +7,12 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import {STACK_ROUTES} from '../../constants/routes';
 import commonStyles from '../../commonStyles';
+import ProductItem, {Product} from './ProductItem';
 import styles from './styles';
 
 import mockData from './data.json';
-import {STACK_ROUTES} from '../../constants/routes';
 
 const labelTextStyle = [
   commonStyles.text,
@@ -37,11 +38,14 @@ type OrderData = {
 
 const OrderDetails: FC = () => {
   const [data, setData] = useState<OrderData | null>(null);
+  const [products, setProducts] = useState<Product[] | null>(null);
   const navigation = useNavigation();
   const {height} = useWindowDimensions();
 
   useEffect(() => {
+    // ToDo: make real API requests
     setData(mockData.data);
+    setProducts(mockData.included);
   }, []);
 
   const onAddressPress = () => {
@@ -102,7 +106,11 @@ const OrderDetails: FC = () => {
             ]}>
             Ordered Products
           </Text>
-          <View></View>
+          <View style={styles.products}>
+            {products?.map(product => (
+              <ProductItem data={product} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>

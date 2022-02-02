@@ -118,5 +118,42 @@
         "data": []
       }
     }
-  }
+  },
+  "included": [
+    {
+      "id": "1",
+      "type": "line_item",
+      "attributes": {
+        "name": "3 4 Sleeve T Shirt",
+        "quantity": 5,
+        "price": "94.99",
+        "slug": "3-4-sleeve-t-shirt",
+        "options_text": "Color: white, Size: XS",
+        "currency": "USD",
+        "display_price": "$94.99",
+        "total": "522.45",
+        "display_total": "$522.45",
+        "adjustment_total": "47.5",
+        "display_adjustment_total": "$47.50",
+        "additional_tax_total": "47.5",
+        "discounted_amount": "474.95",
+        "display_discounted_amount": "$474.95",
+        "display_additional_tax_total": "$47.50",
+        "promo_total": "0.0",
+        "display_promo_total": "$0.00",
+        "included_tax_total": "0.0",
+        "display_included_tax_total": "$0.00",
+        "pre_tax_amount": "474.95",
+        "display_pre_tax_amount": "$474.95"
+      },
+      "relationships": {
+        "variant": {
+          "data": {
+            "id": "131",
+            "type": "variant"
+          }
+        }
+      }
+    }
+  ]
 }
