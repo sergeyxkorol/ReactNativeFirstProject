@@ -14,6 +14,7 @@ import {ERROR_MESSAGE_TOP_OFFSET} from '../../constants';
 
 const CustomTextInput: FC<TextInputProps> = ({
   label,
+  defaultValue = '',
   onChange,
   secureTextEntry = false,
   error = null,
@@ -25,6 +26,20 @@ const CustomTextInput: FC<TextInputProps> = ({
   const translation = useRef(new Animated.Value(0)).current;
   const [value, setValue] = useState('');
   const [errorMessagePositionTop, setErrorMessagePositionTop] = useState(0);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
+
+  useEffect(() => {
+    if (value.length) {
+      Animated.timing(translation, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [translation, value]);
 
   useEffect(() => {
     if (error) {

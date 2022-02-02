@@ -1,22 +1,37 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
-import {Image, Pressable, View} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {isEqual} from 'lodash';
 import commonStyles from '../../commonStyles';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
 import TextInput from '../../components/TextInput';
 import {MODAL_ROUTES} from '../../constants/routes';
-import styles from './styles';
-
-import ProfileIcon from '../../assets/avatars/Profile.svg';
 import {
+  KEYBOARD_VERTICAL_OFFSET_ANDROID,
+  KEYBOARD_VERTICAL_OFFSET_IOS,
   PROFILE_IMAGE,
   PROFILE_IMAGE_HEIGHT,
   PROFILE_IMAGE_WIDTH,
   WHITE,
 } from '../../constants';
+import {retreiveToken} from '../../helpers/access';
+import styles from './styles';
+
+import mockData from './data.json';
+import ProfileIcon from '../../assets/avatars/Profile.svg';
 
 type Profile = {
   name?: string;
@@ -42,6 +57,33 @@ const Profile: FC = () => {
       try {
         const profileImage = await AsyncStorage.getItem(PROFILE_IMAGE);
         setImage(profileImage);
+
+        const accessToken = await retreiveToken();
+
+        if (accessToken) {
+          // ToDo: use Account API and uncomment it
+          /* const options = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            },
+          };
+          const response = await fetch(`${API_URL}/account`, options);
+          const parsedResponse = await response.json();
+          setProfileData(parsedResponse.data);
+          */
+
+          const profile = {
+            name: mockData.attributes.firstname,
+            phone: mockData.attributes.phone,
+            city: mockData.attributes.city,
+            street: mockData.attributes.address1,
+            flat: mockData.attributes.address2,
+          };
+          setProfileData(profile);
+          setInitialProfileData(profile);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -95,7 +137,7 @@ const Profile: FC = () => {
     };
 
     if (!Object.keys(formErrors).length) {
-      // ToDd: send request
+      // ToDd: send a request
     } else {
       setErrors(formErrors);
     }
@@ -119,40 +161,75 @@ const Profile: FC = () => {
       </Pressable>
     );
 
+  const {height} = useWindowDimensions();
+  const isIOS = Platform.OS === 'ios';
+  const keyboardVerticalOffset = isIOS
+    ? KEYBOARD_VERTICAL_OFFSET_IOS
+    : KEYBOARD_VERTICAL_OFFSET_ANDROID;
+
   return (
-    <View style={[commonStyles.generalWrapper, styles.generalWrapper]}>
-      <View style={commonStyles.inputWrapper}>
-        <TextInput
-          label="Full Name"
-          onChange={onChangeName}
-          error={errors?.name}
-        />
-      </View>
+    <SafeAreaView style={{...commonStyles.safeArea, height}}>
+      <KeyboardAvoidingView
+        behavior={isIOS ? 'padding' : 'height'}
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={[commonStyles.generalWrapper, styles.generalWrapper]}>
+            <View style={commonStyles.inputWrapper}>
+              <TextInput
+                label="Full Name"
+                defaultValue={profileData.name}
+                onChange={onChangeName}
+                error={errors?.name}
+              />
+            </View>
 
-      <View style={styles.imageWrapper}>{imageRender()}</View>
+            <View style={styles.imageWrapper}>{imageRender()}</View>
 
-      <View>
-        <TextInput label="Phone Number" onChange={onChangePhone} />
-        <TextInput label="City" onChange={onChangeCity} />
-        <TextInput label="Locality, area or street" onChange={onChangeStreet} />
-        <TextInput label="Flat no., Building name" onChange={onChangeFlat} />
-      </View>
+            <View>
+              <TextInput
+                label="Phone Number"
+                defaultValue={profileData.phone}
+                onChange={onChangePhone}
+              />
+              <TextInput
+                label="City"
+                defaultValue={profileData.city}
+                onChange={onChangeCity}
+              />
+              <TextInput
+                label="Locality, area or street"
+                defaultValue={profileData.street}
+                onChange={onChangeStreet}
+              />
+              <TextInput
+                label="Flat no., Building name"
+                defaultValue={profileData.flat}
+                onChange={onChangeFlat}
+              />
+            </View>
 
-      <View style={styles.buttonWrapper}>
-        <Button
-          text="Update"
-          buttonColor={ButtonColor.Submit}
-          onPressHandler={handleUpdate}
-        />
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Button
-          text="Logout"
-          buttonColor={ButtonColor.Submit}
-          onPressHandler={handleLogOut}
-        />
-      </View>
-    </View>
+            {!isEqual(profileData, initialProfileData) && (
+              <View style={styles.buttonWrapper}>
+                <Button
+                  text="Update"
+                  buttonColor={ButtonColor.Submit}
+                  onPressHandler={handleUpdate}
+                />
+              </View>
+            )}
+
+            <View style={styles.buttonWrapper}>
+              <Button
+                text="Logout"
+                buttonColor={ButtonColor.Submit}
+                onPressHandler={handleLogOut}
+              />
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

@@ -28,6 +28,7 @@ import OrderConfirmation from '../screens/OrderConfirmation';
 import OrdersLogin from '../screens/OrdersLogin';
 import OrderDetails from '../screens/OrderDetails';
 import Map from '../screens/Map';
+import ProfileLogin from '../screens/ProfileLogin';
 
 const Stack = createNativeStackNavigator();
 
@@ -123,14 +124,24 @@ const StackNavigator = () => {
               title: '',
             }}
           />
-          <Stack.Screen
-            name={STACK_ROUTES.PROFILE}
-            component={Profile}
-            options={{
-              title: 'My Profile',
-              headerRight: () => <CartButton />,
-            }}
-          />
+          {!state.userToken ? (
+            <Stack.Screen
+              name={STACK_ROUTES.PROFILE}
+              component={ProfileLogin}
+              options={{
+                title: '',
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name={STACK_ROUTES.PROFILE}
+              component={Profile}
+              options={{
+                title: 'My Profile',
+                headerRight: () => <CartButton />,
+              }}
+            />
+          )}
           <Stack.Screen
             name={STACK_ROUTES.WISH_LIST}
             component={WishList}
