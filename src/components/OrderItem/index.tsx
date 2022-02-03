@@ -2,9 +2,9 @@ import {useNavigation} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import commonStyles from '../../commonStyles';
-import Link from '../../components/Link';
 import {STACK_ROUTES} from '../../constants/routes';
-import ProductItem from './ProductItem';
+import OrderProduct from '../OrderProduct';
+import Link from '../Link';
 import styles from './styles';
 
 type Relation = {
@@ -55,7 +55,7 @@ const Orders: FC<Props> = ({data, included}) => {
         </View>
         <View>
           {lineItems?.map(lineItem => (
-            <ProductItem key={lineItem.id} data={lineItem} />
+            <OrderProduct key={lineItem.id} data={lineItem} />
           ))}
         </View>
 

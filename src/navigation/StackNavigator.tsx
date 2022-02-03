@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerNavigator from '../navigation/DrawerNavigator';
 import ProductDetails from '../screens/ProductDetails/ProductDetails';
 import SearchResults from '../screens/SearchResults';
-import Profile from '../screens/Profile/Profile';
+import Profile from '../screens/Profile';
 import WishList from '../screens/WishList/WishList';
 import Cart from '../screens/Cart';
 import Orders from '../screens/Orders';

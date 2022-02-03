@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import {STACK_ROUTES} from '../../constants/routes';
 import commonStyles from '../../commonStyles';
-import ProductItem, {Product} from './ProductItem';
+import OrderDetailsProduct, {
+  Product,
+} from '../../components/OrderDetailsProduct';
 import styles from './styles';
 
 import mockData from './data.json';
@@ -108,7 +110,7 @@ const OrderDetails: FC = () => {
           </Text>
           <View style={styles.products}>
             {products?.map(product => (
-              <ProductItem data={product} />
+              <OrderDetailsProduct key={product.id} data={product} />
             ))}
           </View>
         </View>

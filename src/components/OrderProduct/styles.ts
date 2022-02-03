@@ -1,29 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {GREY, LIGHT_GREY, MAIN_TEXT, WHITE} from '../../constants';
+import {LIGHT_GREY, MAIN_TEXT} from '../../constants';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    paddingVertical: 30,
-  },
-
-  orderItem: {
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: WHITE,
-    elevation: 5,
-  },
-
-  date: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-
-  dateText: {
-    marginRight: 10,
-    fontSize: 15,
-    color: GREY,
-  },
-
   product: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -43,10 +21,6 @@ const styles = StyleSheet.create({
   image: {
     height: 100,
     width: 100,
-  },
-
-  link: {
-    marginTop: 10,
   },
 });
 

@@ -7,7 +7,7 @@ type Props = {
   label: string;
   icon: ReactNode;
   link?: string;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const CustomDrawerItem: FC<Props> = ({label, icon, link, onPress}) => {

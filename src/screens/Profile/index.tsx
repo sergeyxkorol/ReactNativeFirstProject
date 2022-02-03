@@ -156,9 +156,7 @@ const Profile: FC = () => {
         source={{uri: image}}
       />
     ) : (
-      <Pressable onPress={handleImageUpdate}>
-        <ProfileIcon fill={WHITE} />
-      </Pressable>
+      <ProfileIcon fill={WHITE} />
     );
 
   const {height} = useWindowDimensions();
@@ -184,7 +182,9 @@ const Profile: FC = () => {
               />
             </View>
 
-            <View style={styles.imageWrapper}>{imageRender()}</View>
+            <View style={styles.imageWrapper}>
+              <Pressable onPress={handleImageUpdate}>{imageRender()}</Pressable>
+            </View>
 
             <View>
               <TextInput

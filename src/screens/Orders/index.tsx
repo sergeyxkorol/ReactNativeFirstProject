@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {View} from 'react-native';
-import OrderItem from './OrderItem';
+import OrderItem from '../../components/OrderItem';
 
 import mockData from './data.json';
 
@@ -15,11 +14,11 @@ const Orders: FC = () => {
   }, []);
 
   return (
-    <View>
+    <>
       {orders.map(order => (
         <OrderItem key={order.id} data={order} included={included} />
       ))}
-    </View>
+    </>
   );
 };
 
