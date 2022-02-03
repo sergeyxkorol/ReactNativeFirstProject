@@ -83,13 +83,11 @@ const OrderDetails: FC = () => {
           </View>
           <View style={styles.row}>
             <Text style={labelTextStyle}>Shipping Address</Text>
-            <View style={styles.descritpion}>
-              <Pressable onPress={onAddressPress}>
-                <Text style={descriptionTextStyle}>
-                  TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
-                </Text>
-              </Pressable>
-            </View>
+            <Pressable onPress={onAddressPress} style={styles.descritpion}>
+              <Text style={descriptionTextStyle}>
+                TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
+              </Text>
+            </Pressable>
           </View>
           <View style={styles.row}>
             <Text style={labelTextStyle}>Status</Text>

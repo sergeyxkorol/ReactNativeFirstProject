@@ -2,21 +2,23 @@ import React, {FC, useEffect, useState} from 'react';
 import {View, PermissionsAndroid} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {
+  DEFAULT_COORDS,
+  LATITUDE_DELTA,
+  LONGITUDE_DELTA,
+  MAX_AGE,
+  TIMEOUT,
+} from '../../constants';
 import styles from './styles';
 
 const Map: FC = () => {
-  const [region, setRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+  const [region, setRegion] = useState(DEFAULT_COORDS);
 
   useEffect(() => {
     const bootstrapAsync = async () => {
       try {
         const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'MyApp Permission',
             message:
@@ -33,14 +35,14 @@ const Map: FC = () => {
               setRegion({
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
               }),
             error => {
               // ToDo: show user error
               console.error(error.code, error.message);
             },
-            {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+            {enableHighAccuracy: true, timeout: TIMEOUT, maximumAge: MAX_AGE},
           );
         } else {
           // ToDo: show user error

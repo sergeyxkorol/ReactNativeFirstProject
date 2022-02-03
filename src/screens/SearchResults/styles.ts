@@ -3,13 +3,11 @@ import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingTop: 36,
-    paddingBottom: 170,
+    paddingBottom: 150,
   },
 
   search: {
     padding: 20,
-    paddingBottom: 0,
     backgroundColor: WHITE,
   },
 

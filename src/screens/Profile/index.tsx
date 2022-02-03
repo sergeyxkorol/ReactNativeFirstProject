@@ -1,16 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC, useEffect, useState} from 'react';
-import {
-  Image,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {isEqual} from 'lodash';
@@ -18,10 +8,9 @@ import commonStyles from '../../commonStyles';
 import Button from '../../components/Button/Button';
 import {ButtonColor} from '../../components/Button/Button.types';
 import TextInput from '../../components/TextInput';
+import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
 import {MODAL_ROUTES} from '../../constants/routes';
 import {
-  KEYBOARD_VERTICAL_OFFSET_ANDROID,
-  KEYBOARD_VERTICAL_OFFSET_IOS,
   PROFILE_IMAGE,
   PROFILE_IMAGE_HEIGHT,
   PROFILE_IMAGE_WIDTH,
@@ -159,77 +148,64 @@ const Profile: FC = () => {
       <ProfileIcon fill={WHITE} />
     );
 
-  const {height} = useWindowDimensions();
-  const isIOS = Platform.OS === 'ios';
-  const keyboardVerticalOffset = isIOS
-    ? KEYBOARD_VERTICAL_OFFSET_IOS
-    : KEYBOARD_VERTICAL_OFFSET_ANDROID;
-
   return (
-    <SafeAreaView style={{...commonStyles.safeArea, height}}>
-      <KeyboardAvoidingView
-        behavior={isIOS ? 'padding' : 'height'}
-        keyboardVerticalOffset={keyboardVerticalOffset}
-        style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={[commonStyles.generalWrapper, styles.generalWrapper]}>
-            <View style={commonStyles.inputWrapper}>
-              <TextInput
-                label="Full Name"
-                defaultValue={profileData.name}
-                onChange={onChangeName}
-                error={errors?.name}
-              />
-            </View>
+    <ScreenWithKeyboard>
+      <View style={[commonStyles.generalWrapper, styles.generalWrapper]}>
+        <View style={commonStyles.inputWrapper}>
+          <TextInput
+            label="Full Name"
+            defaultValue={profileData.name}
+            onChange={onChangeName}
+            error={errors?.name}
+          />
+        </View>
 
-            <View style={styles.imageWrapper}>
-              <Pressable onPress={handleImageUpdate}>{imageRender()}</Pressable>
-            </View>
+        <View style={styles.imageWrapper}>
+          <Pressable onPress={handleImageUpdate}>{imageRender()}</Pressable>
+        </View>
 
-            <View>
-              <TextInput
-                label="Phone Number"
-                defaultValue={profileData.phone}
-                onChange={onChangePhone}
-              />
-              <TextInput
-                label="City"
-                defaultValue={profileData.city}
-                onChange={onChangeCity}
-              />
-              <TextInput
-                label="Locality, area or street"
-                defaultValue={profileData.street}
-                onChange={onChangeStreet}
-              />
-              <TextInput
-                label="Flat no., Building name"
-                defaultValue={profileData.flat}
-                onChange={onChangeFlat}
-              />
-            </View>
+        <View>
+          <TextInput
+            label="Phone Number"
+            defaultValue={profileData.phone}
+            onChange={onChangePhone}
+          />
+          <TextInput
+            label="City"
+            defaultValue={profileData.city}
+            onChange={onChangeCity}
+          />
+          <TextInput
+            label="Locality, area or street"
+            defaultValue={profileData.street}
+            onChange={onChangeStreet}
+          />
+          <TextInput
+            label="Flat no., Building name"
+            defaultValue={profileData.flat}
+            onChange={onChangeFlat}
+          />
+        </View>
 
-            {!isEqual(profileData, initialProfileData) && (
-              <View style={styles.buttonWrapper}>
-                <Button
-                  text="Update"
-                  buttonColor={ButtonColor.Submit}
-                  onPressHandler={handleUpdate}
-                />
-              </View>
-            )}
-
-            <View style={styles.buttonWrapper}>
-              <Button
-                text="Logout"
-                buttonColor={ButtonColor.Submit}
-                onPressHandler={handleLogOut}
-              />
-            </View>
+        {!isEqual(profileData, initialProfileData) && (
+          <View style={styles.buttonWrapper}>
+            <Button
+              text="Update"
+              buttonColor={ButtonColor.Submit}
+              onPressHandler={handleUpdate}
+            />
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        )}
+
+        <View style={styles.buttonWrapper}>
+          <Button
+            text="Logout"
+            buttonColor={ButtonColor.Submit}
+            onPressHandler={handleLogOut}
+          />
+        </View>
+      </View>
+    </ScreenWithKeyboard>
   );
 };
 

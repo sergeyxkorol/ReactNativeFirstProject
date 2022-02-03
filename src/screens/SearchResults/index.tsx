@@ -1,11 +1,5 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
-import {
-  Pressable,
-  ScrollView,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {Pressable, TextInput, View} from 'react-native';
 import commonStyles from '../../commonStyles';
 import {API_URL, GREY} from '../../constants';
 import {loadData} from '../../helpers/loadData';
@@ -13,6 +7,7 @@ import ProductItem from '../../components/ProductItem';
 import styles from './styles';
 
 import SearchIcon from '../../assets/icons/search.svg';
+import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
 
 type submitInputEvent = {
   nativeEvent: {
@@ -45,10 +40,8 @@ const SearchResult: FC = () => {
     }
   };
 
-  const {height} = useWindowDimensions();
-
   return (
-    <View>
+    <>
       <View style={styles.search}>
         <Pressable
           style={styles.searchWrapper}
@@ -58,19 +51,14 @@ const SearchResult: FC = () => {
           <TextInput ref={searchInput} style={styles.searchInput} />
         </Pressable>
       </View>
-
-      <View style={{...commonStyles.safeArea, height}}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          contentContainerStyle={[commonStyles.generalWrapper, styles.wrapper]}>
-          <View>
-            {productsList.map(product => (
-              <ProductItem key={product.id} data={product} />
-            ))}
-          </View>
-        </ScrollView>
-      </View>
-    </View>
+      <ScreenWithKeyboard>
+        <View style={[commonStyles.generalWrapper, styles.wrapper]}>
+          {productsList.map(product => (
+            <ProductItem key={product.id} data={product} />
+          ))}
+        </View>
+      </ScreenWithKeyboard>
+    </>
   );
 };
 
