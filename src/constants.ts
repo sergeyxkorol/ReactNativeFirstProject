@@ -41,3 +41,7 @@ export const DEFAULT_COORDS = {
 };
 export const LATITUDE_DELTA = 0.015;
 export const LONGITUDE_DELTA = 0.0121;
+
+// Search history
+export const SEARCH_HISTORY = 'searchHistory';
+export const SEARCH_HISTORY_LIMIT = 20;

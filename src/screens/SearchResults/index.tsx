@@ -3,11 +3,16 @@ import {Pressable, TextInput, View} from 'react-native';
 import commonStyles from '../../commonStyles';
 import {API_URL, GREY} from '../../constants';
 import {loadData} from '../../helpers/loadData';
+import {
+  normalizeSearchHistory,
+  retreiveSearchHistory,
+  saveSearchHistory,
+} from '../../helpers/searchHistory';
 import ProductItem from '../../components/ProductItem';
+import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
 import styles from './styles';
 
 import SearchIcon from '../../assets/icons/search.svg';
-import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
 
 type submitInputEvent = {
   nativeEvent: {
@@ -18,6 +23,7 @@ type submitInputEvent = {
 const SearchResult: FC = () => {
   const searchInput = useRef(null);
   const [productsList, setProductsList] = useState([]);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   const focusSearchInput = () => {
     searchInput.current?.focus();
@@ -25,11 +31,24 @@ const SearchResult: FC = () => {
 
   useEffect(() => {
     focusSearchInput();
+
+    async function bootstrapAsync() {
+      const initialSearchHistory = await retreiveSearchHistory();
+
+      setSearchHistory(initialSearchHistory);
+    }
+
+    bootstrapAsync();
   }, []);
 
   const onSubmit = async ({nativeEvent}: submitInputEvent) => {
     try {
       const {text} = nativeEvent;
+
+      const updatedSearchHistory = normalizeSearchHistory(text, searchHistory);
+      await saveSearchHistory(updatedSearchHistory);
+      setSearchHistory(updatedSearchHistory);
+
       const parsedResponse = await loadData(
         `${API_URL}/products?filter[name]=${text}`,
       );
@@ -39,6 +58,8 @@ const SearchResult: FC = () => {
       console.error(error);
     }
   };
+
+  console.log(59, searchHistory);
 
   return (
     <>
