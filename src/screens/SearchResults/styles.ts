@@ -1,29 +1,16 @@
 import {StyleSheet} from 'react-native';
-import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    paddingBottom: 150,
-  },
-
-  search: {
-    padding: 20,
-    backgroundColor: WHITE,
-  },
-
   searchWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 34,
-    paddingLeft: 14,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: GREY,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    zIndex: 10,
   },
 
-  searchInput: {
-    flex: 1,
-    height: 34,
+  productWrapper: {
+    marginTop: 86,
+    paddingBottom: 80,
   },
 });
 

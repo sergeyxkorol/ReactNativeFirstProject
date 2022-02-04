@@ -1,53 +1,21 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
-import {Pressable, TextInput, View} from 'react-native';
+import React, {FC, useState} from 'react';
+import {ScrollView, View} from 'react-native';
 import commonStyles from '../../commonStyles';
-import {API_URL, GREY} from '../../constants';
-import {loadData} from '../../helpers/loadData';
-import {
-  normalizeSearchHistory,
-  retreiveSearchHistory,
-  saveSearchHistory,
-} from '../../helpers/searchHistory';
 import ProductItem from '../../components/ProductItem';
 import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
+import Search from '../../components/Search';
+import Loader from '../../components/Loader';
+import {loadData} from '../../helpers/loadData';
+import {API_URL} from '../../constants';
 import styles from './styles';
 
-import SearchIcon from '../../assets/icons/search.svg';
-
-type submitInputEvent = {
-  nativeEvent: {
-    text: string;
-  };
-};
-
 const SearchResult: FC = () => {
-  const searchInput = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
-  const focusSearchInput = () => {
-    searchInput.current?.focus();
-  };
-
-  useEffect(() => {
-    focusSearchInput();
-
-    async function bootstrapAsync() {
-      const initialSearchHistory = await retreiveSearchHistory();
-
-      setSearchHistory(initialSearchHistory);
-    }
-
-    bootstrapAsync();
-  }, []);
-
-  const onSubmit = async ({nativeEvent}: submitInputEvent) => {
+  const onSearch = async (text: string) => {
     try {
-      const {text} = nativeEvent;
-
-      const updatedSearchHistory = normalizeSearchHistory(text, searchHistory);
-      await saveSearchHistory(updatedSearchHistory);
-      setSearchHistory(updatedSearchHistory);
+      setIsLoading(true);
 
       const parsedResponse = await loadData(
         `${API_URL}/products?filter[name]=${text}`,
@@ -56,29 +24,32 @@ const SearchResult: FC = () => {
       setProductsList(parsedResponse.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  console.log(59, searchHistory);
+  const renderResult = () =>
+    isLoading ? (
+      <Loader />
+    ) : (
+      <ScreenWithKeyboard>
+        <ScrollView>
+          <View style={[commonStyles.generalWrapper, styles.productWrapper]}>
+            {productsList.map(product => (
+              <ProductItem key={product.id} data={product} />
+            ))}
+          </View>
+        </ScrollView>
+      </ScreenWithKeyboard>
+    );
 
   return (
     <>
-      <View style={styles.search}>
-        <Pressable
-          style={styles.searchWrapper}
-          onPress={focusSearchInput}
-          onSubmitEditing={onSubmit}>
-          <SearchIcon fill={GREY} />
-          <TextInput ref={searchInput} style={styles.searchInput} />
-        </Pressable>
+      <View style={styles.searchWrapper}>
+        <Search onSearch={onSearch} />
       </View>
-      <ScreenWithKeyboard>
-        <View style={[commonStyles.generalWrapper, styles.wrapper]}>
-          {productsList.map(product => (
-            <ProductItem key={product.id} data={product} />
-          ))}
-        </View>
-      </ScreenWithKeyboard>
+      {renderResult()}
     </>
   );
 };
