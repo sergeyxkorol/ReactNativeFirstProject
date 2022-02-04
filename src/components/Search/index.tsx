@@ -88,7 +88,7 @@ const Search: FC<Props> = ({onSearch}) => {
     try {
       const {text} = nativeEvent;
 
-      search(text);
+      await search(text);
     } catch (error) {
       console.error(error);
     } finally {

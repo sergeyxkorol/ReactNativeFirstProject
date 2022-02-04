@@ -3,6 +3,7 @@ import {Image, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import commonStyles from '../../commonStyles';
 import {STACK_ROUTES} from '../../constants/routes';
+import {getImageUri} from '../../helpers/images';
 import ProductInfo from '../ProductInfo';
 import ProductControls from './ProductControls';
 import styles from './styles';
@@ -33,10 +34,7 @@ const ProductItem: FC<Props> = ({data, count, onChangeCount, onDelete}) => {
               productId,
             })
           }>
-          <Image
-            source={{uri: `https://picsum.photos/1${productId}`}}
-            style={styles.image}
-          />
+          <Image source={{uri: getImageUri(productId)}} style={styles.image} />
         </Pressable>
 
         <View>
