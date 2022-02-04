@@ -6,12 +6,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingTop: 30,
-    paddingBottom: 20,
     backgroundColor: WHITE,
-  },
-
-  container1: {
-    borderWidth: 1,
   },
 
   searchWrapper: {
@@ -33,13 +28,12 @@ const styles = StyleSheet.create({
   },
 
   historyContainer: {
-    position: 'absolute',
-    top: 34,
-    left: -20,
-    width: '100%',
-    marginHorizontal: 20,
     backgroundColor: WHITE,
     elevation: 5,
+  },
+
+  historyList: {
+    maxHeight: 250,
   },
 });
 

@@ -60,3 +60,7 @@ export const deleteHistoryItem = async (text: string) => {
     return [];
   }
 };
+
+export const filterSearchHistory = (searchHistory: string[], text: string) => {
+  return searchHistory.filter(historyItem => historyItem.includes(text));
+};

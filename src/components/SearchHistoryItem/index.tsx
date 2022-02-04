@@ -12,17 +12,19 @@ type Props = {
 };
 
 const SearchHistoryItem: FC<Props> = ({title, onPress, onPressDelete}) => {
+  const handlePress = () => {
+    onPress(title);
+  };
+
+  const handlePressDelete = () => {
+    onPressDelete(title);
+  };
+
   return (
-    <Pressable
-      onPress={() => {
-        onPress(title);
-      }}
-      style={styles.historyItem}>
+    <Pressable onPress={handlePress} style={styles.historyItem}>
       <Text style={styles.historyItemTitle}>{title}</Text>
 
-      <Pressable
-        onPress={() => onPressDelete(title)}
-        style={styles.historyItemDelete}>
+      <Pressable onPress={handlePressDelete} style={styles.historyItemDelete}>
         <CancelIcon fill={RED} />
       </Pressable>
     </Pressable>

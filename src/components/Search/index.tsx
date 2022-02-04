@@ -1,8 +1,16 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
-import {FlatList, Pressable, TextInput, View} from 'react-native';
+import {
+  Keyboard,
+  Pressable,
+  ScrollView,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {GREY} from '../../constants';
 import {
   deleteHistoryItem,
+  filterSearchHistory,
   normalizeSearchHistory,
   retreiveSearchHistory,
   saveSearchHistory,
@@ -52,15 +60,24 @@ const Search: FC<Props> = ({onSearch}) => {
     bootstrapAsync();
   }, []);
 
+  useEffect(() => {
+    const hideSubscription = Keyboard.addListener(
+      'keyboardDidHide',
+      blurSearchInput,
+    );
+
+    return () => {
+      hideSubscription.remove();
+    };
+  }, []);
+
   const onFocus = () => {
+    setFilteredSearchHistory(filterSearchHistory(searchHistory, searchValue));
     setIsFocused(true);
   };
 
-  const onChange = ({nativeEvent}: NativeInputEvent) => {
-    const {text} = nativeEvent;
-    const searchHistoryList = searchHistory.filter(historyItem =>
-      historyItem.includes(text),
-    );
+  const onChange = (text: string) => {
+    const searchHistoryList = filterSearchHistory(searchHistory, text);
 
     setFilteredSearchHistory(searchHistoryList);
     setSearchValue(text);
@@ -105,40 +122,41 @@ const Search: FC<Props> = ({onSearch}) => {
 
   const isVisibleSearchHistory = isFocused && searchHistory.length > 0;
 
-  const renderItem = ({item}: {item: string}) => (
-    <SearchHistoryItem
-      title={item}
-      onPress={search}
-      onPressDelete={deleteItem}
-    />
-  );
-
   return (
-    <View style={styles.container}>
-      <View>
-        <Pressable onPress={focusSearchInput} style={styles.searchWrapper}>
-          <SearchIcon fill={GREY} />
-          <TextInput
-            ref={searchInput}
-            style={styles.searchInput}
-            value={searchValue}
-            autoFocus={true}
-            onChange={onChange}
-            onFocus={onFocus}
-            onSubmitEditing={onSubmit}
-          />
-        </Pressable>
-        {isVisibleSearchHistory && (
-          <View style={styles.historyContainer}>
-            <FlatList
-              data={filteredSearchHistory}
-              renderItem={renderItem}
-              keyExtractor={item => item}
+    <TouchableWithoutFeedback onPress={blurSearchInput}>
+      <View style={styles.container}>
+        <View>
+          <Pressable onPress={focusSearchInput} style={styles.searchWrapper}>
+            <SearchIcon fill={GREY} />
+            <TextInput
+              ref={searchInput}
+              style={styles.searchInput}
+              value={searchValue}
+              autoFocus={true}
+              onChangeText={onChange}
+              onFocus={onFocus}
+              onSubmitEditing={onSubmit}
             />
-          </View>
-        )}
+          </Pressable>
+          {isVisibleSearchHistory && (
+            <View style={styles.historyContainer}>
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
+                style={styles.historyList}>
+                {filteredSearchHistory.map(item => (
+                  <SearchHistoryItem
+                    key={item}
+                    title={item}
+                    onPress={search}
+                    onPressDelete={deleteItem}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

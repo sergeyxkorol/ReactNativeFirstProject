@@ -1,5 +1,12 @@
 import React, {FC, useState} from 'react';
-import {ScrollView, View} from 'react-native';
+import {
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import commonStyles from '../../commonStyles';
 import ProductItem from '../../components/ProductItem';
 import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
@@ -29,11 +36,13 @@ const SearchResult: FC = () => {
     }
   };
 
+  const {height} = useWindowDimensions();
+
   const renderResult = () =>
     isLoading ? (
       <Loader />
     ) : (
-      <ScreenWithKeyboard>
+      <SafeAreaView style={{height}}>
         <ScrollView>
           <View style={[commonStyles.generalWrapper, styles.productWrapper]}>
             {productsList.map(product => (
@@ -41,16 +50,18 @@ const SearchResult: FC = () => {
             ))}
           </View>
         </ScrollView>
-      </ScreenWithKeyboard>
+      </SafeAreaView>
     );
 
   return (
-    <>
-      <View style={styles.searchWrapper}>
-        <Search onSearch={onSearch} />
-      </View>
-      {renderResult()}
-    </>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <>
+        <View style={styles.searchWrapper}>
+          <Search onSearch={onSearch} />
+        </View>
+        {renderResult()}
+      </>
+    </TouchableWithoutFeedback>
   );
 };
 
