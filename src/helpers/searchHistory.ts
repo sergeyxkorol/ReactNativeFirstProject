@@ -46,7 +46,6 @@ export const retreiveSearchHistory = async () => {
 export const deleteHistoryItem = async (text: string) => {
   try {
     const searchHistory = await retreiveSearchHistory();
-
     const updatedSearchHistory = searchHistory.filter(
       (historyItem: string) => historyItem !== text,
     );

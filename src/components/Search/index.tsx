@@ -120,7 +120,7 @@ const Search: FC<Props> = ({onSearch}) => {
     setFilteredSearchHistory(updatedSearchHistory);
   };
 
-  const isVisibleSearchHistory = isFocused && searchHistory.length > 0;
+  const isVisibleSearchHistory = isFocused && searchHistory.length;
 
   return (
     <TouchableWithoutFeedback onPress={blurSearchInput}>

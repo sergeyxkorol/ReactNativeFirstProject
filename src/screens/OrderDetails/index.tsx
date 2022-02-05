@@ -106,7 +106,7 @@ const OrderDetails: FC = () => {
             ]}>
             Ordered Products
           </Text>
-          <View style={styles.products}>
+          <View>
             {products?.map(product => (
               <OrderDetailsProduct key={product.id} data={product} />
             ))}
