@@ -33,11 +33,7 @@ export const retreiveSearchHistory = async () => {
   try {
     const searchHistory = await AsyncStorage.getItem(SEARCH_HISTORY);
 
-    if (searchHistory) {
-      return JSON.parse(searchHistory);
-    }
-
-    return [];
+    return searchHistory ? JSON.parse(searchHistory) : [];
   } catch (error) {
     console.error(error);
   }

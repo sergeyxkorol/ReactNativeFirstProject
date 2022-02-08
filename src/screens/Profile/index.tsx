@@ -81,24 +81,8 @@ const Profile: FC = () => {
     bootstrapAsync();
   }, []);
 
-  const onChangeName = (name: string) => {
-    setProfileData({...profileData, name});
-  };
-
-  const onChangePhone = (phone: string) => {
-    setProfileData({...profileData, phone});
-  };
-
-  const onChangeCity = (city: string) => {
-    setProfileData({...profileData, city});
-  };
-
-  const onChangeStreet = (street: string) => {
-    setProfileData({...profileData, street});
-  };
-
-  const onChangeFlat = (flat: string) => {
-    setProfileData({...profileData, flat});
+  const onChangeProfileData = (value: string, name: string) => {
+    setProfileData(prevData => ({...prevData, [name]: value}));
   };
 
   const handleImageUpdate = async () => {
@@ -155,7 +139,7 @@ const Profile: FC = () => {
           <TextInput
             label="Full Name"
             defaultValue={profileData.name}
-            onChange={onChangeName}
+            onChange={(text: string) => onChangeProfileData(text, 'name')}
             error={errors?.name}
           />
         </View>
@@ -168,22 +152,22 @@ const Profile: FC = () => {
           <TextInput
             label="Phone Number"
             defaultValue={profileData.phone}
-            onChange={onChangePhone}
+            onChange={(text: string) => onChangeProfileData(text, 'phone')}
           />
           <TextInput
             label="City"
             defaultValue={profileData.city}
-            onChange={onChangeCity}
+            onChange={(text: string) => onChangeProfileData(text, 'city')}
           />
           <TextInput
             label="Locality, area or street"
             defaultValue={profileData.street}
-            onChange={onChangeStreet}
+            onChange={(text: string) => onChangeProfileData(text, 'street')}
           />
           <TextInput
             label="Flat no., Building name"
             defaultValue={profileData.flat}
-            onChange={onChangeFlat}
+            onChange={(text: string) => onChangeProfileData(text, 'flat')}
           />
         </View>
 
