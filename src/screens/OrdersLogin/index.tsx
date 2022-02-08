@@ -4,9 +4,9 @@ import {STACK_ROUTES} from '../../constants/routes';
 import {WHITE} from '../../constants';
 import GeneralInfo from '../GeneralInfo';
 
-import CartLoginFirstIcon from '../../assets/avatars/CartLoginFirst.svg';
+import OrdersLoginIcon from '../../assets/avatars/OrdersLogin.svg';
 
-const CartLogin: FC = () => {
+const OrdersLogin: FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -20,9 +20,9 @@ const CartLogin: FC = () => {
 
   return (
     <GeneralInfo
-      icon={<CartLoginFirstIcon fill={WHITE} />}
+      icon={<OrdersLoginIcon fill={WHITE} />}
       title="Login First!"
-      description="Login first to view your cart"
+      description="Login first to view your orders"
       buttonText="Login Now"
       handleButtonPress={logIn}
       linkText="New here? Sign Up"
@@ -31,4 +31,4 @@ const CartLogin: FC = () => {
   );
 };
 
-export default CartLogin;
+export default OrdersLogin;

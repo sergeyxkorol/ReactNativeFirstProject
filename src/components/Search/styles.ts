@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import commonStyles from '../../commonStyles';
 import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
-  search: {
-    padding: 20,
+  container: {
+    paddingHorizontal: 20,
+    paddingTop: 30,
     backgroundColor: WHITE,
-    elevation: 5,
   },
 
   searchWrapper: {
@@ -19,8 +20,20 @@ const styles = StyleSheet.create({
   },
 
   searchInput: {
+    ...commonStyles.text,
     flex: 1,
     height: 34,
+    paddingVertical: 0,
+    paddingHorizontal: 10,
+  },
+
+  historyContainer: {
+    backgroundColor: WHITE,
+    elevation: 5,
+  },
+
+  historyList: {
+    maxHeight: 250,
   },
 });
 

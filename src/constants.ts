@@ -19,8 +19,29 @@ export const BLUE_TEXT = '#00A8F3';
 // Storage
 export const USER_TOKEN = 'userToken';
 export const CART_TOKEN = 'cartToken';
+export const PROFILE_IMAGE = 'profileImage';
 
 export const KEYBOARD_VERTICAL_OFFSET_IOS = 50;
 export const KEYBOARD_VERTICAL_OFFSET_ANDROID = 90;
 
 export const ERROR_MESSAGE_TOP_OFFSET = 5;
+
+// Profile
+export const PROFILE_IMAGE_HEIGHT = 120;
+export const PROFILE_IMAGE_WIDTH = 120;
+
+// Map
+export const TIMEOUT = 15000;
+export const MAX_AGE = 10000;
+export const DEFAULT_COORDS = {
+  latitude: 37.78825,
+  longitude: -122.4324,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
+export const LATITUDE_DELTA = 0.015;
+export const LONGITUDE_DELTA = 0.0121;
+
+// Search history
+export const SEARCH_HISTORY = 'searchHistory';
+export const SEARCH_HISTORY_LIMIT = 20;

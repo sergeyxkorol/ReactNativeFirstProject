@@ -6,7 +6,7 @@ import GeneralInfo from '../GeneralInfo';
 
 import CartLoginFirstIcon from '../../assets/avatars/CartLoginFirst.svg';
 
-const CartLogin: FC = () => {
+const ProfileLogin: FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -22,7 +22,7 @@ const CartLogin: FC = () => {
     <GeneralInfo
       icon={<CartLoginFirstIcon fill={WHITE} />}
       title="Login First!"
-      description="Login first to view your cart"
+      description="Login first to view your profile"
       buttonText="Login Now"
       handleButtonPress={logIn}
       linkText="New here? Sign Up"
@@ -31,4 +31,4 @@ const CartLogin: FC = () => {
   );
 };
 
-export default CartLogin;
+export default ProfileLogin;

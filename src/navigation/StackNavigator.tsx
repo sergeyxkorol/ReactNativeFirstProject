@@ -3,10 +3,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerNavigator from '../navigation/DrawerNavigator';
 import ProductDetails from '../screens/ProductDetails/ProductDetails';
-import Profile from '../screens/Profile/Profile';
+import SearchResults from '../screens/SearchResults';
+import Profile from '../screens/Profile';
 import WishList from '../screens/WishList/WishList';
 import Cart from '../screens/Cart';
-import Orders from '../screens/Orders/Orders';
+import Orders from '../screens/Orders';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import ProductImages from '../screens/ProductImages';
@@ -24,6 +25,10 @@ import AuthActions from '../store/AuthActions';
 import {LOG_IN, LOG_OUT, RESTORE_TOKEN} from '../store/constants';
 import CartLogin from '../screens/CartLogin/CartLogin';
 import OrderConfirmation from '../screens/OrderConfirmation';
+import OrdersLogin from '../screens/OrdersLogin';
+import OrderDetails from '../screens/OrderDetails';
+import Map from '../screens/Map';
+import ProfileLogin from '../screens/ProfileLogin';
 
 const Stack = createNativeStackNavigator();
 
@@ -119,14 +124,24 @@ const StackNavigator = () => {
               title: '',
             }}
           />
-          <Stack.Screen
-            name={STACK_ROUTES.PROFILE}
-            component={Profile}
-            options={{
-              title: 'My Profile',
-              headerRight: () => <CartButton />,
-            }}
-          />
+          {!state.userToken ? (
+            <Stack.Screen
+              name={STACK_ROUTES.PROFILE}
+              component={ProfileLogin}
+              options={{
+                title: '',
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name={STACK_ROUTES.PROFILE}
+              component={Profile}
+              options={{
+                title: 'My Profile',
+                headerRight: () => <CartButton />,
+              }}
+            />
+          )}
           <Stack.Screen
             name={STACK_ROUTES.WISH_LIST}
             component={WishList}
@@ -159,11 +174,37 @@ const StackNavigator = () => {
               title: '',
             }}
           />
+          {!state.userToken ? (
+            <Stack.Screen
+              name={STACK_ROUTES.ORDERS}
+              component={OrdersLogin}
+              options={{
+                title: 'My Orders',
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name={STACK_ROUTES.ORDERS}
+              component={Orders}
+              options={{
+                title: 'My Orders',
+                headerRight: () => <CartButton />,
+              }}
+            />
+          )}
           <Stack.Screen
-            name={STACK_ROUTES.ORDERS}
-            component={Orders}
+            name={STACK_ROUTES.ORDER_DETAILS}
+            component={OrderDetails}
             options={{
-              title: 'My Orders',
+              title: '',
+              headerRight: () => <CartButton />,
+            }}
+          />
+          <Stack.Screen
+            name={STACK_ROUTES.MAP}
+            component={Map}
+            options={{
+              title: '',
               headerRight: () => <CartButton />,
             }}
           />
@@ -185,6 +226,14 @@ const StackNavigator = () => {
               />
             </>
           )}
+          <Stack.Screen
+            name={STACK_ROUTES.SEARCH}
+            component={SearchResults}
+            options={{
+              title: 'Search',
+              headerRight: () => <CartButton />,
+            }}
+          />
         </Stack.Group>
 
         <Stack.Group screenOptions={{presentation: 'modal'}}>

@@ -5,6 +5,7 @@ import {Item} from './types/CatalogItem.type';
 import ProductInfo from '../ProductInfo';
 import styles from './CatalogItem.styles';
 import {STACK_ROUTES} from '../../constants/routes';
+import {getImageUri} from '../../helpers/images';
 
 type Props = {
   data: Item;
@@ -22,11 +23,7 @@ const CatalogItem: FC<Props> = ({data}) => {
           })
         }>
         <View style={styles.imageWrapper}>
-          {/* ToDo: change the hardcoded image */}
-          <Image
-            source={require('../../assets/product.png')}
-            style={styles.image}
-          />
+          <Image source={{uri: getImageUri(data.id)}} style={styles.image} />
         </View>
 
         <ProductInfo
