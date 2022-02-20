@@ -18,7 +18,7 @@ const Catalog: FC<Props> = ({itemsList, onRefreshHandler, refreshing}) => {
   );
 
   return (
-    <View style={styles.catalog}>
+    <View style={styles.catalog} testID="catalog">
       <FlatList
         data={itemsList}
         renderItem={renderItem}

@@ -15,7 +15,7 @@ const CatalogItem: FC<Props> = ({data}) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.catalogItem}>
+    <View style={styles.catalogItem} testID="catalogItem">
       <Pressable
         onPress={() =>
           navigation.navigate(STACK_ROUTES.PRODUCT, {

@@ -80,7 +80,7 @@ const MainScreen: FC = () => {
   const {height} = useWindowDimensions();
 
   return (
-    <>
+    <View testID="mainScreen">
       {isLoading ? (
         <Loader />
       ) : (
@@ -103,7 +103,7 @@ const MainScreen: FC = () => {
         onClose={onCloseModal}
         onRetry={onRefresh}
       />
-    </>
+    </View>
   );
 };
 
