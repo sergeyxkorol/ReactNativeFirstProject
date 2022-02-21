@@ -9,18 +9,44 @@
  */
 
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useRef} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import Analytics from 'appcenter-analytics';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import StackNavigator from './src/navigation/StackNavigator';
 
 const mainTheme = DefaultTheme;
 mainTheme.colors.background = 'white';
 
 const App = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef();
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={mainTheme}>
+      <NavigationContainer
+        theme={mainTheme}
+        ref={navigationRef}
+        onReady={() => {
+          routeNameRef.current = navigationRef.getCurrentRoute().name;
+        }}
+        onStateChange={async () => {
+          const previousRouteName = routeNameRef.current;
+          const currentRouteName = navigationRef.getCurrentRoute().name;
+
+          if (previousRouteName !== currentRouteName) {
+            Analytics.trackEvent('onScreenOpen', {
+              routeName: currentRouteName,
+            });
+          }
+
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+        }}>
         <StackNavigator />
       </NavigationContainer>
     </SafeAreaProvider>
