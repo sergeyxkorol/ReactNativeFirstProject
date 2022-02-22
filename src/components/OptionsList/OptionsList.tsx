@@ -18,7 +18,7 @@ const OptionsList: FC<Props> = ({
   selectedOptionId,
   onPressHandler,
 }) => (
-  <View style={styles.optionWrapper}>
+  <View style={styles.optionWrapper} testID="optionsList">
     {options.map(({id, name}) => (
       <Pressable
         key={id}
@@ -26,7 +26,8 @@ const OptionsList: FC<Props> = ({
           styles.option,
           id === selectedOptionId ? styles.selectedOption : null,
         ]}
-        onPress={() => onPressHandler(id)}>
+        onPress={() => onPressHandler(id)}
+        testID={`option${id}`}>
         <Text style={styles.optionText}>{name}</Text>
       </Pressable>
     ))}

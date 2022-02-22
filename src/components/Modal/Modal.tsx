@@ -26,7 +26,7 @@ const Modal: FC<Props> = ({
 
   return (
     <View style={overlayStyles}>
-      <View style={styles.modal}>
+      <View style={styles.modal} testID="modal">
         <View style={styles.icon}>{icon}</View>
         <Text style={styles.title}>{title}</Text>
         {!!description?.length && (
