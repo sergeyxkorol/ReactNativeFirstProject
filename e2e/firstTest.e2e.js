@@ -4,8 +4,12 @@ describe('Main Screen', () => {
     await expect(element(by.id('mainScreen'))).toBeVisible();
   });
 
-  it('should show hello screen after tap', async () => {
-    await element(by.id('hello_button')).tap();
-    await expect(element(by.text('Hello!!!'))).toBeVisible();
+  it('should have Catalog', async () => {
+    await expect(element(by.id('catalog'))).toBeVisible();
+  });
+
+  it('should show Product screen after tap on the first product in the list', async () => {
+    await element(by.id('catalogItem')).atIndex(0).tap();
+    await expect(element(by.id('productDetails'))).toBeVisible();
   });
 });
