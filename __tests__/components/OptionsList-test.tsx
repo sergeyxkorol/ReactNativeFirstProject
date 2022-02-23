@@ -26,7 +26,7 @@ describe('OptionsList', () => {
     jest.resetAllMocks();
   });
 
-  it('renders PptionsList', () => {
+  it('renders OptionsList', () => {
     expect(queryByTestId('optionsList')).not.toBeNull();
   });
 
