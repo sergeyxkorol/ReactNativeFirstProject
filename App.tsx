@@ -12,12 +12,14 @@ import 'react-native-gesture-handler';
 import React, {useRef} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Analytics from 'appcenter-analytics';
+import Config from 'react-native-config';
 import {
   DefaultTheme,
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import StackNavigator from './src/navigation/StackNavigator';
+import StorybookUIRoot from './storybook';
 
 const mainTheme = DefaultTheme;
 mainTheme.colors.background = 'white';
@@ -53,4 +55,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Config.LOAD_STORYBOOK === 'true' ? StorybookUIRoot : App;
