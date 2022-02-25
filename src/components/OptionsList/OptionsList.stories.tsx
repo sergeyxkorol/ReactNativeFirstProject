@@ -19,7 +19,7 @@ const options = [
     name: 'Option 3',
   },
 ];
-const optionsId = ['01, 02, 03'];
+const optionsId = ['01', '02', '03'];
 
 storiesOf('OptionsList', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
