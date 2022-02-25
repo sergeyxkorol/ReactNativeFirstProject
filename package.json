@@ -11,7 +11,8 @@
     "clean": "react-native clean-project",
     "clean:auto": "react-native clean-project-auto",
     "storybook": "start-storybook -p 7007",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prestorybook": "rnstl"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
@@ -62,6 +63,7 @@
     "metro-react-native-babel-preset": "^0.66.2",
     "react-dom": "^17.0.2",
     "react-native-clean-project": "^4.0.0",
+    "react-native-storybook-loader": "^2.0.5",
     "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.4.4"
@@ -82,5 +84,14 @@
       "json",
       "node"
     ]
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src"
+      ],
+      "pattern": "**/*.stories.tsx",
+      "outputFile": "src/storybook/storyLoader.js"
+    }
   }
 }

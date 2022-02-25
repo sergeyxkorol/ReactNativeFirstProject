@@ -4,5 +4,10 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    padding: 20,
+  },
+
+  wrapper: {
+    width: '100%',
   },
 };
