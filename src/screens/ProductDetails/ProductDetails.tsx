@@ -169,7 +169,7 @@ const ProductDetails: FC = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <View style={{...commonStyles.safeArea, height}}>
+    <View style={{...commonStyles.safeArea, height}} testID="productDetails">
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={styles.mainWrapper}

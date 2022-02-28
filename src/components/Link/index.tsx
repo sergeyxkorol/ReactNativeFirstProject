@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Link: FC<Props> = ({text, onPressHandler}) => (
-  <Pressable onPress={onPressHandler}>
+  <Pressable onPress={onPressHandler} testID="link">
     <Text style={styles.text}>{text}</Text>
   </Pressable>
 );

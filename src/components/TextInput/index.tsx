@@ -77,7 +77,10 @@ const CustomTextInput: FC<TextInputProps> = ({
 
   return (
     <View style={styles.wrapper}>
-      <Pressable style={styles.inputWrapper} onPress={onPressInputWrapper}>
+      <Pressable
+        style={styles.inputWrapper}
+        onPress={onPressInputWrapper}
+        testID="textInputWrapper">
         <Animated.Text
           style={[
             styles.label,
@@ -108,10 +111,13 @@ const CustomTextInput: FC<TextInputProps> = ({
           onBlur={onBlur}
           secureTextEntry={secureTextEntry}
           style={styles.input}
+          testID="textInput"
         />
       </Pressable>
       {!!error && (
-        <Text style={[styles.error, {top: errorMessagePositionTop}]}>
+        <Text
+          style={[styles.error, {top: errorMessagePositionTop}]}
+          testID="textInputError">
           {error}
         </Text>
       )}

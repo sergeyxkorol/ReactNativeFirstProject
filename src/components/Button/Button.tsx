@@ -13,7 +13,8 @@ const Button: FC<Props> = ({buttonColor, text, onPressHandler}) => (
   <TouchableHighlight
     style={[styles.button, styles[buttonColor]]}
     underlayColor="#ccc"
-    onPress={onPressHandler}>
+    onPress={onPressHandler}
+    testID="button">
     <Text style={styles.text}>{text}</Text>
   </TouchableHighlight>
 );
