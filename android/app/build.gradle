@@ -131,6 +131,29 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.dev'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.myapp"
+        }
+        qa {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.qa'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.myapp"
+        }
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.myapp"
+        }
+    }
+
     defaultConfig {
         applicationId "com.reactnativefirstproject"
         minSdkVersion rootProject.ext.minSdkVersion
