@@ -1,9 +1,11 @@
-project.ext.envConfigFiles = [
-    devDebug: ".env.development",
-    qaDebug: ".env.qa",
-    prodDebug: ".env.production"
-]
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+    dev: ".env.development",
+    qa: ".env.qa",
+    prod: ".env.production"
+]
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
@@ -136,29 +138,6 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    flavorDimensions "default"
-
-    productFlavors {
-        dev {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.reactnativefirstproject.dev'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.myapp"
-        }
-        qa {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.reactnativefirstproject.qa'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.myapp"
-        }
-        prod {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.reactnativefirstproject'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.myapp"
-        }
-    }
-
     defaultConfig {
         applicationId "com.reactnativefirstproject"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -168,6 +147,30 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.dev'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+        qa {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.qa'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+    }
+
     splits {
         abi {
             reset()
