@@ -38,6 +38,7 @@ const ProductDetails: FC = () => {
   });
   const [selectedOption, setSelectedOption] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const productData = product?.relationships?.variants?.data;
 
   //ToDo: change with the real images
   const imagesList = [
@@ -132,7 +133,7 @@ const ProductDetails: FC = () => {
     }
 
     try {
-      const variantId = product?.relationships?.variants?.data[0]?.id;
+      const variantId = productData[0]?.id;
 
       if (variantId) {
         await fetch(`${API_URL}/cart/add_item`, {
@@ -158,7 +159,14 @@ const ProductDetails: FC = () => {
     }
 
     navigation.navigate(MODAL_ROUTES.PRODUCT_ADDED_TO_CART);
-  }, [navigation, productId, route.name, selectedOption, state.userToken]);
+  }, [
+    navigation,
+    productData,
+    productId,
+    route.name,
+    selectedOption,
+    state.userToken,
+  ]);
 
   const handleImageSlidePress = () => {
     navigation.navigate(STACK_ROUTES.PRODUCT_IMAGES, {imagesList});

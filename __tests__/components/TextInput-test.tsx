@@ -37,11 +37,11 @@ describe('TextInput', () => {
   });
 
   it('renders error message', () => {
-    const {queryByTestId, queryByText} = render(
+    const renderedComponent = render(
       <TextInput label={label} onChange={callback} error={errorMessage} />,
     );
 
-    expect(queryByTestId('textInputError')).not.toBeNull();
-    expect(queryByText(errorMessage)).not.toBeNull();
+    expect(renderedComponent.queryByTestId('textInputError')).not.toBeNull();
+    expect(renderedComponent.queryByText(errorMessage)).not.toBeNull();
   });
 });
