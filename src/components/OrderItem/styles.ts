@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {GREY, LIGHT_GREY, MAIN_TEXT, WHITE} from '../../constants';
+import {GREY, WHITE} from '../../constants';
 
 const styles = StyleSheet.create({
   wrapper: {

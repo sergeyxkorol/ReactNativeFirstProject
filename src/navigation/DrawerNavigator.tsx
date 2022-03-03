@@ -6,6 +6,7 @@ import CartButton from '../components/TopBar/CartButton';
 import {BLUE, FONT_FAMILY, WHITE} from '../constants';
 import {DRAWER_ROUTES} from '../constants/routes';
 import CustomDrawerContent from '../components/CustomDrawerContent';
+import styles from './DrawerNavigator.styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -32,7 +33,7 @@ const DrawerNavigator: FC = () => {
         options={{
           title: 'Ecommerce Store',
           headerRight: () => (
-            <View style={{marginRight: 20}}>
+            <View style={styles.containter}>
               <CartButton />
             </View>
           ),
