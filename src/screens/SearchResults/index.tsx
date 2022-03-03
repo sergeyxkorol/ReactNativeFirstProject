@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import commonStyles from '../../commonStyles';
 import ProductItem from '../../components/ProductItem';
-import ScreenWithKeyboard from '../../components/ScreenWithKeyboard';
 import Search from '../../components/Search';
 import Loader from '../../components/Loader';
 import {loadData} from '../../helpers/loadData';

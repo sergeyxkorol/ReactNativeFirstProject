@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe('Main Screen', () => {
   it('should have Main screen', async () => {
     await device.launchApp();

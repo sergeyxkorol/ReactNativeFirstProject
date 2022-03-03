@@ -8,7 +8,7 @@ import {
   Pressable,
   Animated,
 } from 'react-native';
-import TextInputProps from './TextInputProps';
+import {TextInputProps} from './TextInputProps';
 import styles from './styles';
 import {ERROR_MESSAGE_TOP_OFFSET} from '../../constants';
 
