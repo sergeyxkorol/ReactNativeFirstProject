@@ -58,7 +58,7 @@ const App = () => {
   );
 };
 
-export default Config.LOAD_STORYBOOK === 'true' ? StorybookUIRoot : App;
+export default Config.RN_LOAD_STORYBOOK === 'true' ? StorybookUIRoot : App;
 
 Crashes.setListener({
   shouldProcess(report) {
