@@ -1,10 +1,14 @@
 name: Continuous Integration
 
 on:
+  create:
+    branches:
+      - 'release-v[12].[0-9]+'
   push:
     branches:
       - master
       - 'feature/**'
+      - 'release-v[12].[0-9]+'
 
 jobs:
   install-and-test:
