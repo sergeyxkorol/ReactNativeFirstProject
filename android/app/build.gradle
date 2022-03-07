@@ -1,4 +1,11 @@
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+    dev: ".env.development",
+    qa: ".env.qa",
+    prod: ".env.production"
+]
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
@@ -140,6 +147,30 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.dev'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+        qa {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject.qa'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.reactnativefirstproject'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.reactnativefirstproject"
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -159,6 +190,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
             if (nativeArchitectures) {
                 ndk {
                     abiFilters nativeArchitectures.split(',')
@@ -168,7 +200,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
