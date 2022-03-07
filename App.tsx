@@ -29,7 +29,7 @@ mainTheme.colors.background = 'white';
 const App = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef();
-  const gwtRouteName = () => navigationRef?.getCurrentRoute()?.name;
+  const getRouteName = () => navigationRef?.getCurrentRoute()?.name;
 
   return (
     <SafeAreaProvider>
@@ -37,11 +37,11 @@ const App = () => {
         theme={mainTheme}
         ref={navigationRef}
         onReady={() => {
-          routeNameRef.current = gwtRouteName();
+          routeNameRef.current = getRouteName();
         }}
         onStateChange={async () => {
           const previousRouteName = routeNameRef.current;
-          const currentRouteName = gwtRouteName();
+          const currentRouteName = getRouteName();
 
           if (previousRouteName !== currentRouteName) {
             Analytics.trackEvent('onScreenOpen', {
